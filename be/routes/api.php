@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\HRPositionController;
 use App\Http\Controllers\HRBranchController;
 use App\Http\Controllers\HRDepartmentController;
+use App\Http\Controllers\HRJobOpeningController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,4 +34,5 @@ Route::group(['prefix' => 'admin'], function (){
     Route::apiResource('position', HRPositionController::class);
     Route::apiResource('branch', HRBranchController::class);
     Route::apiResource('department', HRDepartmentController::class);
+    Route::apiResource('jobopening', HRJobOpeningController::class);
 });
