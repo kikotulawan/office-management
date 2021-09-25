@@ -8,12 +8,13 @@ import VueFileAgent from 'vue-file-agent';
 import 'vue-file-agent/dist/vue-file-agent.css';
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
+import vresponse from './assets/js/validation_response/index'
 
 Vue.use(DatePicker)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(VueFileAgent)
-
+Vue.mixin(vresponse)
 import './assets/css/style.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'

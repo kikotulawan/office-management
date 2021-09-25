@@ -144,10 +144,8 @@
     </div>
 </template>
 <script>
-import {vresponse} from '@/assets/js/validation_response/index.js'
 import { mapState } from 'vuex'
 export default {
-    mixins: [vresponse],
     data(){
         return {
             isLoading: false,

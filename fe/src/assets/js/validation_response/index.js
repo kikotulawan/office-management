@@ -1,5 +1,5 @@
 // =VALIDATION AND RESPONSE
-export const vresponse = {
+export default {
 
  methods: {
   async checkStatus(data, status, type, dispatch, config) {
