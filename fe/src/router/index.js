@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Login from '../views/auth/Login.vue'
+import JobPosting from '../views/jobopening/JobOpening.vue'
 import Index from '../views/admin/Index.vue'
 import Dashboard from '../views/admin/Dashboard.vue'
 import HumanResources from '../views/admin/HumanResources.vue'
@@ -15,7 +16,8 @@ import Memos from '../views/admin/HumanResources/Memos.vue'
 import Policies from '../views/admin/HumanResources/Policies.vue'
 import PayPeriods from '../views/admin/HumanResources/PayPeriods.vue'
 import Leaves from '../views/admin/HumanResources/Leaves.vue'
-import Workers from '../views/admin/HumanResources/Workers.vue'
+import Applicants from '../views/admin/HumanResources/Applicants.vue'
+import JobOpening from '../views/admin/HumanResources/JobOpening.vue'
 
 Vue.use(VueRouter)
 
@@ -25,6 +27,11 @@ const routes = [
     name: 'Login',
     component: Login,
     meta: { hasUser: true}
+  },
+  {
+    path: '/jobs',
+    name: 'JobPosting',
+    component: JobPosting
   },
   {
     path: '/home',
@@ -118,10 +125,17 @@ const routes = [
             }
           },
           {
-            path: 'workers',
-            name: 'workers',
+            path: 'applicants',
+            name: 'applicants',
             components: {
-              workers: Workers
+              applicants: Applicants
+            }
+          },
+          {
+            path: 'jobopening',
+            name: 'jobopening',
+            components: {
+              jobopening: JobOpening
             }
           },
         ]
@@ -145,7 +159,7 @@ router.beforeEach((to, from, next) => {
     next({name: 'Login'})
   }
   else if (to.matched.some((record) => record.meta.hasUser) && localStorage.getItem('auth') && localStorage.getItem('isAdmin')) {
-      next({ name: "Home" });
+      next({ name: "dashboard" });
 	} 
   else {
 		next();
