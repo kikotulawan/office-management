@@ -4,6 +4,7 @@ export default {
   namespaced: true,
   state: {
     jobopening: [],
+    jobs: []
   },
   getters: {
    
@@ -11,6 +12,9 @@ export default {
   mutations: {
     SET_JOBOPENING(state, data){
       state.jobopening = data
+    },
+    SET_JOBS(state, data){
+      state.jobs = data
     },
     UPDATE_JOBOPENING(state, data) {
       for(let i = 0; i < state.jobopening.data.length; i++){
@@ -44,6 +48,16 @@ export default {
     async getJobOpening({commit}, {page, sort}){
       const res = await API.get(`/admin/jobopening?page=${page}&sort=${sort}`).then(res => {
         commit('SET_JOBOPENING', res.data)
+        return res;
+      }).catch(err => {
+        return err.response
+      })
+  
+      return res;
+    },
+    async getJobs({commit}, {page, sort}){
+      const res = await API.get(`/jobs?page=${page}&sort=${sort}`).then(res => {
+        commit('SET_JOBS', res.data)
         return res;
       }).catch(err => {
         return err.response

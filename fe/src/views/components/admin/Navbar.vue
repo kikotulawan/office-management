@@ -36,7 +36,6 @@ export default {
       this.currentdate()
       this.currenttime()
     }, 1000);
-    console.clear()
   },
   computed: {
    ...mapState('auth', ['user'])

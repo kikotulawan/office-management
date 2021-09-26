@@ -30,11 +30,29 @@
                 <tbody>
                     <tr v-for="(policy, i) in policies.data" :key="i">
                         <td scope="row">{{policies.from + i}}</td>
-                        <td>{{policy.name}}</td>
-                        <td>{{policy.address}}</td>
+                        <td>{{policy.policy_name}}</td>
                         <td>
-                            <a href="" class="btn btn-secondary btn-sm rounded-pill shadow-none" @click.prevent="data = {...branch}; $bvModal.show('updateBranchModal')">
+                            <div class="d-flex flex-column">
+                                <span>Morning Schedule</span>
+                                <span>{{policy.morning_start}} - {{policy.morning_end}}</span><br/>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <span>Afternoon Schedule</span>
+                                <span>{{policy.afternoon_start}} - {{policy.afternoon_end}}</span><br/>
+                            </div>
+                             <div class="d-flex">
+                                <span>Schedule</span>
+                            </div>
+                            <div class="d-flex">
+                                <span v-for="(pDay, i) in policy.policydays" :key="i">{{returnDay(pDay.day) + ", &nbsp;"}}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <a v-on:click.prevent="$bvModal.show()" href="" class="btn btn-secondary btn-sm rounded-pill shadow-none me-2" @click.prevent="data = {...branch}; $bvModal.show('updateBranchModal')">
                                 <i class="bi bi-pencil"></i>
+                            </a>
+                            <a v-on:click.prevent="delete_data.id = policy.id; $bvModal.show('deletePolicyModal')" href="" class="btn btn-danger btn-sm rounded-pill shadow-none" @click.prevent="data = {...branch}; $bvModal.show('updateBranchModal')">
+                                <i class="bi bi-trash"></i>
                             </a>
                         </td>
                     </tr>
@@ -80,11 +98,14 @@
                 <tbody>
                     <tr v-for="(policy, i) in policies.data" :key="i">
                         <td scope="row">{{policies.from + i}}</td>
-                        <td>{{policy.name}}</td>
+                        <td>{{policy.policy_name}}</td>
                         <td>{{policy.address}}</td>
                         <td>
                             <a href="" class="btn btn-secondary btn-sm rounded-pill shadow-none" @click.prevent="data = {...branch}; $bvModal.show('updateBranchModal')">
                                 <i class="bi bi-pencil"></i>
+                            </a>
+                            <a href="" class="btn btn-danger btn-sm rounded-pill shadow-none" @click.prevent="data = {...branch}; $bvModal.show('updateBranchModal')">
+                                <i class="bi bi-trash"></i>
                             </a>
                         </td>
                     </tr>
@@ -108,7 +129,7 @@
        <b-modal id="addPolicyModal" centered title="Add Policy">
           <form ref="policyform" class="p-2">
             <label class="">Policy Name</label>
-            <input v-model="data.name" class="form-control" type="text">
+            <input v-model="data.policy_name" class="form-control" type="text">
             <label class="mt-2">Select Day(s)</label>
             <select v-model="data.days" class="form-select" size="5"  multiple aria-label="multiple select day">
                 <option value="0">Sunday</option>
@@ -120,19 +141,73 @@
                 <option value="6">Saturday</option>
             </select>
             <label class="mt-2">Morning Schedule</label>
-            <div class="d-block">
-                <date-picker class="w-100" v-model="data.time.am" format="hh:mm a" type="time" range></date-picker>
+            <div class="row">
+                <div class="col-6">
+                <date-picker
+                    v-model="data.morning_start"
+                    :time-picker-options="{
+                        start: '00:00',
+                        step: '01:00',
+                        end: '12:00',
+                    }"
+                    value-type="format"
+                    format="hh:mm a"
+                    type="time"
+                    placeholder="hh:mm a"
+                    ></date-picker>
+                </div>
+                <div class="col-6">
+                    <date-picker
+                        v-model="data.morning_end"
+                        :time-picker-options="{
+                            start: '00:00',
+                            step: '01:00',
+                            end: '12:00',
+                        }"
+                        value-type="format"
+                        format="hh:mm a"
+                        type="time"
+                        placeholder="hh:mm a"
+                        ></date-picker>
+                </div>
             </div>
             <label class="mt-2">Afternoon Schedule</label>
-           <div class="d-block">
-                <date-picker class="w-100" v-model="data.time.pm" format="hh:mm a" type="time" range></date-picker>
+           <div class="row">
+                <div class="col-6">
+                <date-picker
+                    v-model="data.afternoon_start"
+                    :time-picker-options="{
+                        start: '13:00',
+                        step: '01:00',
+                        end: '24:00',
+                    }"
+                    value-type="format"
+                    format="hh:mm a"
+                    type="time"
+                    placeholder="hh:mm a"
+                    ></date-picker>
+                </div>
+                <div class="col-6">
+                    <date-picker
+                        v-model="data.afternoon_end"
+                        :time-picker-options="{
+                            start: '13:00',
+                            step: '01:00',
+                            end: '24:00',
+                        }"
+                        value-type="format"
+                        format="hh:mm a"
+                        type="time"
+                        placeholder="hh:mm a"
+                        ></date-picker>
+                </div>
             </div>
             <label class="mt-2">Grace Period</label>
-            <input v-model="data.name" class="form-control" type="text">
+            <input v-model="data.grace_period" class="form-control" type="text">
           </form>
             <template #modal-footer = {cancel} >
             <b-button variant="secondary" @click="cancel()" :disabled="isLoading"> Cancel </b-button>
-            <b-button variant="success" v-on:click.prevent="saveBranch" :disabled="isLoading">
+            <b-button variant="success" v-on:click.prevent="savePolicy" :disabled="isLoading">
                 Save Policy
             </b-button>
             </template>
@@ -155,6 +230,16 @@
             </template>
         </b-modal>
 
+
+       <b-modal id="deletePolicyModal" centered title="Delete Work Policy">
+          <p>Are you sure you want to delete this policy?</p>
+          <template #modal-footer = {cancel} >
+            <b-button variant="secondary" @click="cancel()" :disabled="isLoading"> Cancel </b-button>
+            <b-button variant="success" v-on:click.prevent="deleteWorkPolicy" :disabled="isLoading">
+                Delete Policy
+            </b-button>
+          </template>
+        </b-modal>
     </div>
 </template>
 <script>
@@ -163,33 +248,18 @@ export default {
     data(){
         return {
             data: {
-                name: '',
-                days: '',
-                time: {
-                    am: {
-                        start: '',
-                        end: '',
-                    },
-                    pm: {
-                        start: '',
-                        end: ''
-                    }
-                },
-                
-                graceperiod: '',
+                policy_name: '',
+                days: [],
+                morning_start: '',
+                morning_end: '',
+                afternoon_start: '',
+                afternoon_end: '',
+                grace_period: '',
             },
             overtime: {
                     
             },
-            options: [
-                {value: 0, text: 'Sunday'},
-                {value: 1, text: 'Monday'},
-                {value: 2, text: 'Tuesday'},
-                {value: 3, text: 'Wednesday'},
-                {value: 4, text: 'Thursday'},
-                {value: 5, text: 'Friday'},
-                {value: 6, text: 'Saturday'},
-            ],
+            
             sort: 'asc',
             modalId: '',
         }
@@ -203,10 +273,13 @@ export default {
             this.modalId = modalId.componentId
         })
         this.$root.$on('bv::modal::hide', (modalId) => {
-            this.data.name = ''
-            this.data.address = ''
-            this.data.contact_number = ''
-            this.data.person_in_charge = ''
+            this.data.policy_name = ''
+            this.data.grace_period = ''
+            this.data.days = []
+            this.data.morning_start = ''
+            this.data.morning_end = ''
+            this.data.afternoon_start = ''
+            this.data.afternoon_end = ''
         })
         this.initialLoading = false
     },
@@ -214,34 +287,49 @@ export default {
         ...mapState('policies', ['policies']),
     },
     methods: {
+       returnDay(day){
+           let data = [
+               'Sunday',
+               'Monday',
+               'Tuesday',
+               'Wednesday',
+               'Thursday,',
+               'Friday',
+               'Saturday',
+           ] 
+           
+           return data[day]
+       },
        async getPolicies(page = 1){
          await this.$store.dispatch('policies/getPolicies', {page: page, sort: this.sort})
        },
        async updatePolicy(){
            if(this.data.name.trim() == '') return this.$toast.error('Name for the branch is required')
-           if(this.data.address.trim() == '') return this.$toast.error('Address for the branch is required')
-           if(this.data.contact_number.trim() == '') return this.$toast.error('Contact for the branch is required')
-           if(this.data.person_in_charge.trim() == '') return this.$toast.error('Person in charge of the branch is required')
 
            this.isLoading = true
            const { data, status } = await this.$store.dispatch('policies/updatePolicy', this.data)
            this.checkStatus(data, status, 'update')
        },
-       async savePolicy(){
-           if(this.data.name.trim() == '') return this.$toast.error('Name for the branch is required')
-           if(this.data.address.trim() == '') return this.$toast.error('Address for the branch is required')
-           if(this.data.contact_number.trim() == '') return this.$toast.error('Contact for the branch is required')
-           if(this.data.person_in_charge.trim() == '') return this.$toast.error('Person in charge of the branch is required')
-
+       async deleteWorkPolicy(){
            this.isLoading = true
+           const { data, status } = await this.$store.dispatch('policies/deletePolicy', this.delete_data)
+           this.checkStatus(data, status, '')
+       },
+       async savePolicy(){
+           if(this.data.policy_name.trim() == '') return this.$toast.error('Policy name is required')
+           if(this.data.days.length == 0) return this.$toast.error('Please select atleast 1 day')
+           if(this.data.morning_start == '') return this.$toast.error('Morning start time is required')
+           if(this.data.morning_end == '') return this.$toast.error('Morning end time is required')
+           if(this.data.afternoon_start == '') return this.$toast.error('Afternoon start time is required')
+           if(this.data.afternoon_end == '') return this.$toast.error('Afternoon end time is required')
+           if(this.data.grace_period == '') return this.$toast.error('Grace period is required')
+           
+           this.isLoading = true
+
            const { data, status } = await this.$store.dispatch('policies/savePolicy', this.data)
            this.checkStatus(data, status, '', 'policies/getPolicies')
        },
        closeModal(){
-           this.data.name = ''
-           this.data.address = ''
-           this.data.contact_number = ''
-           this.data.person_in_charge = ''
            this.$bvModal.hide(this.modalId)
        }
     },

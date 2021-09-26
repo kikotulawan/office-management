@@ -50,6 +50,13 @@ export default {
       })
   
       return res;
+    },
+    async deletePolicy({commit}, payload){
+      const res = await API.delete(`/admin/policy/${payload.id}`).then(res => {
+        return res;
+      }).catch(err => {
+        return err.response
+      })
     }
 
     /** ADD ACTION ON TOP OF THIS */

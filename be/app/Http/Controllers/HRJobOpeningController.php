@@ -17,6 +17,7 @@ class HRJobOpeningController extends Controller
         return response()->json(JobOpening::orderBy('job_title', $request->sort)->paginate(8));
     }
 
+
     public function store(JobOpeningRequest $request){
         JobOpening::create($request->validated());
         return $this->success('Job Opening created successfully');
