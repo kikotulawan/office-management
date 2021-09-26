@@ -109,12 +109,9 @@ export default {
         }
     },
     async mounted() {
-<<<<<<< HEAD
         document.title = 'Human Resource - Branches'
-=======
         this.initialLoading = true
         document.title = 'Human Resource - Branchwa'
->>>>>>> c355d60235b2beb09a6f13abfc5a128770dd3163
         await this.$store.dispatch('auth/checkUser')
         await this.$store.dispatch('departments/getDepartments', {page: 1, sort: this.sort})
         this.$root.$on('bv::modal::show', (modalId) => {

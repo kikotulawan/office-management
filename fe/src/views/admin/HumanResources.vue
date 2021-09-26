@@ -15,7 +15,6 @@
               <router-view name="policies"/>
               <router-view name="payperiods"/>
               <router-view name="leaves"/>
-              <router-view name="workers"/>
             </div>
         </div>
     </div>
