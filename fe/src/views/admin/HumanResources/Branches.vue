@@ -10,7 +10,14 @@
                 </div>
                 <button class="btn btn-primary btn-sm shadow-none" @click="$bvModal.show('addBranchModal')"> <i class="bi bi-plus"></i>Add Branch</button>
             </div>
-            <table class="table table-striped table-hover mt-4">
+            <b-skeleton-table
+                :rows="7"
+                :columns="6"
+                :table-props="{ bordered: true, striped: true }"
+                class="mt-4"
+                v-if="initialLoading"
+                ></b-skeleton-table>
+            <table class="table table-striped table-hover mt-4" v-else>
                 <caption>Showing {{branches.from}} to {{branches.to}} of {{branches.total}} data</caption>
                 <thead>
                     <tr>
@@ -94,13 +101,10 @@
     </div>
 </template>
 <script>
-import {vresponse} from '@/assets/js/validation_response/index.js'
 import { mapState } from 'vuex'
 export default {
-    mixins: [vresponse],
     data(){
         return {
-            isLoading: false,
             data: {
                 name: '',
                 address: '',
@@ -112,6 +116,7 @@ export default {
         }
     },
     async mounted() {
+        this.initialLoading = true
         document.title = 'Human Resource - Branches'
         await this.$store.dispatch('auth/checkUser')
         await this.$store.dispatch('branches/getBranches', {page: 1, sort: this.sort})
@@ -124,6 +129,7 @@ export default {
             this.data.contact_number = ''
             this.data.person_in_charge = ''
         })
+        this.initialLoading = false
     },
     computed: {
         ...mapState('branches', ['branches']),

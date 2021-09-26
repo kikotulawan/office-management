@@ -10,7 +10,14 @@
                 </div>
                 <button class="btn btn-primary btn-sm shadow-none" @click="$bvModal.show('addBranchModal')"> <i class="bi bi-plus"></i>Add Department</button>
             </div>
-            <table class="table table-striped table-hover mt-4">
+            <b-skeleton-table
+                :rows="6"
+                :columns="5"
+                :table-props="{ bordered: true, striped: true }"
+                class="mt-4"
+                v-if="initialLoading"
+                ></b-skeleton-table>
+            <table class="table table-striped table-hover mt-4" v-else>
                 <caption>Showing {{departments.from}} to {{departments.to}} of {{departments.total}} data</caption>
                 <thead>
                     <tr>
@@ -88,13 +95,10 @@
     </div>
 </template>
 <script>
-import {vresponse} from '@/assets/js/validation_response/index.js'
 import { mapState } from 'vuex'
 export default {
-    mixins: [vresponse],
     data(){
         return {
-            isLoading: false,
             data: {
                 name: '',
                 contact_number: '',
@@ -105,7 +109,12 @@ export default {
         }
     },
     async mounted() {
+<<<<<<< HEAD
         document.title = 'Human Resource - Branches'
+=======
+        this.initialLoading = true
+        document.title = 'Human Resource - Branchwa'
+>>>>>>> c355d60235b2beb09a6f13abfc5a128770dd3163
         await this.$store.dispatch('auth/checkUser')
         await this.$store.dispatch('departments/getDepartments', {page: 1, sort: this.sort})
         this.$root.$on('bv::modal::show', (modalId) => {
@@ -116,6 +125,7 @@ export default {
             this.data.contact_number = ''
             this.data.person_in_charge = ''
         })
+        this.initialLoading = false
     },
     computed: {
         ...mapState('departments', ['departments'])

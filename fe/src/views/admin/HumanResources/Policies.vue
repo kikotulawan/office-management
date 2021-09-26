@@ -10,6 +10,13 @@
                 </div>
                 <button class="btn btn-primary btn-sm shadow-none" @click="$bvModal.show('addPolicyModal')"> <i class="bi bi-plus"></i>Add  Policy</button>
             </div>
+            <b-skeleton-table
+                :rows="5"
+                :columns="4"
+                :table-props="{ bordered: true, striped: false }"
+                class="mt-4"
+                v-if="initialLoading"
+                ></b-skeleton-table>
             <table class="table table-striped table-hover mt-4">
                 <caption>Showing {{policies.from}} to {{policies.to}} of {{policies.total}} data</caption>
                 <thead>
@@ -53,7 +60,14 @@
                 </div>
                 <button class="btn btn-primary btn-sm shadow-none" @click="$bvModal.show('addOvertimePolicyModal')"> <i class="bi bi-plus"></i>Overtime Policy</button>
             </div>
-            <table class="table table-striped table-hover mt-4">
+            <b-skeleton-table
+                :rows="5"
+                :columns="4"
+                :table-props="{ bordered: true, striped: false }"
+                class="mt-4"
+                v-if="initialLoading"
+                ></b-skeleton-table>
+            <table class="table table-striped table-hover mt-4" v-else>
                 <caption>Showing {{policies.from}} to {{policies.to}} of {{policies.total}} data</caption>
                 <thead>
                     <tr>
@@ -144,13 +158,10 @@
     </div>
 </template>
 <script>
-import {vresponse} from '@/assets/js/validation_response/index.js'
 import { mapState } from 'vuex'
 export default {
-    mixins: [vresponse],
     data(){
         return {
-            isLoading: false,
             data: {
                 name: '',
                 days: '',
@@ -184,6 +195,7 @@ export default {
         }
     },
     async mounted() {
+        this.initialLoading = true
         document.title = 'Human Resource - Policies'
         await this.$store.dispatch('auth/checkUser')
         await this.$store.dispatch('policies/getPolicies', {page: 1, sort: this.sort})
@@ -196,6 +208,7 @@ export default {
             this.data.contact_number = ''
             this.data.person_in_charge = ''
         })
+        this.initialLoading = false
     },
     computed: {
         ...mapState('policies', ['policies']),

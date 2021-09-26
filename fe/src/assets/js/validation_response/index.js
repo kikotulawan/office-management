@@ -1,6 +1,11 @@
 // =VALIDATION AND RESPONSE
-export const vresponse = {
-
+export default {
+ data() {
+  return {
+   isLoading: false,
+   initialLoading: false
+  }
+ },
  methods: {
   async checkStatus(data, status, type, dispatch, config) {
    if (status == 422) {
@@ -20,6 +25,7 @@ export const vresponse = {
    for (const key of Object.keys(data)) {
     this.$toast.error(data[key][0]);
    }
+   this.isLoading = false
   },
   successResponse(data) {
    this.closeModal()

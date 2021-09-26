@@ -10,7 +10,14 @@
                 </div>
                 <button class="btn btn-primary btn-sm" @click="$bvModal.show('addPositionModal')"> <i class="bi bi-plus"></i>Add Position</button>
             </div>
-            <table class="table table-striped table-hover mt-4">
+            <b-skeleton-table
+                :rows="5"
+                :columns="4"
+                :table-props="{ bordered: true, striped: true }"
+                class="mt-4"
+                v-if="initialLoading"
+                ></b-skeleton-table>
+            <table class="table table-striped table-hover mt-4" v-else>
                 <caption>Showing {{positions.from}} to {{positions.to}} of {{positions.total}} data</caption>
                 <thead>
                     <tr>
@@ -78,13 +85,10 @@
     </div>
 </template>
 <script>
-import {vresponse} from '@/assets/js/validation_response/index.js'
 import { mapState } from 'vuex'
 export default {
-    mixins: [vresponse],
     data(){
         return {
-            isLoading: false,
             data: {
                 name: '',
                 description: '',
@@ -94,6 +98,7 @@ export default {
         }
     },
     async mounted() {
+        this.initialLoading = true
         document.title = 'Human Resource - Positions'
         await this.$store.dispatch('auth/checkUser')
         await this.$store.dispatch('position/getPositions', {page: 1, sort: this.sort})
@@ -104,6 +109,7 @@ export default {
             this.data.name = ''
             this.data.description = ''
         })
+        this.initialLoading = false
     },
     computed: {
         ...mapState('position', ['positions'])
