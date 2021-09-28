@@ -16,10 +16,7 @@ class CreateWorkPoliciesTable extends Migration
         Schema::create('work_policies', function (Blueprint $table) {
             $table->id();
             $table->string('policy_name');
-            $table->string('morning_start');
-            $table->string('morning_end');
-            $table->string('afternoon_start');
-            $table->string('afternoon_end');
+            $table->string('deducted_hours');
             $table->string('grace_period');
             $table->timestamps();
         });

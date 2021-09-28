@@ -17,6 +17,8 @@ class CreatePolicyDaysTable extends Migration
             $table->id();
             $table->foreignId('work_policies_id')->constrained()->onDelete('cascade');
             $table->integer('day');
+            $table->string('time_start');
+            $table->string('time_end');
             $table->timestamps();
         });
     }

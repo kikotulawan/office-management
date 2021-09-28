@@ -25,11 +25,8 @@ class WorkPolicyRequest extends FormRequest
     {
         return [
             'policy_name' => 'required|bail|max:50',
-            'morning_start' => 'required|bail|max:25',
-            'morning_end' => 'required|bail|max:25',
-            'afternoon_start' => 'required|bail|max:25',
-            'afternoon_end' => 'required|bail|max:25',
-            'grace_period' => 'required|bail|max:10',
+            'deducted_hours' => 'required|bail|max:15',
+            'grace_period' => 'required|bail|max:15',
         ];
     }
 }
