@@ -132,14 +132,14 @@
                     value-type="format"
                     format="hh:mm a"
                     type="time"
-                    placeholder="hh:mm a ~ hh:mm a"
+                    placeholder="hh:mm a - hh:mm a"
                     class="w-100"
                     range
                     ></date-picker>
                 </div>
                 <label class="mt-2">Apply to</label>
                 <select v-model="sched.days" class="form-select" size="5"  multiple aria-label="multiple select day">
-                    <option :value="day.value" v-for="(day, i) in days[index]" :key="i" @click.prevent="log(index)">{{day.text}}</option>
+                    <option :value="day.value" v-for="(day, i) in days" :key="i" @click.prevent="log(index)">{{day.text}}</option>
                 </select>
             </div>
             
@@ -147,9 +147,9 @@
                 <a @click.prevent="addSchedule" href="" class="text-decoration-none mt-2">Add Schedule</a>
             </div>
             <label class="mt-1">Grace Period</label>
-            <input v-model="data.grace_period" class="form-control" type="text">
+            <input v-model="data.grace_period" class="form-control" placeholder="per minutes" type="text">
             <label class="mt-1">Deducted Hours</label>
-            <input v-model="data.deducted_hours" class="form-control" type="text">
+            <input v-model="data.deducted_hours" class="form-control" placeholder="per hour" type="text">
           </form>
             <template #modal-footer = {cancel} >
             <b-button variant="secondary" @click="cancel()" :disabled="isLoading"> Cancel </b-button>
@@ -218,7 +218,6 @@ export default {
                     
             },
             days: [
-                [
                     {
                         value: 0,
                         text: 'Sunday',
@@ -247,7 +246,6 @@ export default {
                         value: 6,
                         text: 'Saturday',
                     },
-                ],
             ],
             selectedDays: [],
             work_schedule: [],
@@ -272,7 +270,6 @@ export default {
             this.prevIndex = '',
             this.selectedDays = []
             this.days = [
-                [
                     {
                         value: 0,
                         text: 'Sunday',
@@ -301,7 +298,6 @@ export default {
                         value: 6,
                         text: 'Saturday',
                     },
-                ],
             ]
         })
         this.initialLoading = false
@@ -323,7 +319,7 @@ export default {
                'Monday',
                'Tuesday',
                'Wednesday',
-               'Thursday,',
+               'Thursday',
                'Friday',
                'Saturday',
            ] 
@@ -365,51 +361,51 @@ export default {
         sort(){
             this.getBranches()
         },
-        'data.time_schedule': function (newVal, oldVal){
-            let days = [];
+        // 'data.time_schedule': function (newVal, oldVal){
+        //     let days = [];
             
-            this.data.time_schedule.forEach((element, selectedDayIndex) => {
+        //     this.data.time_schedule.forEach((element, selectedDayIndex) => {
    
-                days = [...this.days[selectedDayIndex]];
-                this.days.forEach((el, i) => {
-                    this.data.time_schedule[i].days.forEach((sd, slindex) => {
+        //         days = [...this.days[selectedDayIndex]];
+        //         this.days.forEach((el, i) => {
+        //             this.data.time_schedule[i].days.forEach((sd, slindex) => {
                     
-                    // console.log(days)
-                    // console.log(this.data.time_schedule[selectedDayIndex].days[slindex])
-                    days.forEach((el, dayIndex) => {
-                            if(days[dayIndex].value == this.data.time_schedule[selectedDayIndex].days[slindex]){
-                                // console.log(days[dayIndex].value)
-                                // console.log(this.data.time_schedule[selectedDayIndex].days[slindex])
-                                days.splice(dayIndex, 1)
-                                console.log(days)
-                            }
-                        })
-                    })
-                })
+        //             // console.log(days)
+        //             // console.log(this.data.time_schedule[selectedDayIndex].days[slindex])
+        //             days.forEach((el, dayIndex) => {
+        //                     if(days[dayIndex].value == this.data.time_schedule[selectedDayIndex].days[slindex]){
+        //                         // console.log(days[dayIndex].value)
+        //                         // console.log(this.data.time_schedule[selectedDayIndex].days[slindex])
+        //                         days.splice(dayIndex, 1)
+        //                         console.log(days)
+        //                     }
+        //                 })
+        //             })
+        //         })
 
-                this.days.push(days)
-            });
-            // console.log(days)
+        //         this.days.push(days)
+        //     });
+        //     // console.log(days)
             
 
-            // this.selectedDays.forEach((element, selectedDayIndex) => {
-            //     days = [];
-            //     this.days.forEach((el, i) => {
-            //         this.selectedDays[i].forEach((sd, slindex) => {
-            //         days = [...this.days[i]];
-            //         console.log(this.days[i])
-            //         this.days[i].forEach((el, dayIndex) => {
-            //                 if(this.days[i][dayIndex].value == this.selectedDays[selectedDayIndex][slindex]){
-            //                     days.splice(dayIndex, 1)
-            //                 }
-            //             })
-            //         })
-            //     })
-            // });
+        //     // this.selectedDays.forEach((element, selectedDayIndex) => {
+        //     //     days = [];
+        //     //     this.days.forEach((el, i) => {
+        //     //         this.selectedDays[i].forEach((sd, slindex) => {
+        //     //         days = [...this.days[i]];
+        //     //         console.log(this.days[i])
+        //     //         this.days[i].forEach((el, dayIndex) => {
+        //     //                 if(this.days[i][dayIndex].value == this.selectedDays[selectedDayIndex][slindex]){
+        //     //                     days.splice(dayIndex, 1)
+        //     //                 }
+        //     //             })
+        //     //         })
+        //     //     })
+        //     // });
 
-            // console.log(days)
-            // this.days.push(days)
-        }   
+        //     // console.log(days)
+        //     // this.days.push(days)
+        // }   
     }
 }
 </script>
