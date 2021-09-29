@@ -39,7 +39,6 @@ class HRPolicyController extends Controller
     public function destroy($id){
         WorkPolicy::destroy($id);
         PolicyDay::where('work_policies_id', $id)->delete();
-
         return $this->success('Work Policy removed successfully');
     }
 }

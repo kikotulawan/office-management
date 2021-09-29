@@ -39,7 +39,7 @@
                         <td>{{policy.deducted_hours}}</td>
                         <td>{{policy.grace_period}}</td>
                         <td>
-                            <a v-on:click.prevent="$bvModal.show()" href="" class="btn btn-secondary btn-sm rounded-pill shadow-none me-2" @click.prevent="data = {...branch}; $bvModal.show('updateBranchModal')">
+                            <a v-on:click.prevent="$bvModal.show()" href="" class="btn btn-secondary btn-sm rounded-pill shadow-none me-2" @click.prevent="data = {...policy}; $bvModal.show('updateBranchModal')">
                                 <i class="bi bi-pencil"></i>
                             </a>
                             <a v-on:click.prevent="delete_data.id = policy.id; $bvModal.show('deletePolicyModal')" href="" class="btn btn-danger btn-sm rounded-pill shadow-none" @click.prevent="data = {...branch}; $bvModal.show('updateBranchModal')">
@@ -87,17 +87,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(policy, i) in policies.data" :key="i">
-                        <td scope="row">{{policies.from + i}}</td>
-                        <td>{{policy.policy_name}}</td>
-                        <td>{{policy.address}}</td>
+                    <tr v-for="(overtime, i) in overtimepolicies.data" :key="i">
+                        <td scope="row">{{overtimepolicies.from + i}}</td>
+                        <td>{{overtime.name}}</td>
+                        <td>{{overtime.time}}</td>
                         <td>
-                            <a href="" class="btn btn-secondary btn-sm rounded-pill shadow-none" @click.prevent="data = {...branch}; $bvModal.show('updateBranchModal')">
-                                <i class="bi bi-pencil"></i>
-                            </a>
-                            <a href="" class="btn btn-danger btn-sm rounded-pill shadow-none" @click.prevent="data = {...branch}; $bvModal.show('updateBranchModal')">
-                                <i class="bi bi-trash"></i>
-                            </a>
+                            <div class="d-flex">
+                                <a href="" class="btn btn-secondary btn-sm rounded-pill shadow-none me-2" @click.prevent="overtime = {...overtime}; $bvModal.show('updateOverTimePolicyModal')">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a href="" class="btn btn-danger btn-sm rounded-pill shadow-none" @click.prevent="delete_data.id = overtime.id; $bvModal.show('deleteOverTimePolicyModal')">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -126,7 +128,7 @@
                     v-model="sched.time"
                     :time-picker-options="{
                         start: '00:00',
-                        step: '01:00',
+                        step: '00:30',
                         end: '24:00',
                     }"
                     value-type="format"
@@ -139,7 +141,7 @@
                 </div>
                 <label class="mt-2">Apply to</label>
                 <select v-model="sched.days" class="form-select" size="5"  multiple aria-label="multiple select day">
-                    <option :value="day.value" v-for="(day, i) in days" :key="i" @click.prevent="log(index)">{{day.text}}</option>
+                    <option :value="day.value" v-for="(day, i) in days" :key="i">{{day.text}}</option>
                 </select>
             </div>
             
@@ -165,13 +167,30 @@
             <input v-model="overtime.name" class="form-control" type="text">
             <label class="mt-2">Start Time</label>
             <div class="d-block">
-                <date-picker class="w-100" v-model="overtime.start" format="hh:mm a" type="time"></date-picker>
+                <date-picker class="w-100" v-model="overtime.time"  value-type="format" format="hh:mm a" type="time"></date-picker>
             </div>
           </form>
             <template #modal-footer = {cancel} >
             <b-button variant="secondary" @click="cancel()" :disabled="isLoading"> Cancel </b-button>
-            <b-button variant="success" v-on:click.prevent="saveBranch" :disabled="isLoading">
+            <b-button variant="success" v-on:click.prevent="saveOverTimePolicy" :disabled="isLoading">
                 Save Policy
+            </b-button>
+            </template>
+        </b-modal>
+
+       <b-modal id="updateOverTimePolicyModal" centered title="Update Overtime Policy">
+          <form ref="policyform" class="p-2">
+            <label class="">Overtime Policy</label>
+            <input v-model="overtime.name" class="form-control" type="text">
+            <label class="mt-2">Start Time</label>
+            <div class="d-block">
+                <date-picker class="w-100" v-model="overtime.time"  value-type="format" format="hh:mm a" type="time"></date-picker>
+            </div>
+          </form>
+            <template #modal-footer = {cancel} >
+            <b-button variant="secondary" @click="cancel()" :disabled="isLoading"> Cancel </b-button>
+            <b-button variant="success" v-on:click.prevent="updateOverTimePolicy" :disabled="isLoading">
+                Update Policy
             </b-button>
             </template>
         </b-modal>
@@ -182,6 +201,16 @@
           <template #modal-footer = {cancel} >
             <b-button variant="secondary" @click="cancel()" :disabled="isLoading"> Cancel </b-button>
             <b-button variant="success" v-on:click.prevent="deleteWorkPolicy" :disabled="isLoading">
+                Delete Policy
+            </b-button>
+          </template>
+        </b-modal>
+
+       <b-modal id="deleteOverTimePolicyModal" centered title="Delete Overtime Policy">
+          <p>Are you sure you want to delete this policy?</p>
+          <template #modal-footer = {cancel} >
+            <b-button variant="secondary" @click="cancel()" :disabled="isLoading"> Cancel </b-button>
+            <b-button variant="success" v-on:click.prevent="deleteOverTimePolicy" :disabled="isLoading">
                 Delete Policy
             </b-button>
           </template>
@@ -214,8 +243,10 @@ export default {
                 grace_period: '',
                 deducted_hours: '',
             },
-            overtime: {
-                    
+            delete_data: {
+                id:''
+            },
+            overtime: {      
             },
             days: [
                     {
@@ -259,6 +290,7 @@ export default {
         document.title = 'Human Resource - Policies'
         await this.$store.dispatch('auth/checkUser')
         await this.$store.dispatch('policies/getPolicies', {page: 1, sort: this.sort})
+        await this.$store.dispatch('policies/getOverTimePolicies', {page: 1, sort: this.sort})
         this.$root.$on('bv::modal::show', (modalId) => {
             this.modalId = modalId.componentId
         })
@@ -300,10 +332,12 @@ export default {
                     },
             ]
         })
+        this.overtime.name = ''
+        this.overtime.time = ''
         this.initialLoading = false
     },
     computed: {
-        ...mapState('policies', ['policies']),
+        ...mapState('policies', ['policies', 'overtimepolicies']),
     },
     methods: {
         log(index){
@@ -342,7 +376,7 @@ export default {
        async deleteWorkPolicy(){
            this.isLoading = true
            const { data, status } = await this.$store.dispatch('policies/deletePolicy', this.delete_data)
-           this.checkStatus(data, status, '')
+           this.checkStatus(data, status, '', 'policies/getPolicies')
        },
        async savePolicy(){
            if(this.data.policy_name.trim() == '') return this.$toast.error('Policy name is required')
@@ -353,59 +387,28 @@ export default {
            const { data, status } = await this.$store.dispatch('policies/savePolicy', this.data)
            this.checkStatus(data, status, '', 'policies/getPolicies')
        },
+       async saveOverTimePolicy(){
+           if(this.overtime.name.trim() == '') return this.$toast.error('Overtime Policy name is required')
+           if(this.overtime.time == '') return this.$toast.error('Time start is required')
+           
+           this.isLoading = true
+
+           const { data, status } = await this.$store.dispatch('policies/saveOverTimePolicy', this.overtime)
+           this.checkStatus(data, status, '', 'policies/getOverTimePolicies')
+       },
+       async deleteOverTimePolicy(){
+           this.isLoading = true
+           const { data, status } = await this.$store.dispatch('policies/deleteOverTimePolicy', this.delete_data)
+           this.checkStatus(data, status, '', 'policies/getOverTimePolicies')
+       },
        closeModal(){
            this.$bvModal.hide(this.modalId)
        }
     },
     watch: {
         sort(){
-            this.getBranches()
+            this.getPolicies()
         },
-        // 'data.time_schedule': function (newVal, oldVal){
-        //     let days = [];
-            
-        //     this.data.time_schedule.forEach((element, selectedDayIndex) => {
-   
-        //         days = [...this.days[selectedDayIndex]];
-        //         this.days.forEach((el, i) => {
-        //             this.data.time_schedule[i].days.forEach((sd, slindex) => {
-                    
-        //             // console.log(days)
-        //             // console.log(this.data.time_schedule[selectedDayIndex].days[slindex])
-        //             days.forEach((el, dayIndex) => {
-        //                     if(days[dayIndex].value == this.data.time_schedule[selectedDayIndex].days[slindex]){
-        //                         // console.log(days[dayIndex].value)
-        //                         // console.log(this.data.time_schedule[selectedDayIndex].days[slindex])
-        //                         days.splice(dayIndex, 1)
-        //                         console.log(days)
-        //                     }
-        //                 })
-        //             })
-        //         })
-
-        //         this.days.push(days)
-        //     });
-        //     // console.log(days)
-            
-
-        //     // this.selectedDays.forEach((element, selectedDayIndex) => {
-        //     //     days = [];
-        //     //     this.days.forEach((el, i) => {
-        //     //         this.selectedDays[i].forEach((sd, slindex) => {
-        //     //         days = [...this.days[i]];
-        //     //         console.log(this.days[i])
-        //     //         this.days[i].forEach((el, dayIndex) => {
-        //     //                 if(this.days[i][dayIndex].value == this.selectedDays[selectedDayIndex][slindex]){
-        //     //                     days.splice(dayIndex, 1)
-        //     //                 }
-        //     //             })
-        //     //         })
-        //     //     })
-        //     // });
-
-        //     // console.log(days)
-        //     // this.days.push(days)
-        // }   
     }
 }
 </script>

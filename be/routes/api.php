@@ -5,6 +5,7 @@ use App\Http\Controllers\HRPositionController;
 use App\Http\Controllers\HRBranchController;
 use App\Http\Controllers\HRDepartmentController;
 use App\Http\Controllers\HRJobOpeningController;
+use App\Http\Controllers\HROverTimePolicyController;
 use App\Http\Controllers\HRPolicyController;
 use App\Http\Controllers\JobOpeningPortalController;
 use Illuminate\Http\Request;
@@ -37,6 +38,7 @@ Route::group(['prefix' => 'admin'], function (){
     Route::apiResource('branch', HRBranchController::class);
     Route::apiResource('department', HRDepartmentController::class);
     Route::apiResource('policy', HRPolicyController::class);
+    Route::apiResource('overtime', HROverTimePolicyController::class);
     Route::apiResource('jobopening', HRJobOpeningController::class);
 });
 

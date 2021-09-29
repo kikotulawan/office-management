@@ -4,6 +4,7 @@ export default {
   namespaced: true,
   state: {
     policies: [],
+    overtimepolicies: [],
   },
   getters: {
    
@@ -11,6 +12,9 @@ export default {
   mutations: {
     SET_POLICIES(state, data){
       state.policies = data
+    },
+    SET_OVERTIME_POLICIES(state, data){
+      state.overtimepolicies = data
     },
     UPDATE_POLICY(state, data) {
       for(let i = 0; i < state.policies.data.length; i++){
@@ -57,6 +61,38 @@ export default {
       }).catch(err => {
         return err.response
       })
+
+      return res;
+    },
+
+    /* OVERTIME POLICY */
+    async getOverTimePolicies({commit}, {page, sort}){
+      const res = await API.get(`/admin/overtime?page=${page}&sort=${sort}`).then(res => {
+        commit('SET_OVERTIME_POLICIES', res.data)
+        return res;
+      }).catch(err => {
+        return err.response
+      })
+  
+      return res;
+    },
+    async saveOverTimePolicy({commit}, payload){
+      const res = await API.post('/admin/overtime', payload).then(res => {
+        return res;
+      }).catch(err => {
+        return err.response
+      })
+
+      return res;
+    },
+    async deleteOverTimePolicy({commit}, payload){
+      const res = await API.delete(`/admin/overtime/${payload.id}`).then(res => {
+        return res;
+      }).catch(err => {
+        return err.response
+      })
+
+      return res;
     }
 
     /** ADD ACTION ON TOP OF THIS */
