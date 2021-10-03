@@ -133,12 +133,10 @@
           <p>Job Description</p>
         </div>
         <div class="col-12 col-sm-12 col-md-8 col-lg-10 col-xl-10">
-          <textarea
+          <vue-editor
             v-model="data.job_description"
-            type="text"
-            rows="5"
-            class="form-control shadow-none"
-          ></textarea>
+            :editorToolbar="customToolbar"
+          ></vue-editor>
         </div>
       </div>
       <div class="row mt-3">
@@ -146,12 +144,10 @@
           <p>Job Requirements</p>
         </div>
         <div class="col-12 col-sm-12 col-md-8 col-lg-10 col-xl-10">
-          <textarea
+          <vue-editor
             v-model="data.job_requirements"
-            type="text"
-            rows="5"
-            class="form-control shadow-none"
-          ></textarea>
+            :editorToolbar="customToolbar"
+          ></vue-editor>
         </div>
       </div>
       <div class="row mt-3">
@@ -228,12 +224,10 @@
           <p>Skills</p>
         </div>
         <div class="col-12 col-sm-12 col-md-8 col-lg-10 col-xl-10">
-          <textarea
+          <vue-editor
             v-model="data.job_skills"
-            type="text"
-            rows="5"
-            class="form-control shadow-none"
-          ></textarea>
+            :editorToolbar="customToolbar"
+          ></vue-editor>
         </div>
       </div>
       <div class="row mt-3">
@@ -279,10 +273,10 @@
         </div>
       </div>
       <template #modal-footer="{ cancel }">
-      <b-button size="sm" variant="secondary" @click="cancel()">
+      <b-button size="sm" variant="secondary" @click="cancel()" :disabled="isLoading">
         Cancel
       </b-button>
-      <b-button size="sm" variant="primary" @click="saveJobOpening">
+      <b-button size="sm" variant="primary" @click="saveJobOpening" :disabled="isLoading">
         Post Job
       </b-button>
     </template>
@@ -313,12 +307,10 @@
           <p>Job Description</p>
         </div>
         <div class="col-12 col-sm-12 col-md-8 col-lg-10 col-xl-10">
-          <textarea
+          <vue-editor
             v-model="data.job_description"
-            type="text"
-            rows="5"
-            class="form-control shadow-none"
-          ></textarea>
+            :editorToolbar="customToolbar"
+          ></vue-editor>
         </div>
       </div>
       <div class="row mt-3">
@@ -326,12 +318,10 @@
           <p>Job Requirements</p>
         </div>
         <div class="col-12 col-sm-12 col-md-8 col-lg-10 col-xl-10">
-          <textarea
+          <vue-editor
             v-model="data.job_requirements"
-            type="text"
-            rows="5"
-            class="form-control shadow-none"
-          ></textarea>
+            :editorToolbar="customToolbar"
+          ></vue-editor>
         </div>
       </div>
       <div class="row mt-3">
@@ -408,12 +398,10 @@
           <p>Skills</p>
         </div>
         <div class="col-12 col-sm-12 col-md-8 col-lg-10 col-xl-10">
-          <textarea
+          <vue-editor
             v-model="data.job_skills"
-            type="text"
-            rows="5"
-            class="form-control shadow-none"
-          ></textarea>
+            :editorToolbar="customToolbar"
+          ></vue-editor>
         </div>
       </div>
       <div class="row mt-3">
@@ -487,13 +475,13 @@
       <div class="row mt-3">
         <div class="col-12">
           <p class="text-primary fw-bold"><small>Job Description</small></p>
-          <p class="mt-1">{{data.job_description}}</p>
+          <div v-html="data.job_description"></div>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-12">
           <p class="text-primary fw-bold"><small>Job Requirements</small></p>
-          <p class="mt-1">{{data.job_requirements}}</p>
+           <div v-html="data.job_requirements"></div>
         </div>
       </div>
       <div class="row mt-3">
@@ -523,7 +511,7 @@
       <div class="row mt-3">
         <div class="col-12">
           <p class="text-primary fw-bold"><small>Skills</small></p>
-          <p class="mt-1">{{data.job_skills}}</p>
+           <div v-html="data.job_skills"></div>
         </div>
       </div>
       <div class="row mt-3">
@@ -548,8 +536,12 @@
 </template>
 <script>
 import { mapState } from "vuex";
+import { VueEditor } from "vue2-editor";
 import moment from "moment";
-export default {
+export default { 
+  components: {
+    VueEditor
+  },
   data() {
     return {
       isLoading: false,
@@ -567,6 +559,11 @@ export default {
         job_work_location: "",
         job_opening_expiration: "",
       },
+      customToolbar: [
+        ["bold", "italic", "underline"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["image", "code-block"]
+      ],
       sort: "asc",
       modalId: "",
     };

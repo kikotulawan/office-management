@@ -10,6 +10,7 @@ import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
 import vresponse from './assets/js/validation_response/index'
 
+
 Vue.use(DatePicker)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
@@ -24,24 +25,25 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 Vue.use(Toast, {
-  position: "top-right",
-  timeout: 3000,
-  closeOnClick: true,
-  pauseOnFocusLoss: true,
-  pauseOnHover: true,
-  showCloseButtonOnHover: false,
-  hideProgressBar: true,
-  closeButton: false,
-  icon: true,
-  rtl: false,
-  maxToasts: 4,
-  transition: "Vue-Toastification__fade",
-  newestOnTop: true
+    position: "top-right",
+    timeout: 3000,
+    closeOnClick: true,
+    pauseOnFocusLoss: true,
+    pauseOnHover: true,
+    showCloseButtonOnHover: false,
+    hideProgressBar: true,
+    closeButton: false,
+    icon: true,
+    rtl: false,
+    maxToasts: 4,
+    transition: "Vue-Toastification__fade",
+    newestOnTop: true
 });
 
 Vue.config.productionTip = false
 
 new Vue({
-  router, store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')
