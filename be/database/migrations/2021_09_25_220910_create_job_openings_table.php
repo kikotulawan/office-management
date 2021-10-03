@@ -16,7 +16,16 @@ class CreateJobOpeningsTable extends Migration
         Schema::create('job_openings', function (Blueprint $table) {
             $table->id();
             $table->string('job_title');
-            $table->string('salary');
+            $table->longText('job_description');
+            $table->longText('job_requirements');
+            $table->longText('job_skills');
+            $table->string('job_type');
+            $table->string('job_min_experience');
+            $table->string('job_min_qualification');
+            $table->string('job_salary_from');
+            $table->string('job_salary_to');
+            $table->string('job_work_location');
+            $table->string('job_opening_expiration');
             $table->timestamps();
         });
     }

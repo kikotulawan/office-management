@@ -27,7 +27,16 @@ class JobOpeningRequest extends FormRequest
     {
         return [
             'job_title' => 'bail|required|max:45',
-            'salary' => 'required|max:40',
+            'job_salary_from' => 'required|max:40',
+            'job_salary_to' => 'required|max:40',
+            'job_description' => 'required',
+            'job_requirements' => 'required',
+            'job_skills' => 'required',
+            'job_type' => 'required|max:40',
+            'job_min_experience' => 'required|max:80',
+            'job_min_qualification' => 'required|max:80',
+            'job_work_location' => 'required|max:80',
+            'job_opening_expiration' => 'required|max:40',
         ];
     }
 
