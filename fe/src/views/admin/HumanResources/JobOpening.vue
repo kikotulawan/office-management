@@ -523,7 +523,7 @@
       <div class="row mt-3">
         <div class="col-12">
           <p class="text-danger fw-bold"><small>Apply Until</small></p>
-          <p class="mt-1">{{data.job_opening_expiration}}</p>
+          <p class="mt-1">{{data.job_opening_expiration | moment}}</p>
         </div>
       </div>
       <template #modal-footer="{cancel}">
