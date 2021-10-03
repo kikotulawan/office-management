@@ -1,7 +1,7 @@
 <template>
     <div class="jobs-portal">
        <div class="container p-5">
-       <h2 class="text-center mt-5 fw-bold">eOffice is now Recruiting!</h2>
+       <h2 class="text-center mt-3 fw-bold">eOffice is now Recruiting!</h2>
         <div class="card p-5 mt-5 mb-5">
             <h5 class="mt-1">Job Vacancies</h5>
             <p class="text-muted">There are {{jobs.total}} total of job(s) available.</p>
@@ -17,6 +17,7 @@
                     <th scope="col">ID</th>
                     <th scope="col" class="cursor-pointer" v-on:click.prevent="sort = sort == 'asc' ? 'desc' : 'asc'">Job Title <i class="bi" :class="sort == 'asc' ? 'bi-arrow-up-short' : 'bi-arrow-down-short'"></i></th>
                     <th scope="col">Date Posted</th>
+                    <th scope="col">Apply Until</th>
                     <th scope="col">Salary</th>
                     <th scope="col">Action</th>
                     </tr>
@@ -26,7 +27,8 @@
                         <td scope="row">{{jobs.from + i}}</td>
                         <td class="text-nowrap">{{job.job_title}}</td>
                         <td>{{job.created_at | moment}}</td>
-                        <td>PHP {{job.salary}}</td>
+                        <td class="text-danger">{{job.job_opening_expiration | moment}}</td>
+                        <td>PHP {{ job.job_salary_from }} - {{ job.job_salary_to }}</td>
                         <td>
                             <a href="" class="text-decoration-none">Details</a>
                         </td>
@@ -64,7 +66,7 @@ export default {
     },
     filters: {
         moment: function (date) {
-        return moment(date).format('MMMM D, YYYY, h:mm a');
+        return moment(date).format('MMMM D, YYYY');
         }
     },
     async mounted() {

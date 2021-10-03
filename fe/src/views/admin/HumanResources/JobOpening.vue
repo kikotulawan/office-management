@@ -53,7 +53,7 @@
                 ></i>
               </th>
               <th scope="col">Date Posted</th>
-              <th scope="col">Apply Until</th>
+              <th scope="col">Open Until</th>
               <th scope="col">Salary</th>
               <th scope="col">Action</th>
             </tr>
@@ -454,7 +454,6 @@
             v-model="data.job_opening_expiration"
             type="date"
             class="form-control shadow-none"
-            :disabled="isHomebased"
           />
         </div>
       </div>
