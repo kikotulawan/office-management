@@ -239,7 +239,6 @@
                   "
                 ></i>
               </th>
-              <th scope="col">Screening Result</th>
               <th scope="col">Assigned Interviewer</th>
               <th scope="col">Interview Date</th>
               <th scope="col"></th>
@@ -249,7 +248,6 @@
             <tr>
               <td scope="row">1</td>
               <td>Ezikiel Pura Tulawan</td>
-              <td><label class="badge bg-success">PASSED</label></td>
               <td>Yvan Sabay</td>
               <td>October 4, 2021</td>
               <td class="text-nowrap">
