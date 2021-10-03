@@ -63,7 +63,9 @@
               <td scope="row">{{ jobopening.from + i }}</td>
               <td class="text-nowrap">{{ job.job_title }}</td>
               <td>{{ job.created_at | moment }}</td>
-              <td class="text-danger">{{ job.job_opening_expiration | moment }}</td>
+              <td class="text-danger">
+                {{ job.job_opening_expiration | moment }}
+              </td>
               <td>PHP {{ job.job_salary_from }} - {{ job.job_salary_to }}</td>
               <td>
                 <a
@@ -82,7 +84,7 @@
                   @click.prevent="
                     data = { ...job };
                     $bvModal.show('viewJobOpeningModal');
-                    "
+                  "
                 >
                   <i class="bi bi-eye-fill"></i>
                 </a>
@@ -249,6 +251,7 @@
           <div class="form-check">
             <input
               v-model="isHomebased"
+              v-on:click="isHomebasedChecked"
               class="form-check-input shadow-none"
               type="checkbox"
               id="flexCheckDefault"
@@ -268,18 +271,27 @@
             v-model="data.job_opening_expiration"
             type="date"
             class="form-control shadow-none"
-            :disabled="isHomebased"
           />
         </div>
       </div>
       <template #modal-footer="{ cancel }">
-      <b-button size="sm" variant="secondary" @click="cancel()" :disabled="isLoading">
-        Cancel
-      </b-button>
-      <b-button size="sm" variant="primary" @click="saveJobOpening" :disabled="isLoading">
-        Post Job
-      </b-button>
-    </template>
+        <b-button
+          size="sm"
+          variant="secondary"
+          @click="cancel()"
+          :disabled="isLoading"
+        >
+          Cancel
+        </b-button>
+        <b-button
+          size="sm"
+          variant="primary"
+          @click="saveJobOpening"
+          :disabled="isLoading"
+        >
+          Post Job
+        </b-button>
+      </template>
     </b-modal>
 
     <b-modal
@@ -469,7 +481,7 @@
       <div class="row">
         <div class="col-12">
           <p class="text-primary fw-bold"><small>Job Title</small></p>
-          <p class="mt-1">{{data.job_title}}</p>
+          <p class="mt-1">{{ data.job_title }}</p>
         </div>
       </div>
       <div class="row mt-3">
@@ -481,49 +493,53 @@
       <div class="row mt-3">
         <div class="col-12">
           <p class="text-primary fw-bold"><small>Job Requirements</small></p>
-           <div v-html="data.job_requirements"></div>
+          <div v-html="data.job_requirements"></div>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-12">
           <p class="text-primary fw-bold"><small>Salary Range</small></p>
-          <p class="mt-1">PHP {{data.job_salary_from}} - {{data.job_salary_to}}</p>
+          <p class="mt-1">
+            PHP {{ data.job_salary_from }} - {{ data.job_salary_to }}
+          </p>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-12">
           <p class="text-primary fw-bold"><small>Job Type</small></p>
-          <p class="mt-1">{{data.job_type}}</p>
+          <p class="mt-1">{{ data.job_type }}</p>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-12">
-          <p class="text-primary fw-bold"><small>Min. Work Experience</small></p>
-          <p class="mt-1">{{data.job_min_experience}}</p>
+          <p class="text-primary fw-bold">
+            <small>Min. Work Experience</small>
+          </p>
+          <p class="mt-1">{{ data.job_min_experience }}</p>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-12">
           <p class="text-primary fw-bold"><small>Min. Qualification</small></p>
-          <p class="mt-1">{{data.job_min_qualification}}</p>
+          <p class="mt-1">{{ data.job_min_qualification }}</p>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-12">
           <p class="text-primary fw-bold"><small>Skills</small></p>
-           <div v-html="data.job_skills"></div>
+          <div v-html="data.job_skills"></div>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-12">
           <p class="text-primary fw-bold"><small>Work Location</small></p>
-          <p class="mt-1">{{data.job_work_location}}</p>
+          <p class="mt-1">{{ data.job_work_location }}</p>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-12">
           <p class="text-danger fw-bold"><small>Apply Until</small></p>
-          <p class="mt-1">{{data.job_opening_expiration | moment}}</p>
+          <p class="mt-1">{{ data.job_opening_expiration | moment }}</p>
         </div>
       </div>
       <template #modal-footer="{cancel}">
@@ -538,9 +554,9 @@
 import { mapState } from "vuex";
 import { VueEditor } from "vue2-editor";
 import moment from "moment";
-export default { 
+export default {
   components: {
-    VueEditor
+    VueEditor,
   },
   data() {
     return {
@@ -562,7 +578,7 @@ export default {
       customToolbar: [
         ["bold", "italic", "underline"],
         [{ list: "ordered" }, { list: "bullet" }],
-        ["image", "code-block"]
+        ["image", "code-block"],
       ],
       sort: "asc",
       modalId: "",
@@ -678,6 +694,13 @@ export default {
         (this.data.job_work_location = ""),
         (this.data.job_opening_expiration = ""),
         this.$bvModal.hide(this.modalId);
+    },
+    isHomebasedChecked() {
+      if (this.isHomebased == false) {
+        this.data.job_work_location = "Home-based";
+      } else {
+        this.data.job_work_location = "";
+      }
     },
   },
   watch: {
