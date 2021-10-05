@@ -25,7 +25,7 @@ class CreateJobOpeningsTable extends Migration
             $table->string('job_salary_from');
             $table->string('job_salary_to');
             $table->string('job_work_location');
-            $table->string('job_opening_expiration');
+            $table->timestamp('job_opening_expiration');
             $table->timestamps();
         });
     }

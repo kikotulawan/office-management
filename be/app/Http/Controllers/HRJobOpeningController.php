@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\JobOpeningRequest;
 use App\Models\JobOpening;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class HRJobOpeningController extends Controller
 {
