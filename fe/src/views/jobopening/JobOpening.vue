@@ -33,15 +33,15 @@
        </section>
        <section class="container">
            <h4 class="text-center text-uppercase mt-5">Available Jobs</h4>
-           <p class="text-center">There are 15 total of jobs available</p>
+           <p class="text-center">There are {{jobs.total}} total of jobs available</p>
            <div class="row mt-4 mb-5 justify-content-center">
                <div class="col-10 col-sm-10 col-md-6 col-lg-6">
                    <div v-for="(job, i) in jobs.data" :key="i" class="card border-job p-4 mt-3">
                        <h5>{{job.job_title}}</h5>
                        <small>Posted on: {{job.created_at | moment}}</small>
                        <small>Salary: Php {{ job.job_salary_from }} - {{ job.job_salary_to }}</small>
-                       <small class="mt-3">Description: <span v-html="job.job_description"></span></small>
-                       <small class="mt-3">Apply Until: {{job.job_opening_expiration | moment}}</small>
+                       <small class="mt-3 fw-bold">Description: <span class="fw-normal" v-html="job.job_description"></span></small>
+                       <small class="mt-3"><span class="text-danger">Apply Until: </span>{{job.job_opening_expiration | moment}}</small>
                        <div class="d-block mt-4">
                         <button class="btn btn-primary btn-sm" v-on:click.prevent="applyJob">Apply Now</button>
                        </div>
