@@ -74,6 +74,11 @@
                     <input v-model.trim="$v.data.emergency_contact_person.$model" class="shadow-none form-control" type="text" :class="{ 'form-input--error': $v.data.emergency_contact_person.$error }">
                     <label class="mt-1" :class="{ 'form-input-label--error': $v.data.birthday.$error }">Birthday</label>
                     <input v-model.trim="$v.data.birthday.$model" class="shadow-none form-control" type="date" :class="{ 'form-input--error': $v.data.birthday.$error }">
+                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.gender.$error }">Birthday</label>
+                    <select v-model="$v.data.gender.$model" class="shadow-none form-select" :class="{ 'form-input--error': $v.data.gender.$error }">
+                       <option value="Male">Male</option>
+                       <option value="Female">Female</option>
+                    </select>
                 </div>
                 <div class="col-6">
                     <label class="">Middle Name</label>
@@ -228,6 +233,7 @@ export default {
                 first_name: '',
                 middle_name: '',
                 last_name: '',
+                gender: '',
                 contact_number: '',
                 address: '',
                 birthday: '',
@@ -292,6 +298,9 @@ export default {
             wage: {
                 required, numeric
             },
+            gender: {
+                required
+            },
             overtime: {
                 required, numeric
             },
@@ -325,6 +334,7 @@ export default {
         }
     },
     async mounted() {
+        this.initialLoading = true
         document.title = "Human Resource - Employee"
         await this.$store.dispatch('auth/checkUser')
         await this.$store.dispatch('branches/allBranches')
@@ -332,7 +342,12 @@ export default {
         await this.$store.dispatch('policies/allOverTimePolicy')
         await this.$store.dispatch('policies/allPolicy')
         await this.$store.dispatch('position/allPositions')
-        this.initialLoading = true
+        this.$root.$on('bv::modal::show', (modalId) => {
+            this.modalId = modalId.componentId
+        })
+        this.$root.$on('bv::modal::hide', (modalId) => {
+
+        })
         this.initialLoading = false
     },
     computed: {
@@ -342,13 +357,19 @@ export default {
         ...mapState('policies', ['allovertimepolicies', 'allpolicies']),
     },
     methods: {
-        saveEmployee(){
+        async saveEmployee(){
             this.$v.$touch()
             if(this.$v.$invalid) {
                 this.$toast.error('Error! Required Fields are empty!')
                 return
             }
-            console.log('has proceeded')
+
+            this.isLoading = true
+            const { data, status } = await this.$store.dispatch('employees/saveEmployee', this.data)
+            this.checkStatus(data, status, '','employees/getEmployees');
+        },
+        closeModal(){
+           this.$bvModal.hide(this.modalId)
         }
     },
     watch: {

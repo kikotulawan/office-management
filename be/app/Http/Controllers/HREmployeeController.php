@@ -17,6 +17,10 @@ class HREmployeeController extends Controller
         $this->middleware('auth:admin');
     }
 
+    public function index(){
+        return response()->json(Employee::paginate(8));
+    }
+
     public function store(EmployeeRequest $request){
         $empModule = $this->storeEmployeeModule($request);
         $empInfo = $this->storeEmployeeInfo($request);
@@ -24,7 +28,7 @@ class HREmployeeController extends Controller
 
         Employee::create([
             'email' => $request->email,
-            'password' => Hash::create($request->password),
+            'password' => Hash::make($request->password),
             'employee_info_id' => $empInfo->id,
             'employee_employment_info_id' => $empEmploymentInfo->id,
             'employee_module_id' => $empModule->id
@@ -58,6 +62,7 @@ class HREmployeeController extends Controller
             'birthday' => $data->birthday,
             'emergency_contact_person' => $data->emergency_contact_person,
             'emergency_contact_number' => $data->emergency_contact_number,
+            'image' => $data->image
         ]);
 
         return $employeeInfo;
@@ -70,7 +75,7 @@ class HREmployeeController extends Controller
             'overtime' => $data->overtime,
             'regular_holiday_rate' => $data->regular_holiday_rate,
             'holiday' => $data->holiday,
-            'position' => $data->position,
+            'position_id' => $data->position_id,
             'status' => $data->status,
             'work_policy_id' => $data->work_policy_id,
             'over_time_policy_id' => $data->over_time_policy_id,
