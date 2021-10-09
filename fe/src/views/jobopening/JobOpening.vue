@@ -11,7 +11,7 @@
                        <a class="" href="">About</a>
                    </li>
                    <li>
-                       <a class="job-login-btn" href="Login">Login Account</a>
+                       <router-link class="job-login-btn text-light" to="/">Login Account</router-link>
                    </li>
                </ul>
            </div>
@@ -36,12 +36,12 @@
            <p class="text-center">There are 15 total of jobs available</p>
            <div class="row mt-4 mb-5 justify-content-center">
                <div class="col-10 col-sm-10 col-md-6 col-lg-6">
-                   <div class="card border-job p-4">
-                       <h5>Senior Software Engineer</h5>
-                       <small>Posted on: Septemer 23, 2021</small>
-                       <small>Salary: Php 23,000</small>
-                       <small class="mt-3">Description: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium iste soluta ad vel quis reprehenderit! Qui quis sequi blanditiis.</small>
-                       <small class="mt-3">Apply Until: November 23, 2021</small>
+                   <div v-for="(job, i) in jobs.data" :key="i" class="card border-job p-4 mt-3">
+                       <h5>{{job.job_title}}</h5>
+                       <small>Posted on: {{job.created_at | moment}}</small>
+                       <small>Salary: Php {{ job.job_salary_from }} - {{ job.job_salary_to }}</small>
+                       <small class="mt-3">Description: <span v-html="job.job_description"></span></small>
+                       <small class="mt-3">Apply Until: {{job.job_opening_expiration | moment}}</small>
                        <div class="d-block mt-4">
                         <button class="btn btn-primary btn-sm" v-on:click.prevent="applyJob">Apply Now</button>
                        </div>
