@@ -295,14 +295,14 @@
           v-model="data.grace_period"
           class="form-control"
           placeholder="per minute"
-          type="text"
+          type="number"
         />
         <label class="mt-1">Deducted Hours</label>
         <input
           v-model="data.deducted_hours"
           class="form-control"
           placeholder="per hour"
-          type="text"
+          type="number"
         />
       </form>
       <template #modal-footer="{ cancel }">

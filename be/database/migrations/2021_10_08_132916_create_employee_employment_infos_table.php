@@ -17,9 +17,9 @@ class CreateEmployeeEmploymentInfosTable extends Migration
             $table->id();
             $table->string('date_hired', 30);
             $table->string('wage', 30);
-            $table->string('overtime', 30);
+            $table->string('overtime_rate', 30);
             $table->string('regular_holiday_rate', 30);
-            $table->string('holiday', 30);
+            $table->string('holiday_rate', 30);
             $table->foreignId('position_id')->constrained()->onDelete('cascade');
             $table->string('status', 20);
             $table->foreignId('work_policy_id')->constrained()->onDelete('cascade');

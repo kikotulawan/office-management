@@ -23,7 +23,7 @@
                         <thead>
                             <tr>
                             <th scope="col">ID</th>
-                            <th scope="col" class="cursor-pointer text-nowrap" v-on:click.prevent="sort = sort == 'asc' ? 'desc' : 'asc'">Name <i class="bi" :class="sort == 'asc' ? 'bi-arrow-up-short' : 'bi-arrow-down-short'"></i></th>
+                            <th scope="col" class="cursor-pointer text-nowrap" v-on:click.prevent="sort = sort == 'asc' ? 'desc' : 'asc'">Employee <i class="bi" :class="sort == 'asc' ? 'bi-arrow-up-short' : 'bi-arrow-down-short'"></i></th>
                             <th scope="col">Branch</th>
                             <th scope="col">Wage</th>
                             <th scope="col" class="text-nowrap">Regular Holiday</th>
@@ -34,18 +34,34 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td scope="row"></td>
-                                <td scope="row"></td>
-                                <td scope="row"></td>
-                                <td scope="row"></td>
-                                <td scope="row"></td>
-                                <td scope="row"></td>
-                                <td scope="row"></td>
-                                <td scope="row" class="text-nowrap"></td>
+                            <tr v-for="(emp, i) in employees.data" :key="i">
+                                <td scope="row">{{employees.from + i}}</td>
+                                <td scope="row" class="text-nowrap">
+                                    <div class="d-flex flex-column">
+                                        {{emp.info.first_name}}{{emp.info.last_name}}
+                                        <small>{{emp.email}}</small>
+                                    </div>
+                                </td>
+                                <td scope="row" class="text-nowrap">{{emp.employment.branch.name}}</td>
+                                <td scope="row" class="text-nowrap">{{formatCurrency(emp.employment.wage)}}</td>
+                                <td scope="row" class="text-nowrap">{{formatCurrency(emp.employment.regular_holiday_rate)}}</td>
+                                <td scope="row" class="text-nowrap">{{formatCurrency(emp.employment.holiday_rate)}}</td>
+                                <td scope="row">{{formatCurrency(emp.employment.overtime_rate)}}</td>
+                                <td scope="row" class="text-nowrap">
+                                    <div class="d-flex flex-column">
+                                        <p class="cursor-pointer text-primary" v-b-tooltip.hover title="View Info">{{emp.employment.workpolicy.policy_name}}<span class="text-dark">/</span></p>
+                                        <p class="cursor-pointer text-primary" v-b-tooltip.hover title="View Info">{{emp.employment.overtime.name}}</p>
+                                    </div>
+                                </td>
                                 <td class="text-nowrap">
-                                    <a href="" class="btn btn-secondary btn-sm rounded-pill shadow-none">
+                                    <a href="" class="btn btn-success btn-sm rounded-pill shadow-none me-2">
+                                        <i class="bi bi-arrows-angle-expand"></i>
+                                    </a>
+                                    <a href="" class="btn btn-primary btn-sm rounded-pill shadow-none me-2">
                                         <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a href="" class="btn btn-danger btn-sm rounded-pill shadow-none ">
+                                        <i class="bi bi-trash"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -337,6 +353,7 @@ export default {
         this.initialLoading = true
         document.title = "Human Resource - Employee"
         await this.$store.dispatch('auth/checkUser')
+        await this.$store.dispatch('employees/getEmployees', {page: 1, sort: this.sort})
         await this.$store.dispatch('branches/allBranches')
         await this.$store.dispatch('departments/allDepartments')
         await this.$store.dispatch('policies/allOverTimePolicy')
@@ -351,6 +368,7 @@ export default {
         this.initialLoading = false
     },
     computed: {
+        ...mapState('employees', ['employees']),
         ...mapState('branches', ['allbranches']),
         ...mapState('departments', ['alldepartments']),
         ...mapState('position', ['allpositions']),

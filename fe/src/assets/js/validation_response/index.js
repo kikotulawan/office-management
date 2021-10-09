@@ -7,6 +7,13 @@ export default {
         }
     },
     methods: {
+        formatCurrency(data){
+            var formatter = new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'PHP',
+            });
+            return formatter.format(data);
+         },
         async checkStatus(data, status, type, dispatch, config) {
             if (status == 422) {
                 this.UnprocEntity(data)

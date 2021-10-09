@@ -18,7 +18,15 @@ class HREmployeeController extends Controller
     }
 
     public function index(){
-        return response()->json(Employee::paginate(8));
+        return response()->json(Employee::with([
+            'info', 
+            'employment', 
+            'employment.branch:id,name', 
+            'employment.overtime:id,name', 
+            'employment.position:id,name', 
+            'employment.workpolicy:id,policy_name', 
+            'modules'
+            ])->paginate(8));
     }
 
     public function store(EmployeeRequest $request){
@@ -72,9 +80,9 @@ class HREmployeeController extends Controller
         $employeeEmploymentInfo = EmployeeEmploymentInfo::create([
             'date_hired' => $data->date_hired,
             'wage' => $data->wage,
-            'overtime' => $data->overtime,
+            'overtime_rate' => $data->overtime,
             'regular_holiday_rate' => $data->regular_holiday_rate,
-            'holiday' => $data->holiday,
+            'holiday_rate' => $data->holiday,
             'position_id' => $data->position_id,
             'status' => $data->status,
             'work_policy_id' => $data->work_policy_id,
