@@ -13,6 +13,10 @@ class HRPositionController extends Controller
         $this->middleware('auth:admin');
     }
 
+    public function allPositions(){
+        return response()->json(Position::get(['id','name']));
+    }
+
     public function index(Request $request){
         return response()->json(Position::orderBy('name', $request->sort)->paginate(8));
     }

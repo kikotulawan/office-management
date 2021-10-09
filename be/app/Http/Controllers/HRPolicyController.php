@@ -9,6 +9,15 @@ use Illuminate\Http\Request;
 
 class HRPolicyController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
+    public function allWorkPolicy(){
+        return response()->json(WorkPolicy::get(['id', 'policy_name']));
+    }
+
     public function index(Request $request){
         return response()->json(WorkPolicy::with(['policydays:id,work_policies_id,day,time_start,time_end'])->orderBy('policy_name', $request->sort)->paginate(8));
     }

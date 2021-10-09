@@ -14,6 +14,10 @@ class HROverTimePolicyController extends Controller
         $this->middleware('auth:admin');
     }
 
+    public function allOverTimePolicy(){
+        return response()->json(OverTimePolicy::get(['id','name']));
+    }
+
     public function index(Request $request){
         return response()->json(OverTimePolicy::orderBy('name', $request->sort)->paginate(8));
     }

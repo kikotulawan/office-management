@@ -4,7 +4,9 @@ export default {
   namespaced: true,
   state: {
     policies: [],
+    allpolicies: [],
     overtimepolicies: [],
+    allovertimepolicies: [],
   },
   getters: {
    
@@ -13,8 +15,14 @@ export default {
     SET_POLICIES(state, data){
       state.policies = data
     },
+    SET_ALL_POLICIES(state, data){
+      state.allpolicies = data
+    },
     SET_OVERTIME_POLICIES(state, data){
       state.overtimepolicies = data
+    },
+    SET_ALL_OVERTIME(state, data){
+      state.allovertimepolicies = data
     },
     UPDATE_POLICY(state, data) {
       for(let i = 0; i < state.policies.data.length; i++){
@@ -26,6 +34,16 @@ export default {
     }
   },
   actions: {
+    async allPolicy({commit}){
+      const res = await API.get('/admin/policy/allPolicy').then(res => {
+        commit('SET_ALL_POLICIES', res.data)
+        return res;
+      }).catch(err => {
+        return err.response
+      })
+
+      return res;
+    },
     async savePolicy({commit}, payload){
       const res = await API.post('/admin/policy', payload).then(res => {
         return res;
@@ -66,6 +84,16 @@ export default {
     },
 
     /* OVERTIME POLICY */
+    async allOverTimePolicy({commit}){
+      const res = await API.get('/admin/overtime/allOvertime').then(res => {
+        commit('SET_ALL_OVERTIME', res.data)
+        return res;
+      }).catch(err => {
+        return err.response
+      })
+
+      return res;
+    },
     async getOverTimePolicies({commit}, {page, sort}){
       const res = await API.get(`/admin/overtime?page=${page}&sort=${sort}`).then(res => {
         commit('SET_OVERTIME_POLICIES', res.data)

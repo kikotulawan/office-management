@@ -17,39 +17,41 @@
                 class="mt-4"
                 v-if="initialLoading"
                 ></b-skeleton-table>
-                <table class="table table-striped table-hover mt-4" v-else>
-                    <caption>Showing to of data</caption>
-                    <thead>
-                        <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col" class="cursor-pointer" v-on:click.prevent="sort = sort == 'asc' ? 'desc' : 'asc'">Name <i class="bi" :class="sort == 'asc' ? 'bi-arrow-up-short' : 'bi-arrow-down-short'"></i></th>
-                        <th scope="col">Branch</th>
-                        <th scope="col">Wage</th>
-                        <th scope="col">Regular Holiday</th>
-                        <th scope="col">Special Holiday</th>
-                        <th scope="col">Overtime</th>
-                        <th scope="col">Policies</th>
-                        <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td scope="row"></td>
-                            <td scope="row"></td>
-                            <td scope="row"></td>
-                            <td scope="row"></td>
-                            <td scope="row"></td>
-                            <td scope="row"></td>
-                            <td scope="row"></td>
-                            <td scope="row"></td>
-                            <td>
-                                <a href="" class="btn btn-secondary btn-sm rounded-pill shadow-none">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive" v-else>
+                    <table class="table table-striped table-hover mt-4" >
+                        <caption>Showing to of data</caption>
+                        <thead>
+                            <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col" class="cursor-pointer text-nowrap" v-on:click.prevent="sort = sort == 'asc' ? 'desc' : 'asc'">Name <i class="bi" :class="sort == 'asc' ? 'bi-arrow-up-short' : 'bi-arrow-down-short'"></i></th>
+                            <th scope="col">Branch</th>
+                            <th scope="col">Wage</th>
+                            <th scope="col" class="text-nowrap">Regular Holiday</th>
+                            <th scope="col" class="text-nowrap">Special Holiday</th>
+                            <th scope="col">Overtime</th>
+                            <th scope="col">Policies</th>
+                            <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td scope="row"></td>
+                                <td scope="row"></td>
+                                <td scope="row"></td>
+                                <td scope="row"></td>
+                                <td scope="row"></td>
+                                <td scope="row"></td>
+                                <td scope="row"></td>
+                                <td scope="row" class="text-nowrap"></td>
+                                <td class="text-nowrap">
+                                    <a href="" class="btn btn-secondary btn-sm rounded-pill shadow-none">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             <!-- <div class="row mt-3">
               <pagination :showDisabled="true" :align="'right'" :data="branches" @pagination-change-page="getBranches">
                 <span slot="prev-nav">&laquo;</span>
@@ -95,15 +97,15 @@
                     <input v-model.number="$v.data.holiday.$model" class="shadow-none form-control" type="number" :class="{ 'form-input--error': $v.data.holiday.$error }">
                     <label class="mt-1" :class="{ 'form-input-label--error': $v.data.position_id.$error }">Position</label>
                     <select v-model="$v.data.position_id.$model" class="shadow-none form-select" :class="{ 'form-input--error': $v.data.position_id.$error }">
-                        <option>Option</option>
+                      <option v-for="(position, i) in allpositions" :key="i" :value="position.id">{{position.name}}</option>
                     </select>
                     <label class="mt-1" :class="{ 'form-input-label--error': $v.data.work_policy_id.$error }">Work Policy Group</label>
                     <select v-model="$v.data.work_policy_id.$model" class="shadow-none form-select" :class="{ 'form-input--error': $v.data.work_policy_id.$error }">
-                        <option>Option</option>
+                      <option v-for="(policy, i) in allpolicies" :key="i" :value="policy.id">{{policy.policy_name}}</option>
                     </select>
                     <label class="mt-1" :class="{ 'form-input-label--error': $v.data.supervisor_id.$error }">Supervisor</label>
                     <select v-model="$v.data.supervisor_id.$model" class="shadow-none form-select" :class="{ 'form-input--error': $v.data.supervisor_id.$error }">
-                        <option>Option</option>
+                       <option value="1">Administrator</option>
                     </select>
                 </div>
                 <div class="col-6">
@@ -114,27 +116,31 @@
                     <label class="mt-1" :class="{ 'form-input-label--error': $v.data.status.$error }">Status</label>
                     <select v-model="$v.data.status.$model" class="shadow-none form-select" :class="{ 'form-input--error': $v.data.status.$error }">
                         <option disabled>Select Status</option>
-                        <option>Active</option>
-                        <option>Inactive</option>
-                        <option>Terminated</option>
-                        <option>Resigned</option>
-                        <option>Retired</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                        <option value="Terminated">Terminated</option>
+                        <option value="Resigned">Resigned</option>
+                        <option value="Retired">Retired</option>
                     </select>
                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.over_time_policy_id.$error }">Overtime Policy</label>
                     <select v-model="$v.data.over_time_policy_id.$model" class="shadow-none form-select" :class="{ 'form-input--error': $v.data.over_time_policy_id.$error }">
-                        <option>Option</option>
+                      <option v-for="(overtime, i) in allovertimepolicies" :key="i" :value="overtime.id">{{overtime.name}}</option>
                     </select>
                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.branch_id.$error }">Branch</label>
-                    <select v-model="$v.data.branch_id.$model" class="shadow-none form-select" :class="{ 'form-input--error': $v.data.branch_id.$error }">
-                        <option>Option</option>
-                    </select>
+                   <select v-model="$v.data.branch_id.$model" class="shadow-none form-select" :class="{ 'form-input--error': $v.data.branch_id.$error }">
+                        <option v-for="(branch, i) in allbranches" :key="i" :value="branch.id">{{branch.name}}</option>
+                   </select>
+                   <label class="mt-1" :class="{ 'form-input-label--error': $v.data.department_id.$error }">Department</label>
+                   <select v-model="$v.data.department_id.$model" class="shadow-none form-select" :class="{ 'form-input--error': $v.data.department_id.$error }">
+                     <option v-for="(department, i) in alldepartments" :key="i" :value="department.id">{{department.name}}</option>
+                   </select>
                 </div>
             </div>
             <h5 class="mb-2 mt-4">Account Credentials</h5>
             <div class="row">
                 <div class="col-6">
                     <label class="mt-1" :class="{ 'form-input-label--error': $v.data.email.$error }">Email Address</label>
-                    <input v-model="$v.data.email.$model" class="shadow-none form-control" type="text" :class="{ 'form-input--error': $v.data.email.$error }">
+                    <input v-model="$v.data.email.$model" class="shadow-none form-control" type="email" :class="{ 'form-input--error': $v.data.email.$error }">
                     <small v-if="!$v.data.email.email" :class="{ 'form-input-label--error': $v.data.email.$error }">Must be a valid email</small>
                 </div>
                 <div class="col-6">
@@ -192,8 +198,8 @@
              <h5 class="mb-2 mt-4">Account Type</h5>
              <div class="d-flex">
                 <div class="form-check">
-                  <input class="form-check-input" v-model="data.is_admin" type="checkbox" id="workModules" >
-                  <label class="form-check-label" for="workModules">
+                  <input class="form-check-input" v-model="data.is_admin" type="checkbox" id="isAdmin" >
+                  <label class="form-check-label" for="isAdmin">
                     Admin
                   </label>
                 </div>
@@ -210,8 +216,8 @@
     </div>
 </template>
 <script>
-import { required, email, maxLength, numeric } from 'vuelidate/lib/validators';
-
+import { required, email, numeric } from 'vuelidate/lib/validators';
+import { mapState } from 'vuex';
 export default {
     data(){
         return {
@@ -238,6 +244,7 @@ export default {
                 status: '',
                 work_policy_id: '',
                 branch_id: '',
+                department_id: '',
                 over_time_policy_id: '',
                 work_module: false,
                 human_resource: false,
@@ -294,6 +301,9 @@ export default {
             holiday: {
                 required, numeric
             },
+            department_id: {
+                required
+            },
             supervisor_id: {
                 required
             },
@@ -316,11 +326,20 @@ export default {
     },
     async mounted() {
         document.title = "Human Resource - Employee"
+        await this.$store.dispatch('auth/checkUser')
+        await this.$store.dispatch('branches/allBranches')
+        await this.$store.dispatch('departments/allDepartments')
+        await this.$store.dispatch('policies/allOverTimePolicy')
+        await this.$store.dispatch('policies/allPolicy')
+        await this.$store.dispatch('position/allPositions')
         this.initialLoading = true
         this.initialLoading = false
     },
     computed: {
-
+        ...mapState('branches', ['allbranches']),
+        ...mapState('departments', ['alldepartments']),
+        ...mapState('position', ['allpositions']),
+        ...mapState('policies', ['allovertimepolicies', 'allpolicies']),
     },
     methods: {
         saveEmployee(){

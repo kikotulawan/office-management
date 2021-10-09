@@ -3,7 +3,12 @@ import API from '../../base/'
 export default {
   namespaced: true,
   state: {
-    user: [],
+    user: {
+      admininfo: {
+        first_name: '',
+        last_name: '',
+      }
+    },
     userinfo: [],
     useraccount: [],
     signup: '',

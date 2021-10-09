@@ -13,6 +13,10 @@ class HRDepartmentController extends Controller
         $this->middleware('auth:admin');
     }
 
+    public function allDepartments(){
+        return response()->json(Department::get(['id', 'name']));
+    }
+
     public function index(Request $request){
         return response()->json(Department::orderBy('name', $request->sort)->paginate(8));
     }

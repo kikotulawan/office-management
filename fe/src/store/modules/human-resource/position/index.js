@@ -4,6 +4,7 @@ export default {
   namespaced: true,
   state: {
     positions: [],
+    allpositions: [],
   },
   getters: {
    
@@ -11,6 +12,9 @@ export default {
   mutations: {
     SET_POSITIONS(state, data){
       state.positions = data
+    },
+    SET_ALL_POSITIONS(state, data){
+      state.allpositions = data
     },
     UPDATE_POSITION(state, data) {
       for(let i = 0; i < state.positions.data.length; i++){
@@ -22,6 +26,16 @@ export default {
     }
   },
   actions: {
+    async allPositions({commit}){
+      const res = await API.get(`/admin/position/allPositions`).then(res => {
+        commit('SET_ALL_POSITIONS', res.data)
+        return res;
+      }).catch(err => {
+        return err.response
+      })
+  
+      return res;
+    },
     async savePosition({commit}, payload){
       const res = await API.post('/admin/position', payload).then(res => {
         return res;

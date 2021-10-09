@@ -4,6 +4,7 @@ export default {
   namespaced: true,
   state: {
     branches: [],
+    allbranches: [],
   },
   getters: {
    
@@ -11,6 +12,9 @@ export default {
   mutations: {
     SET_BRANCHES(state, data){
       state.branches = data
+    },
+    SET_ALL_BRANCHES(state, data){
+      state.allbranches = data
     },
     UPDATE_BRANCH(state, data) {
       for(let i = 0; i < state.branches.data.length; i++){
@@ -24,6 +28,16 @@ export default {
     }
   },
   actions: {
+    async allBranches({commit}){
+      const res = await API.get('/admin/branch/allBranches').then(res => {
+        commit('SET_ALL_BRANCHES', res.data);
+        return res;
+      }).catch(err => {
+        return err.response
+      })
+
+      return res;
+    },
     async saveBranch({commit}, payload){
       const res = await API.post('/admin/branch', payload).then(res => {
         return res;

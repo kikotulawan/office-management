@@ -13,6 +13,10 @@ class HRBranchController extends Controller
         $this->middleware('auth:admin');
     }
 
+    public function allBranches(){
+        return response()->json(Branch::get(['id', 'name']));
+    }
+
     public function index(Request $request){
         return response()->json(Branch::orderBy('name', $request->sort)->paginate(8));
     }
