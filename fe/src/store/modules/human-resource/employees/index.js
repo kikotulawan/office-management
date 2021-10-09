@@ -43,6 +43,15 @@ export default {
       })
   
       return res;
+    },
+    async deleteEmployee({commit}, payload){
+      const res = await API.delete(`/admin/employee/${payload.id}`).then(res => {
+        return res;
+      }).catch(err => {
+        return err.response
+      })
+  
+      return res;
     }
 
     /** ADD ACTION ON TOP OF THIS */

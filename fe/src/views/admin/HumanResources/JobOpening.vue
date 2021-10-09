@@ -39,18 +39,9 @@
           <thead>
             <tr>
               <th scope="col">ID</th>
-              <th
-                scope="col"
-                class="cursor-pointer"
-                v-on:click.prevent="sort = sort == 'asc' ? 'desc' : 'asc'"
-              >
+              <th scope="col" class="cursor-pointer" v-on:click.prevent="sort = sort == 'asc' ? 'desc' : 'asc'">
                 Job Title
-                <i
-                  class="bi"
-                  :class="
-                    sort == 'asc' ? 'bi-arrow-up-short' : 'bi-arrow-down-short'
-                  "
-                ></i>
+                <i class="bi" :class="sort == 'asc' ? 'bi-arrow-up-short' : 'bi-arrow-down-short'"></i>
               </th>
               <th scope="col">Date Posted</th>
               <th scope="col">Open Until</th>

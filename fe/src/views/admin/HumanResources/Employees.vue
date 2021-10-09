@@ -10,6 +10,7 @@
                 </div>
                 <button class="btn btn-primary btn-sm shadow-none" @click="$bvModal.show('addEmployeeModal')"> <i class="bi bi-plus"></i>Add Employee</button>
             </div>
+            <h5 class="text-center mt-5"  v-if="employees.data.length == 0 && !initialLoading">No Employees found on the database</h5>
             <b-skeleton-table
                 :rows="7"
                 :columns="6"
@@ -18,8 +19,8 @@
                 v-if="initialLoading"
                 ></b-skeleton-table>
                 <div class="table-responsive" v-else>
-                    <table class="table table-striped table-hover mt-4" >
-                        <caption>Showing to of data</caption>
+                    <table class="table table-striped table-hover mt-4"  v-if="employees.data.length > 0">
+                        <caption>Showing {{employees.from}} to {{employees.to}} of {{employees.total}} data</caption>
                         <thead>
                             <tr>
                             <th scope="col">ID</th>
@@ -29,6 +30,7 @@
                             <th scope="col" class="text-nowrap">Regular Holiday</th>
                             <th scope="col" class="text-nowrap">Special Holiday</th>
                             <th scope="col">Overtime</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Policies</th>
                             <th scope="col">Action</th>
                             </tr>
@@ -47,6 +49,9 @@
                                 <td scope="row" class="text-nowrap">{{formatCurrency(emp.employment.regular_holiday_rate)}}</td>
                                 <td scope="row" class="text-nowrap">{{formatCurrency(emp.employment.holiday_rate)}}</td>
                                 <td scope="row">{{formatCurrency(emp.employment.overtime_rate)}}</td>
+                                <td scope="row">
+                                    <b-badge :variant="checkStatus(emp.employment.status)">{{emp.employment.status}}</b-badge>
+                                </td>
                                 <td scope="row" class="text-nowrap">
                                     <div class="d-flex flex-column">
                                         <p class="cursor-pointer text-primary" v-b-tooltip.hover title="View Info">{{emp.employment.workpolicy.policy_name}}<span class="text-dark">/</span></p>
@@ -60,7 +65,7 @@
                                     <a href="" class="btn btn-primary btn-sm rounded-pill shadow-none me-2">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <a href="" class="btn btn-danger btn-sm rounded-pill shadow-none ">
+                                    <a v-on:click.prevent="delete_data.id = emp.id; $bvModal.show('deleteModal');" href="" class="btn btn-danger btn-sm rounded-pill shadow-none ">
                                         <i class="bi bi-trash"></i>
                                     </a>
                                 </td>
@@ -100,7 +105,7 @@
                     <label class="">Middle Name</label>
                     <input v-model="data.middle_name" class="shadow-none form-control" type="text">
                     <label class="mt-1" :class="{ 'form-input-label--error': $v.data.contact_number.$error }">Contact Number</label>
-                    <input v-model.number="$v.data.contact_number.$model" class="shadow-none form-control" type="number" :class="{ 'form-input--error': $v.data.contact_number.$error }">
+                    <input v-model.number="$v.data.contact_number.$model" class="shadow-none form-control" type="text" :class="{ 'form-input--error': $v.data.contact_number.$error }">
                     <label class="mt-1" :class="{ 'form-input-label--error': $v.data.emergency_contact_number.$error }">Emergency Contact No.</label>
                     <input v-model="$v.data.emergency_contact_number.$model" class="shadow-none form-control" type="number" :class="{ 'form-input--error': $v.data.emergency_contact_number.$error }">
                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.address.$error }">Address</label>
@@ -234,6 +239,16 @@
             </div>
           </form>
         </b-modal>
+
+         <b-modal id="deleteModal" centered title="Confirm Delete">
+            <p>Are you sure you want to delete this employee?</p>
+            <template #modal-footer = {cancel} >
+                <b-button variant="secondary" @click="cancel()" :disabled="isLoading"> Cancel </b-button>
+                <b-button variant="danger" v-on:click.prevent="deleteEmployee" :disabled="isLoading">
+                    Delete
+                </b-button>
+            </template>
+         </b-modal>
     </div>
 </template>
 <script>
@@ -243,6 +258,9 @@ export default {
     data(){
         return {
             sort: 'asc',
+            delete_data: {
+                id: '',
+            },
             data: {
                 email: '',
                 password: '',
@@ -294,7 +312,7 @@ export default {
                 required
             },
             contact_number: {
-                required, numeric
+                required
             },
             emergency_contact_person: {
                 required
@@ -375,6 +393,11 @@ export default {
         ...mapState('policies', ['allovertimepolicies', 'allpolicies']),
     },
     methods: {
+        checkStatus(status){
+            if(status == 'Active') return 'success'
+            if(status == 'Inactive') return 'secondary'
+            if(status == 'Terminated' || status == 'Resigned' || status == 'Retired') return 'danger'
+        },
         async saveEmployee(){
             this.$v.$touch()
             if(this.$v.$invalid) {
@@ -386,7 +409,13 @@ export default {
             const { data, status } = await this.$store.dispatch('employees/saveEmployee', this.data)
             this.checkStatus(data, status, '','employees/getEmployees');
         },
+        async deleteEmployee(){
+            this.isLoading = true
+            const { data, status } = await this.$store.dispatch('employees/deleteEmployee', this.delete_data)
+            this.checkStatus(data, status, '','employees/getEmployees');
+        },
         closeModal(){
+           this.delete_data.id = ''
            this.$bvModal.hide(this.modalId)
         }
     },

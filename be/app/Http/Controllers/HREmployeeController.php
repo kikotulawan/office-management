@@ -92,4 +92,18 @@ class HREmployeeController extends Controller
 
         return $employeeEmploymentInfo;
     }
+
+    public function destroy($id){
+        $employee = Employee::find($id);
+        if($employee){
+            $employee->modules()->delete();
+            $employee->info()->delete();
+            $employee->employment()->delete();
+            $employee->delete();
+            return $this->success('Employee deleted successfully');
+        }
+        else {
+            return $this->error('Something went wrong');
+        }
+    }
 }

@@ -24,7 +24,19 @@ class EmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'first_name' => 'required|bail|max:30',
+            'last_name' => 'required|bail|max:30',
+            'contact_number' => 'required|bail|max:20',
+            'gender' => 'required|bail|max:10',
+            'address' => 'required|bail',
+            'birthday' => 'required|bail',
+            'emergency_contact_person' => 'required|bail',
+            'emergency_contact_number' => 'required|bail',
+            'date_hired' => 'required|bail|max:30',
+            'wage' => 'required|bail|max:30',
+            'overtime_rate' => 'required|bail|max:30',
+            'status' => 'required|bail|max:30',
+            'branches_id' => 'required|bail|exists:branches,id',
         ];
     }
 }

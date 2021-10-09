@@ -24,6 +24,7 @@ class CreateEmployeeInfosTable extends Migration
             $table->string('birthday');
             $table->string('emergency_contact_person');
             $table->string('emergency_contact_number', 20);
+            $table->boolean('isAdmin');
             $table->string('image')->nullable();
             $table->timestamps();
         });
