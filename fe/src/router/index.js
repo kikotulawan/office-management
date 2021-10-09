@@ -2,9 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Login from '../views/auth/Login.vue'
+import ApplicantLogin from '../views/auth/ApplicantLogin.vue'
+import ApplicantRegister from '../views/auth/ApplicantRegister.vue'
+
 import JobPosting from '../views/jobopening/JobOpening.vue'
 import Index from '../views/admin/Index.vue'
 import Dashboard from '../views/admin/Dashboard.vue'
+
 import HumanResources from '../views/admin/HumanResources.vue'
 import Branches from '../views/admin/HumanResources/Branches.vue'
 import Departments from '../views/admin/HumanResources/Departments.vue'
@@ -32,6 +36,16 @@ const routes = [
     path: '/jobs',
     name: 'JobPosting',
     component: JobPosting
+  },
+  {
+    path: '/applicant/login',
+    name: 'ApplicantLogin',
+    component: ApplicantLogin
+  },
+  {
+    path: '/applicant/register',
+    name: 'ApplicantRegister',
+    component: ApplicantRegister
   },
   {
     path: '/home',
