@@ -20,7 +20,7 @@
           <div v-if="registrationStep == 2">
             <label for="login-email" class="form-label"><small>First Name</small></label>
             <div class="input-group mb-2">
-              <input v-model="data.first_name" type="email" class="form-control shadow-none" id="firstname" aria-describedby="basic-addon1" autocomplete="off" autofocus>
+              <input v-model="data.first_name" type="text" class="form-control shadow-none" id="firstname" aria-describedby="basic-addon1" autocomplete="off" autofocus>
             </div>
             <label for="lastname" class="form-label"><small>Last Name</small></label>
             <div class="input-group mb-1">
@@ -88,6 +88,9 @@ export default {
 
         this.$bvModal.show('registrationModal')
       }
+    },
+    async saveApplicant(){
+     this.$bvModal.hide('registrationModal')
     },
     validEmail(){
       let regEx = /^([a-z0-9_\-.])+@([a-z0-9_\-.])+\.([a-z0-9]{2,})$/gi
