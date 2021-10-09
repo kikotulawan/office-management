@@ -9,7 +9,8 @@ import 'vue-file-agent/dist/vue-file-agent.css';
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
 import vresponse from './assets/js/validation_response/index'
-
+import Vuelidate from 'vuelidate'
+Vue.use(Vuelidate)
 
 Vue.use(DatePicker)
 Vue.use(BootstrapVue)

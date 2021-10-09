@@ -59,60 +59,60 @@
          </div>
      </div>
 
-      <b-modal id="addEmployeeModal" size="lg" scrollable centered title="Add Employee">
-          <form ref="branchform" class="p-2">
+      <b-modal id="addEmployeeModal" size="lg" hide-footer scrollable centered title="Add Employee">
+          <form ref="branchform" @submit.prevent="saveEmployee" class="p-2">
             <h5 class="mb-2">Personal Info</h5>
             <div class="row">
                 <div class="col-6">
-                    <label class="">First Name</label>
-                    <input v-model="data.first_name" class="shadow-none form-control" type="text">
-                    <label class="mt-1">Last Name</label>
-                    <input v-model="data.last_name" class="shadow-none form-control" type="text">
-                    <label class="mt-1">Person to Notify of Emergencies</label>
-                    <input v-model="data.emergency_contact_person" class="shadow-none form-control" type="text">
-                    <label class="mt-1">Birthday</label>
-                    <input v-model="data.birthday" class="shadow-none form-control" type="date">
+                    <label class="" :class="{ 'form-input-label--error': $v.data.first_name.$error }">First Name</label>
+                    <input v-model.trim="$v.data.first_name.$model" class="shadow-none form-control" type="text" :class="{ 'form-input--error': $v.data.first_name.$error }">
+                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.last_name.$error }">Last Name</label>
+                    <input v-model.trim="$v.data.last_name.$model" class="shadow-none form-control" type="text" :class="{ 'form-input--error': $v.data.last_name.$error }">
+                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.emergency_contact_person.$error }">Person to Notify of Emergencies</label>
+                    <input v-model.trim="$v.data.emergency_contact_person.$model" class="shadow-none form-control" type="text" :class="{ 'form-input--error': $v.data.emergency_contact_person.$error }">
+                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.birthday.$error }">Birthday</label>
+                    <input v-model.trim="$v.data.birthday.$model" class="shadow-none form-control" type="date" :class="{ 'form-input--error': $v.data.birthday.$error }">
                 </div>
                 <div class="col-6">
                     <label class="">Middle Name</label>
                     <input v-model="data.middle_name" class="shadow-none form-control" type="text">
-                    <label class="mt-1">Contact Number</label>
-                    <input v-model="data.contact_number" class="shadow-none form-control" type="text">
-                    <label class="mt-1">Emergency Contact No.</label>
-                    <input v-model="data.emergency_contact_number" class="shadow-none form-control" type="number">
-                   <label class="mt-1">Address</label>
-                    <textarea v-model="data.address" class="shadow-none form-control" type="text"></textarea>
+                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.contact_number.$error }">Contact Number</label>
+                    <input v-model.number="$v.data.contact_number.$model" class="shadow-none form-control" type="number" :class="{ 'form-input--error': $v.data.contact_number.$error }">
+                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.emergency_contact_number.$error }">Emergency Contact No.</label>
+                    <input v-model="$v.data.emergency_contact_number.$model" class="shadow-none form-control" type="number" :class="{ 'form-input--error': $v.data.emergency_contact_number.$error }">
+                   <label class="mt-1" :class="{ 'form-input-label--error': $v.data.address.$error }">Address</label>
+                    <textarea v-model="$v.data.address.$model" class="shadow-none form-control" type="text" :class="{ 'form-input--error': $v.data.address.$error }"></textarea>
                 </div>
             </div>
             <h5 class="mb-2 mt-3">Employment Info</h5>
             <div class="row">
                 <div class="col-6">
-                    <label class="mt-1">Date Hired</label>
-                    <input v-model="data.date_hired" class="shadow-none form-control" type="date">
-                    <label class="">Wage</label>
-                    <input v-model="data.wage" class="shadow-none form-control" type="number">
-                    <label class="mt-1">Holiday</label>
-                    <input v-model="data.holiday" class="shadow-none form-control" type="number">
-                    <label class="mt-1">Position</label>
-                    <select v-model="data.position_id" class="shadow-none form-select">
+                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.date_hired.$error }">Date Hired</label>
+                    <input v-model.trim="$v.data.date_hired.$model" class="shadow-none form-control" type="date" :class="{ 'form-input--error': $v.data.date_hired.$error }">
+                    <label class="" :class="{ 'form-input-label--error': $v.data.wage.$error }">Wage</label>
+                    <input v-model.number="$v.data.wage.$model" class="shadow-none form-control" type="number" :class="{ 'form-input--error': $v.data.wage.$error }">
+                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.holiday.$error }">Holiday</label>
+                    <input v-model.number="$v.data.holiday.$model" class="shadow-none form-control" type="number" :class="{ 'form-input--error': $v.data.holiday.$error }">
+                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.position_id.$error }">Position</label>
+                    <select v-model="$v.data.position_id.$model" class="shadow-none form-select" :class="{ 'form-input--error': $v.data.position_id.$error }">
                         <option>Option</option>
                     </select>
-                    <label class="mt-1">Work Policy Group</label>
-                    <select v-model="data.work_policy_id" class="shadow-none form-select">
+                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.work_policy_id.$error }">Work Policy Group</label>
+                    <select v-model="$v.data.work_policy_id.$model" class="shadow-none form-select" :class="{ 'form-input--error': $v.data.work_policy_id.$error }">
                         <option>Option</option>
                     </select>
-                    <label class="mt-1">Supervisor</label>
-                    <select v-model="data.supervisor_id" class="shadow-none form-select">
+                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.supervisor_id.$error }">Supervisor</label>
+                    <select v-model="$v.data.supervisor_id.$model" class="shadow-none form-select" :class="{ 'form-input--error': $v.data.supervisor_id.$error }">
                         <option>Option</option>
                     </select>
                 </div>
                 <div class="col-6">
-                    <label class="mt-1">Overtime</label>
-                    <input v-model="data.overtime" class="shadow-none form-control" type="number">
-                    <label class="mt-1">Regular Holiday Rate</label>
-                    <input v-model="data.regular_holiday_rate" class="shadow-none form-control" type="number">
-                    <label class="mt-1">Status</label>
-                    <select v-model="data.status" class="shadow-none form-select">
+                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.overtime.$error }">Overtime</label>
+                    <input v-model="$v.data.overtime.$model" class="shadow-none form-control" type="number" :class="{ 'form-input--error': $v.data.overtime.$error }">
+                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.regular_holiday_rate.$error }">Regular Holiday Rate</label>
+                    <input v-model="$v.data.regular_holiday_rate.$model" class="shadow-none form-control" type="number" :class="{ 'form-input--error': $v.data.regular_holiday_rate.$error }">
+                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.status.$error }">Status</label>
+                    <select v-model="$v.data.status.$model" class="shadow-none form-select" :class="{ 'form-input--error': $v.data.status.$error }">
                         <option disabled>Select Status</option>
                         <option>Active</option>
                         <option>Inactive</option>
@@ -120,12 +120,12 @@
                         <option>Resigned</option>
                         <option>Retired</option>
                     </select>
-                   <label class="mt-1">Overtime Policy</label>
-                    <select v-model="data.over_time_policy_id" class="shadow-none form-select">
+                   <label class="mt-1" :class="{ 'form-input-label--error': $v.data.over_time_policy_id.$error }">Overtime Policy</label>
+                    <select v-model="$v.data.over_time_policy_id.$model" class="shadow-none form-select" :class="{ 'form-input--error': $v.data.over_time_policy_id.$error }">
                         <option>Option</option>
                     </select>
-                   <label class="mt-1">Branch</label>
-                    <select v-model="data.branch_id" class="shadow-none form-select">
+                   <label class="mt-1" :class="{ 'form-input-label--error': $v.data.branch_id.$error }">Branch</label>
+                    <select v-model="$v.data.branch_id.$model" class="shadow-none form-select" :class="{ 'form-input--error': $v.data.branch_id.$error }">
                         <option>Option</option>
                     </select>
                 </div>
@@ -133,12 +133,13 @@
             <h5 class="mb-2 mt-4">Account Credentials</h5>
             <div class="row">
                 <div class="col-6">
-                    <label class="mt-1">Email Address</label>
-                    <input v-model="data.email" class="shadow-none form-control" type="text">
+                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.email.$error }">Email Address</label>
+                    <input v-model="$v.data.email.$model" class="shadow-none form-control" type="text" :class="{ 'form-input--error': $v.data.email.$error }">
+                    <small v-if="!$v.data.email.email" :class="{ 'form-input-label--error': $v.data.email.$error }">Must be a valid email</small>
                 </div>
                 <div class="col-6">
-                    <label class="mt-1">Password</label>
-                    <input v-model="data.password" class="shadow-none form-control" type="password">
+                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.password.$error }">Password</label>
+                    <input v-model="$v.data.password.$model" class="shadow-none form-control" type="password" :class="{ 'form-input--error': $v.data.password.$error }">
                 </div>
             </div>
             <h5 class="mb-2 mt-4">Applicable Modules</h5>
@@ -161,13 +162,12 @@
                     Sales and Marketing
                   </label>
                 </div>
-                 <div class="form-check  ms-3">
+                <div class="form-check ms-3">
                   <input class="form-check-input" v-model="data.purchasing" type="checkbox" id="purchasing" >
                   <label class="form-check-label" for="purchasing">
                     Purchasing
                   </label>
                 </div>
-               
             </div>
             <div class="d-flex mt-1">
                 <div class="form-check">
@@ -189,17 +189,29 @@
                   </label>
                 </div>
             </div>
+             <h5 class="mb-2 mt-4">Account Type</h5>
+             <div class="d-flex">
+                <div class="form-check">
+                  <input class="form-check-input" v-model="data.is_admin" type="checkbox" id="workModules" >
+                  <label class="form-check-label" for="workModules">
+                    Admin
+                  </label>
+                </div>
+            </div>
+            <hr class="mt-4 mb-1"/>
+            <div class="d-flex justify-content-end mt-4 mb-2">
+                <b-button variant="secondary" class="me-2" :disabled="isLoading"> Cancel </b-button>
+                <b-button variant="success" :disabled="isLoading" type="submit">
+                    Save Employee
+                </b-button>
+            </div>
           </form>
-            <template #modal-footer = {cancel} >
-            <b-button variant="secondary" @click="cancel()" :disabled="isLoading"> Cancel </b-button>
-            <b-button variant="success" v-on:click.prevent="saveEmployee" :disabled="isLoading">
-                Save Employee
-            </b-button>
-            </template>
         </b-modal>
     </div>
 </template>
 <script>
+import { required, email, maxLength, numeric } from 'vuelidate/lib/validators';
+
 export default {
     data(){
         return {
@@ -215,13 +227,14 @@ export default {
                 birthday: '',
                 emergency_contact_person: '',
                 emergency_contact_number: '',
+                supervisor_id:'',
                 image: '',
                 date_hired: '',
                 wage: '',
                 overtime: '',
                 regular_holiday_rate: '',
                 holiday: '',
-                position: '',
+                position_id: '',
                 status: '',
                 work_policy_id: '',
                 branch_id: '',
@@ -233,7 +246,72 @@ export default {
                 purchasing: false,
                 corporate_directory: false,
                 project_manager: false,
+                is_admin: false,
             }
+        }
+    },
+    validations:{
+        data: {
+            email: {
+                required, email
+            },
+            password: {
+                required
+            },
+            first_name: {
+                required
+            },
+            last_name: {
+                required
+            },
+            contact_number: {
+                required, numeric
+            },
+            emergency_contact_person: {
+                required
+            },
+            address: {
+                required
+            },
+            birthday: {
+                required
+            },
+            emergency_contact_number: {
+                required
+            },
+            date_hired: {
+                required
+            },
+            wage: {
+                required, numeric
+            },
+            overtime: {
+                required, numeric
+            },
+            regular_holiday_rate: {
+                required
+            },
+            holiday: {
+                required, numeric
+            },
+            supervisor_id: {
+                required
+            },
+            position_id: {
+                required
+            },
+            status: {
+                required
+            },
+            work_policy_id: {
+                required
+            },
+            branch_id: {
+                required
+            },
+            over_time_policy_id: {
+                required
+            },
         }
     },
     async mounted() {
@@ -245,7 +323,14 @@ export default {
 
     },
     methods: {
-
+        saveEmployee(){
+            this.$v.$touch()
+            if(this.$v.$invalid) {
+                this.$toast.error('Error! Required Fields are empty!')
+                return
+            }
+            console.log('has proceeded')
+        }
     },
     watch: {
 
