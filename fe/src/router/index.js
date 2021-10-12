@@ -25,159 +25,154 @@ import JobOpening from '../views/admin/HumanResources/JobOpening.vue'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    name: 'Login',
-    component: Login,
-    meta: { hasUser: true}
-  },
-  {
-    path: '/jobs',
-    name: 'JobPosting',
-    component: JobPosting
-  },
-  {
-    path: '/applicant/login',
-    name: 'ApplicantLogin',
-    component: ApplicantLogin
-  },
-  {
-    path: '/applicant/register',
-    name: 'ApplicantRegister',
-    component: ApplicantRegister
-  },
-  {
-    path: '/home',
-    name: 'Home',
-    component: Index,
-    meta: { isAdmin: true, requiresLogin: true },
-    children: [
-      {
-        path: 'dashboard',
-        name: 'dashboard',
-        components: {
-          dashboard: Dashboard
-        }
-      },
-      {
-        path: 'human-resources', 
-        name: 'humanresources',
-        redirect: '/home/human-resources/branches',
-        components: {
-          humanresources: HumanResources
-        },
-        children: [
-          {
-            path: 'branches', 
-            name: 'branches',
-            components: {
-              branches: Branches
-            }
-          },
-          {
-            path: 'departments',
-            name: 'departments',
-            components: {
-              departments: Departments
-            }
-          },
-          {
-            path: 'positions',
-            name: 'positions',
-            components: {
-              positions: Positions
-            }
-          },
-          {
-            path: 'employees',
-            name: 'employees',
-            components: {
-              employees: Employees
-            }
-          },
-          {
-            path: 'holidays',
-            name: 'holidays',
-            components: {
-              holidays: Holidays
-            }
-          },
-          {
-            path: 'breaks',
-            name: 'breaks',
-            components: {
-              breaks: Breaks
-            }
-          },
-          {
-            path: 'memos',
-            name: 'memos',
-            components: {
-              memos: Memos
-            }
-          },
-          {
-            path: 'policies',
-            name: 'policies',
-            components: {
-              policies: Policies
-            }
-          },
-          {
-            path: 'pay-periods',
-            name: 'payperiods',
-            components: {
-              payperiods: PayPeriods
-            }
-          },
-          {
-            path: 'leaves',
-            name: 'leaves',
-            components: {
-              leaves: Leaves
-            }
-          },
-          {
-            path: 'applicants',
-            name: 'applicants',
-            components: {
-              applicants: Applicants
-            }
-          },
-          {
-            path: 'jobopening',
-            name: 'jobopening',
-            components: {
-              jobopening: JobOpening
-            }
-          },
-        ]
-      },
-      {
+const routes = [{
         path: '/',
-        redirect: {name: 'humanresources'}
-      }
-    ]
-  },
+        name: 'Login',
+        component: Login,
+        meta: { hasUser: true }
+    },
+    {
+        path: '/jobs',
+        name: 'JobPosting',
+        component: JobPosting
+    },
+    {
+        path: '/jobs/applicant/login',
+        name: 'ApplicantLogin',
+        component: ApplicantLogin
+    },
+    {
+        path: '/jobs/applicant/register',
+        name: 'ApplicantRegister',
+        component: ApplicantRegister
+    },
+    {
+        path: '/home',
+        name: 'Home',
+        component: Index,
+        meta: { isAdmin: true, requiresLogin: true },
+        children: [{
+                path: 'dashboard',
+                name: 'dashboard',
+                components: {
+                    dashboard: Dashboard
+                }
+            },
+            {
+                path: 'human-resources',
+                name: 'humanresources',
+                redirect: '/home/human-resources/branches',
+                components: {
+                    humanresources: HumanResources
+                },
+                children: [{
+                        path: 'branches',
+                        name: 'branches',
+                        components: {
+                            branches: Branches
+                        }
+                    },
+                    {
+                        path: 'departments',
+                        name: 'departments',
+                        components: {
+                            departments: Departments
+                        }
+                    },
+                    {
+                        path: 'positions',
+                        name: 'positions',
+                        components: {
+                            positions: Positions
+                        }
+                    },
+                    {
+                        path: 'employees',
+                        name: 'employees',
+                        components: {
+                            employees: Employees
+                        }
+                    },
+                    {
+                        path: 'holidays',
+                        name: 'holidays',
+                        components: {
+                            holidays: Holidays
+                        }
+                    },
+                    {
+                        path: 'breaks',
+                        name: 'breaks',
+                        components: {
+                            breaks: Breaks
+                        }
+                    },
+                    {
+                        path: 'memos',
+                        name: 'memos',
+                        components: {
+                            memos: Memos
+                        }
+                    },
+                    {
+                        path: 'policies',
+                        name: 'policies',
+                        components: {
+                            policies: Policies
+                        }
+                    },
+                    {
+                        path: 'pay-periods',
+                        name: 'payperiods',
+                        components: {
+                            payperiods: PayPeriods
+                        }
+                    },
+                    {
+                        path: 'leaves',
+                        name: 'leaves',
+                        components: {
+                            leaves: Leaves
+                        }
+                    },
+                    {
+                        path: 'applicants',
+                        name: 'applicants',
+                        components: {
+                            applicants: Applicants
+                        }
+                    },
+                    {
+                        path: 'jobopening',
+                        name: 'jobopening',
+                        components: {
+                            jobopening: JobOpening
+                        }
+                    },
+                ]
+            },
+            {
+                path: '/',
+                redirect: { name: 'humanresources' }
+            }
+        ]
+    },
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
 })
 
 router.beforeEach((to, from, next) => {
-	if (to.matched.some((record) => record.meta.requiresLogin) && !localStorage.getItem('auth')){
-    next({name: 'Login'})
-  }
-  else if (to.matched.some((record) => record.meta.hasUser) && localStorage.getItem('auth') && localStorage.getItem('isAdmin')) {
-      next({ name: "dashboard" });
-	} 
-  else {
-		next();
-	}
+    if (to.matched.some((record) => record.meta.requiresLogin) && !localStorage.getItem('auth')) {
+        next({ name: 'Login' })
+    } else if (to.matched.some((record) => record.meta.hasUser) && localStorage.getItem('auth') && localStorage.getItem('isAdmin')) {
+        next({ name: "dashboard" });
+    } else {
+        next();
+    }
 });
 
 export default router

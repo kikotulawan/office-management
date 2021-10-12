@@ -35,7 +35,7 @@
             <button :disabled="isLoading" href="" class="mt-2 btn rounded-3 btn-primary shadow-none" v-on:click.prevent="checkRegistration" >
                 {{registrationStep == 2 ? 'Register' : 'Next'}}
             </button>
-            <small class="text-center mt-2">Already have an account? <router-link class="text-decoration-none" to="/applicant/login">Login</router-link></small>
+            <small class="text-center mt-2">Already have an account? <router-link class="text-decoration-none" to="/jobs/applicant/login">Login</router-link></small>
           </div>
         </div>
       </div>
