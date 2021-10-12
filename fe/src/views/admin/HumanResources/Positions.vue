@@ -10,6 +10,7 @@
                 </div>
                 <button class="btn btn-primary btn-sm" @click="$bvModal.show('addPositionModal')"> <i class="bi bi-plus"></i>Add Position</button>
             </div>
+            <h5 class="text-center mt-5"  v-if="positions.data.length == 0 && !initialLoading">No positions found on the database</h5>
             <b-skeleton-table
                 :rows="5"
                 :columns="4"
@@ -17,7 +18,7 @@
                 class="mt-4"
                 v-if="initialLoading"
                 ></b-skeleton-table>
-            <table class="table table-striped table-hover mt-4" v-else>
+            <table class="table table-striped table-hover mt-4" v-if="positions.data.length > 0">
                 <caption>Showing {{positions.from}} to {{positions.to}} of {{positions.total}} data</caption>
                 <thead>
                     <tr>

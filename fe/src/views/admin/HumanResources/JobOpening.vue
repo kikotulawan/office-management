@@ -20,7 +20,8 @@
             <i class="bi bi-plus"></i>Post a Job
           </button>
         </div>
-        <table class="table table-striped table-hover mt-4">
+            <h5 class="text-center mt-5"  v-if="jobopening.data.length == 0 && !initialLoading">No job opening found on the database</h5>
+        <table class="table table-striped table-hover mt-4" v-if="jobopening.data.length > 0">
           <caption>
             Showing
             {{

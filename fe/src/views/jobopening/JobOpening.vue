@@ -39,7 +39,7 @@
                    <div class="card border-job p-4 mt-3">
                        <h5>{{job.job_title}}</h5>
                        <small>Posted on: {{job.created_at | moment}}</small>
-                       <small>Salary: Php {{ job.job_salary_from }} - {{ job.job_salary_to }}</small>
+                       <small>Salary: Php {{ job.job_salary_from }}k - {{ job.job_salary_to }}k</small>
                        <small class="mt-3 fw-bold">Qualification: <span class="fw-normal" v-html="job.job_min_qualification"></span></small>
                        <small class="mt-3"><span class="text-danger">Apply Until: </span>{{job.job_opening_expiration | moment}}</small>
                        <div class="d-block mt-4">

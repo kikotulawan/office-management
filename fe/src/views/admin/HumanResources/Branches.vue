@@ -10,6 +10,7 @@
                 </div>
                 <button class="btn btn-primary btn-sm shadow-none" @click="$bvModal.show('addBranchModal')"> <i class="bi bi-plus"></i>Add Branch</button>
             </div>
+            <h5 class="text-center mt-5"  v-if="branches.data.length == 0 && !initialLoading">No branches found on the database</h5>
             <b-skeleton-table
                 :rows="7"
                 :columns="6"
@@ -17,7 +18,7 @@
                 class="mt-4"
                 v-if="initialLoading"
                 ></b-skeleton-table>
-            <table class="table table-striped table-hover mt-4" v-else>
+            <table class="table table-striped table-hover mt-4" v-if="branches.data.length > 0">
                 <caption>Showing {{branches.from}} to {{branches.to}} of {{branches.total}} data</caption>
                 <thead>
                     <tr>
