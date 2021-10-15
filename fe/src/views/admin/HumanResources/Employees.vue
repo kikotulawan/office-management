@@ -370,7 +370,6 @@ export default {
     async mounted() {
         this.initialLoading = true
         document.title = "Human Resource - Employee"
-        await this.$store.dispatch('auth/checkUser')
         await this.$store.dispatch('employees/getEmployees', {page: 1, sort: this.sort})
         await this.$store.dispatch('branches/allBranches')
         await this.$store.dispatch('departments/allDepartments')

@@ -17,20 +17,6 @@ export default {
     this.sideBarMobile()
   },
   methods: {
-   sideBarMobile(){
-    //  let sidebar = document.getElementById('admin-sidenav')
-    //  let sidebarBtn = document.getElementById('navbtn')
-    //  let closeNavBtn = document.getElementById('close-nav')
-
-    //  sidebarBtn.addEventListener('click', function(){
-    //    sidebar.classList.add('sidenav-active')
-
-    //  })
-
-    //  closeNavBtn.addEventListener('click', function(){
-    //   sidebar.classList.remove('sidenav-active')
-    //  })
-   },
   },
   computed: {
     getRoute: function(){

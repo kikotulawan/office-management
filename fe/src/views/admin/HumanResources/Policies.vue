@@ -492,7 +492,6 @@ export default {
   async mounted() {
     this.initialLoading = true;
     document.title = "Human Resource - Policies";
-    await this.$store.dispatch("auth/checkUser");
     await this.$store.dispatch("policies/getPolicies", {
       page: 1,
       sort: this.sort,

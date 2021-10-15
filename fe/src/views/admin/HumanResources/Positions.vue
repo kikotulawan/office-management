@@ -101,7 +101,6 @@ export default {
     async mounted() {
         this.initialLoading = true
         document.title = 'Human Resource - Positions'
-        await this.$store.dispatch('auth/checkUser')
         await this.$store.dispatch('position/getPositions', {page: 1, sort: this.sort})
         this.$root.$on('bv::modal::show', (modalId) => {
             this.modalId = modalId.componentId
