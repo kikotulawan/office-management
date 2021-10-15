@@ -658,18 +658,23 @@ ul {
     display: none;
 }
 
+
 /** FORM INPUT ERROR */
+
 .form-input-label--error {
     color: #ee4d0e !important;
 }
+
 .form-input--error {
     border: 1px solid #ee4d0e !important;
 }
 
+
 /** BADGE */
+
 .badge-success {
     color: #fff;
-    background-color: #28a745;
+    background-color: #188038;
 }
 
 .badge-danger {
