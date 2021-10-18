@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeRequest;
-use App\Models\Employee;
-use App\Models\EmployeeEmploymentInfo;
-use App\Models\EmployeeInfo;
-use App\Models\EmployeeModule;
+use App\Models\User;
+use App\Models\UserEmploymentInfo;
+use App\Models\UserInfo;
+use App\Models\UserModule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,13 +18,13 @@ class HREmployeeController extends Controller
     }
 
     public function index(){
-        return response()->json(Employee::with([
+        return response()->json(User::with([
             'info', 
-            'employment', 
-            'employment.branch:id,name', 
-            'employment.overtime:id,name', 
-            'employment.position:id,name', 
-            'employment.workpolicy:id,policy_name', 
+            'user', 
+            'user.branch:id,name', 
+            'user.overtime:id,name', 
+            'user.position:id,name', 
+            'user.workpolicy:id,policy_name', 
             'modules'
             ])->paginate(8));
     }
@@ -34,33 +34,33 @@ class HREmployeeController extends Controller
         $empInfo = $this->storeEmployeeInfo($request);
         $empEmploymentInfo = $this->storeEmployeeEmploymentInfo($request);
 
-        Employee::create([
+        User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'employee_info_id' => $empInfo->id,
-            'employee_employment_info_id' => $empEmploymentInfo->id,
-            'employee_module_id' => $empModule->id
+            'user_info_id' => $empInfo->id,
+            'user_employment_info_id' => $empEmploymentInfo->id,
+            'user_module_id' => $empModule->id
         ]);
 
         return $this->success('Employee created successfully');
     }
 
     public function storeEmployeeModule($data){
-        $employeeModule = EmployeeModule::create([
-            'has_work_module' => $data->work_module,
-            'has_human_resource' => $data->human_resource,
-            'has_sales_marketing' => $data->sales_marketing,
-            'has_accounting' => $data->accounting,
-            'has_purchasing' => $data->purchasing,
-            'has_corporate_directory' => $data->corporate_directory,
-            'has_project_manager' => $data->project_manager,
+        $employeeModule = UserModule::create([
+            'work_module' => $data->work_module,
+            'human_resource' => $data->human_resource,
+            'sales_marketing' => $data->sales_marketing,
+            'accounting' => $data->accounting,
+            'purchasing' => $data->purchasing,
+            'corporate_directory' => $data->corporate_directory,
+            'project_manager' => $data->project_manager,
         ]);
 
         return $employeeModule;
     }
 
     public function storeEmployeeInfo($data){
-        $employeeInfo = EmployeeInfo::create([
+        $employeeInfo = UserInfo::create([
             'first_name' => $data->first_name,
             'middle_name' => $data->middle_name,
             'last_name' => $data->last_name,
@@ -77,7 +77,7 @@ class HREmployeeController extends Controller
     }
 
     public function storeEmployeeEmploymentInfo($data){
-        $employeeEmploymentInfo = EmployeeEmploymentInfo::create([
+        $employeeEmploymentInfo = UserEmploymentInfo::create([
             'date_hired' => $data->date_hired,
             'wage' => $data->wage,
             'overtime_rate' => $data->overtime,
@@ -94,7 +94,7 @@ class HREmployeeController extends Controller
     }
 
     public function destroy($id){
-        $employee = Employee::find($id);
+        $employee = User::find($id);
         if($employee){
             $employee->modules()->delete();
             $employee->info()->delete();

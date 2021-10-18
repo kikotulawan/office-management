@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class WorkBreak extends Model
 {
     use HasFactory;
+    public $guarded = [];
+
 }

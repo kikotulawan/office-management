@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EmployeeInfo extends Model
+class UserInfo extends Model
 {
     use HasFactory;
     public $fillable = [
@@ -21,6 +21,5 @@ class EmployeeInfo extends Model
         'emergency_contact_number', 
         'image'
     ];
-
 
 }
