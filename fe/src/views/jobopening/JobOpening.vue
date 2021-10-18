@@ -92,7 +92,7 @@ export default {
            if(localStorage.getItem('isAdmin')){
                const { status } = await this.$store.dispatch('auth/logoutUser')
                if(status == 200){
-                   this.$router.push('applicant/login')
+                   this.$router.push('jobs/applicant/login')
                }
                else {
                    this.$toast.error('Somethign went wrong')
@@ -100,7 +100,7 @@ export default {
            }
            else {
                this.$toast.success('You must login first')
-               this.$router.push('applicant/login')
+               this.$router.push('jobs/applicant/login')
            }
        }
     },

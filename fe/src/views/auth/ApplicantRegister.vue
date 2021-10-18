@@ -14,7 +14,7 @@
              <label for="login-password" class="form-label"><small>Password</small></label>
             <div class="input-group mb-1">
               <span class="input-group-text bg-white border-end-0" id="basic-addon2"><i class="bi bi-shield-lock-fill fs-5"></i></span>
-              <input v-model="data.password" type="password" class="form-control shadow-none" id="login-password" aria-describedby="basic-addon2" v-on:keyup.enter="signin">
+              <input v-model="data.password" type="password" class="form-control shadow-none" id="login-password" aria-describedby="basic-addon2">
             </div>
           </div>
           <div v-if="registrationStep == 2">
@@ -24,11 +24,11 @@
             </div>
             <label for="lastname" class="form-label"><small>Last Name</small></label>
             <div class="input-group mb-1">
-              <input v-model="data.last_name" type="text" class="form-control shadow-none" id="lastname" aria-describedby="basic-addon2" v-on:keyup.enter="signin">
+              <input v-model="data.last_name" type="text" class="form-control shadow-none" id="lastname" aria-describedby="basic-addon2">
             </div>
             <label for="contactnumber" class="form-label"><small>Contact Number</small></label>
             <div class="input-group mb-1">
-              <input v-model="data.contact_number" type="text" class="form-control shadow-none" id="contactnumber" aria-describedby="basic-addon2" v-on:keyup.enter="signin">
+              <input v-model="data.contact_number" type="text" class="form-control shadow-none" id="contactnumber" aria-describedby="basic-addon2">
             </div>
           </div>
           <div class="d-grid mt-3">
