@@ -14,7 +14,6 @@ import Navbar from '../components/admin/Navbar.vue'
 export default {
   components: {Sidenav, Navbar},
   mounted() {
-    this.sideBarMobile()
   },
   methods: {
   },

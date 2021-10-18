@@ -10,7 +10,7 @@
                 </div>
                 <button class="btn btn-primary btn-sm shadow-none" @click="$bvModal.show('addEmployeeModal')"> <i class="bi bi-plus"></i>Add Employee</button>
             </div>
-            <h5 class="text-center mt-5"  v-if="employees.data.length == 0 && !initialLoading">No Employees found on the database</h5>
+            <h5 class="text-center mt-5"  v-if="!employees.data && !initialLoading">No Employees found on the database</h5>
             <b-skeleton-table
                 :rows="7"
                 :columns="6"
@@ -18,8 +18,8 @@
                 class="mt-4"
                 v-if="initialLoading"
                 ></b-skeleton-table>
-                <div class="table-responsive" v-else>
-                    <table class="table table-striped table-hover mt-4"  v-if="employees.data.length > 0">
+                <div class="table-responsive" v-if="employees.data && !initialLoading">
+                    <table class="table table-striped table-hover mt-4">
                         <caption>Showing {{employees.from}} to {{employees.to}} of {{employees.total}} data</caption>
                         <thead>
                             <tr>
@@ -50,7 +50,7 @@
                                 <td scope="row" class="text-nowrap">{{formatCurrency(emp.employment.holiday_rate)}}</td>
                                 <td scope="row">{{formatCurrency(emp.employment.overtime_rate)}}</td>
                                 <td scope="row">
-                                    <b-badge :variant="checkStatus(emp.employment.status)">{{emp.employment.status}}</b-badge>
+                                    <b-badge :variant="checkUserStatus(emp.employment.status)">{{emp.employment.status}}</b-badge>
                                 </td>
                                 <td scope="row" class="text-nowrap">
                                     <div class="d-flex flex-column">
@@ -95,7 +95,7 @@
                     <input v-model.trim="$v.data.emergency_contact_person.$model" class="shadow-none form-control" type="text" :class="{ 'form-input--error': $v.data.emergency_contact_person.$error }">
                     <label class="mt-1" :class="{ 'form-input-label--error': $v.data.birthday.$error }">Birthday</label>
                     <input v-model.trim="$v.data.birthday.$model" class="shadow-none form-control" type="date" :class="{ 'form-input--error': $v.data.birthday.$error }">
-                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.gender.$error }">Birthday</label>
+                    <label class="mt-1" :class="{ 'form-input-label--error': $v.data.gender.$error }">Gender</label>
                     <select v-model="$v.data.gender.$model" class="shadow-none form-select" :class="{ 'form-input--error': $v.data.gender.$error }">
                        <option value="Male">Male</option>
                        <option value="Female">Female</option>
@@ -257,6 +257,7 @@ import { mapState } from 'vuex';
 export default {
     data(){
         return {
+            modalId: '',
             sort: 'asc',
             delete_data: {
                 id: '',
@@ -392,7 +393,7 @@ export default {
         ...mapState('policies', ['allovertimepolicies', 'allpolicies']),
     },
     methods: {
-        checkStatus(status){
+        checkUserStatus(status){
             if(status == 'Active') return 'success'
             if(status == 'Inactive') return 'secondary'
             if(status == 'Terminated' || status == 'Resigned' || status == 'Retired') return 'danger'

@@ -341,8 +341,7 @@
         <b-button
           variant="success"
           v-on:click.prevent="saveOverTimePolicy"
-          :disabled="isLoading"
-        >
+          :disabled="isLoading">
           Save Policy
         </b-button>
       </template>
@@ -549,9 +548,7 @@ export default {
   },
   methods: {
     log(index) {
-      // this.$nextTick(function (){
-      //     this.$set(this.selectedDays, index, {...this.data.time_schedule[index].days})
-      // })
+      
       this.selectedDays.splice(index, 1, {
         ...this.data.time_schedule[index].days,
       });

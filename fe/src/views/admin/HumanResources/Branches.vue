@@ -18,7 +18,7 @@
                 class="mt-4"
                 v-if="initialLoading"
                 ></b-skeleton-table>
-            <table class="table table-striped table-hover mt-4" v-if="branches.data.length > 0">
+            <table class="table table-striped table-hover mt-4" v-else>
                 <caption>Showing {{branches.from}} to {{branches.to}} of {{branches.total}} data</caption>
                 <thead>
                     <tr>
@@ -116,10 +116,14 @@ export default {
             modalId: '',
         }
     },
+    async created(){
+        await this.$store.dispatch('branches/getBranches', {page: 1, sort: this.sort})
+
+    },
     async mounted() {
         this.initialLoading = true
         document.title = 'Human Resource - Branches'
-        await this.$store.dispatch('branches/getBranches', {page: 1, sort: this.sort})
+        // await this.$store.dispatch('branches/getBranches', {page: 1, sort: this.sort})
         this.$root.$on('bv::modal::show', (modalId) => {
             this.modalId = modalId.componentId
         })

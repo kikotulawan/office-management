@@ -8,12 +8,19 @@ import branches from './modules/human-resource/branches'
 import departments from './modules/human-resource/departments'
 import policies from './modules/human-resource/policy'
 import jobopening from './modules/human-resource/jobopening'
+import applicant from './modules/applicant'
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
- modules: {
-  auth, position, employees, branches, departments, policies, jobopening
- }
+    modules: {
+        auth,
+        position,
+        employees,
+        branches,
+        departments,
+        policies,
+        jobopening,
+        applicant
+    }
 })
-

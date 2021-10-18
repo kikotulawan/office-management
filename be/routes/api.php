@@ -7,8 +7,10 @@ use App\Http\Controllers\HRDepartmentController;
 use App\Http\Controllers\HREmployeeController;
 use App\Http\Controllers\HRJobOpeningController;
 use App\Http\Controllers\HROverTimePolicyController;
+use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\HRPolicyController;
 use App\Http\Controllers\JobOpeningPortalController;
+use App\Http\Controllers\JobApplicationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -49,5 +51,10 @@ Route::group(['prefix' => 'admin'], function (){
     Route::apiResource('jobopening', HRJobOpeningController::class);
 });
 
+Route::group(['prefix' => 'user'], function () {
+    Route::post('auth/login', [UserAuthController::class, 'login']);                
+    Route::apiResource('auth', UserAuthController::class);                
+    Route::apiResource('job', JobApplicationController::class);                
+});
 
 Route::apiResource('jobs', JobOpeningPortalController::class);

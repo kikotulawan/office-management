@@ -18,7 +18,7 @@
                 class="mt-4"
                 v-if="initialLoading"
                 ></b-skeleton-table>
-            <table class="table table-striped table-hover mt-4" v-if="departments.data.length > 0">
+            <table class="table table-striped table-hover mt-4" v-else>
                 <caption>Showing {{departments.from}} to {{departments.to}} of {{departments.total}} data</caption>
                 <thead>
                     <tr>

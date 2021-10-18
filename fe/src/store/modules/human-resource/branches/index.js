@@ -3,7 +3,7 @@ import API from '../../../base'
 export default {
   namespaced: true,
   state: {
-    branches: [],
+    branches: {},
     allbranches: [],
   },
   getters: {

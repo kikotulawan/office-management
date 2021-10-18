@@ -56,21 +56,21 @@ export default {
       if(this.data.password == '') return this.$toast.error('Password is required');
       if(!this.validEmail()) return this.$toast.error('Email is invalid');
       this.isLoading = true
-        const res = await this.applicantLogin(this.data)
-        if(res == 'Error: Network Error'){
-          this.$toast.error('Our server is currently down at this time.')
-        }
+      const res = await this.applicantLogin(this.data)
+      if(res == 'Error: Network Error'){
+        this.$toast.error('Our server is currently down at this time.')
+      }
 
-        if(res.status == 200){
-          this.$router.push('/home/dashboard')
-          this.$toast.success('Welcome, Administrator!')
-        }
-        else{
-          this.$toast.error('Incorrect credentials')
-          this.isLoading = false
-        }
-        
+      if(res.status == 200){
+        this.$router.push('/jobs')
+        this.$toast.success(`Welcome, ${res.data.userinfo.last_name}!\nYou can now apply for a job`)
+      }
+      else {
+        this.$toast.error('Incorrect credentials')
         this.isLoading = false
+      }
+      
+      this.isLoading = false
     },
     validEmail(){
       let regEx = /^([a-z0-9_\-.])+@([a-z0-9_\-.])+\.([a-z0-9]{2,})$/gi

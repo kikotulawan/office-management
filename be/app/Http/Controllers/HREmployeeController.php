@@ -20,43 +20,41 @@ class HREmployeeController extends Controller
     public function index(){
         return response()->json(User::with([
             'info', 
-            'user', 
-            'user.branch:id,name', 
-            'user.overtime:id,name', 
-            'user.position:id,name', 
-            'user.workpolicy:id,policy_name', 
+            'employment', 
+            'employment.branch:id,name', 
+            'employment.overtime:id,name', 
+            'employment.position:id,name', 
+            'employment.workpolicy:id,policy_name', 
             'modules'
             ])->paginate(8));
     }
 
     public function store(EmployeeRequest $request){
-        $empModule = $this->storeEmployeeModule($request);
         $empInfo = $this->storeEmployeeInfo($request);
         $empEmploymentInfo = $this->storeEmployeeEmploymentInfo($request);
 
-        User::create([
+        $user = User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'user_info_id' => $empInfo->id,
             'user_employment_info_id' => $empEmploymentInfo->id,
-            'user_module_id' => $empModule->id
         ]);
+
+        $userModule = $this->storeEmployeeModule($request, $user);
 
         return $this->success('Employee created successfully');
     }
 
-    public function storeEmployeeModule($data){
-        $employeeModule = UserModule::create([
-            'work_module' => $data->work_module,
-            'human_resource' => $data->human_resource,
-            'sales_marketing' => $data->sales_marketing,
-            'accounting' => $data->accounting,
-            'purchasing' => $data->purchasing,
-            'corporate_directory' => $data->corporate_directory,
-            'project_manager' => $data->project_manager,
-        ]);
+    public function storeEmployeeModule($data, $user){
+        $data->work_module == true ? UserModule::create(['module_id' => 2, 'user_id' => $user->id]) : '';
+        $data->human_resource == true ? UserModule::create(['module_id' => 1, 'user_id' => $user->id]) : '';
+        $data->sales_marketing == true ? UserModule::create(['module_id' => 3, 'user_id' => $user->id]) : '';
+        $data->accounting == true ? UserModule::create(['module_id' => 4, 'user_id' => $user->id]) : '';
+        $data->purchasing == true ? UserModule::create(['module_id' => 5, 'user_id' => $user->id]) : '';
+        $data->corporate_directory == true ? UserModule::create(['module_id' => 6, 'user_id' => $user->id]) : '';
+        $data->project_manager == true ? UserModule::create(['module_id' => 7, 'user_id' => $user->id]) : '';
 
-        return $employeeModule;
+        return;
     }
 
     public function storeEmployeeInfo($data){
@@ -68,6 +66,7 @@ class HREmployeeController extends Controller
             'gender' => $data->gender,
             'address' => $data->address,
             'birthday' => $data->birthday,
+            'isAdmin' => $data->is_admin,
             'emergency_contact_person' => $data->emergency_contact_person,
             'emergency_contact_number' => $data->emergency_contact_number,
             'image' => $data->image

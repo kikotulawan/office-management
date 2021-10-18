@@ -4,14 +4,15 @@
            <h5 class="brandname">e-Office</h5>
            <div>
                <ul>
-                   <li>
+                   <!-- <li>
                        <a class="" href="">Home</a>
                    </li>
                    <li>
                        <a class="" href="">About</a>
-                   </li>
+                   </li> -->
                    <li>
-                       <router-link class="job-login-btn text-light" to="/">Login Account</router-link>
+                       <router-link class="job-login-btn text-light" to="/jobs/applicant/login">Login Account</router-link>
+                       <router-link class="job-login-btn text-light" to="/jobs/applicant/login">Register</router-link>
                    </li>
                </ul>
            </div>
@@ -43,7 +44,7 @@
                        <small class="mt-3 fw-bold">Qualification: <span class="fw-normal" v-html="job.job_min_qualification"></span></small>
                        <small class="mt-3"><span class="text-danger">Apply Until: </span>{{job.job_opening_expiration | moment}}</small>
                        <div class="d-block mt-4">
-                        <button class="btn btn-primary btn-sm" v-on:click.prevent="applyJob">Apply Now</button>
+                        <button class="btn btn-primary btn-sm" v-on:click.prevent="applyJob(job.id)">Apply Now</button>
                        </div>
                    </div>
                </div>
@@ -88,19 +89,33 @@ export default {
        async getJobs(page = 1){
          await this.$store.dispatch('jobopening/getJobs', {page: page, sort: this.sort})
        },
-       async applyJob(){
+       async applyJob(id){
+
+           const data = {
+               job_opening_id: id
+           }
+
            if(localStorage.getItem('isAdmin')){
                const { status } = await this.$store.dispatch('auth/logoutUser')
                if(status == 200){
-                   this.$router.push('jobs/applicant/login')
+                   this.$router.push('/jobs/applicant/login')
                }
                else {
                    this.$toast.error('Somethign went wrong')
                }
            }
-           else {
+           else if(localStorage.getItem('isApplicant')){
+              const {status} = await this.$store.dispatch('applicant/applyJob', data)
+              if(status == 200){
+                  this.$toast.success('Application successful!');
+              }
+              else {
+                  this.$toast.error('Something went wrong');
+              }
+           }
+           else{
                this.$toast.success('You must login first')
-               this.$router.push('jobs/applicant/login')
+               this.$router.push('/jobs/applicant/login')
            }
        }
     },

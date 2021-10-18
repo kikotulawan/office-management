@@ -569,7 +569,7 @@ export default {
       customToolbar: [
         ["bold", "italic", "underline"],
         [{ list: "ordered" }, { list: "bullet" }],
-        ["image", "code-block"],
+        ["code-block"],
       ],
       sort: "asc",
       modalId: "",
@@ -673,17 +673,17 @@ export default {
       this.checkStatus(data, status, "update");
     },
     closeModal() {
-      (this.data.job_title = ""),
-        (this.data.job_description = ""),
-        (this.data.job_requirements = ""),
-        (this.data.job_type = ""),
-        (this.data.job_salary_from = ""),
-        (this.data.job_salary_to = ""),
-        (this.data.job_min_experience = ""),
-        (this.data.job_min_qualification = ""),
-        (this.data.job_skills = ""),
-        (this.data.job_work_location = ""),
-        (this.data.job_opening_expiration = ""),
+        this.data.job_title = "",
+        this.data.job_description = "",
+        this.data.job_requirements = "",
+        this.data.job_type = "",
+        this.data.job_salary_from = "",
+        this.data.job_salary_to = "",
+        this.data.job_min_experience = "",
+        this.data.job_min_qualification = "",
+        this.data.job_skills = "",
+        this.data.job_work_location = "",
+        this.data.job_opening_expiration = "",
         this.$bvModal.hide(this.modalId);
     },
     isHomebasedChecked() {

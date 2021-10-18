@@ -7,15 +7,16 @@ export default {
         }
     },
     methods: {
-        formatCurrency(data){
+        formatCurrency(data) {
             var formatter = new Intl.NumberFormat('en-US', {
-              style: 'currency',
-              currency: 'PHP',
+                style: 'currency',
+                currency: 'PHP',
             });
             return formatter.format(data);
-         },
+        },
         async checkStatus(data, status, type, dispatch, config) {
             if (status == 422) {
+                console.log(status)
                 this.UnprocEntity(data)
             } else if (status == 200) {
                 if (type != 'update') {
@@ -34,6 +35,7 @@ export default {
         },
         successResponse(data) {
             this.closeModal()
+            console.log(data)
             this.isLoading = false
             return this.$toast.success(data.msg)
         },

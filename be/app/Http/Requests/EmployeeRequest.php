@@ -34,9 +34,10 @@ class EmployeeRequest extends FormRequest
             'emergency_contact_number' => 'required|bail',
             'date_hired' => 'required|bail|max:30',
             'wage' => 'required|bail|max:30',
-            'overtime_rate' => 'required|bail|max:30',
+            'overtime' => 'required|bail|max:30',
+            'email' => 'required|unique:users,email',
             'status' => 'required|bail|max:30',
-            'branches_id' => 'required|bail|exists:branches,id',
+            'branch_id' => 'required|bail|exists:branches,id',
         ];
     }
 }

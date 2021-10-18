@@ -26,7 +26,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 Vue.use(Toast, {
-    position: "bottom-right",
+    position: "top-center",
     timeout: 3000,
     closeOnClick: true,
     pauseOnFocusLoss: true,

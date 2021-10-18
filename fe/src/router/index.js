@@ -9,6 +9,8 @@ import JobPosting from '../views/jobopening/JobOpening.vue'
 import Index from '../views/admin/Index.vue'
 import Dashboard from '../views/admin/Dashboard.vue'
 
+import ApplicantIndex from '../views/applicant/Index.vue'
+
 import HumanResources from '../views/admin/HumanResources.vue'
 import Branches from '../views/admin/HumanResources/Branches.vue'
 import Departments from '../views/admin/HumanResources/Departments.vue'
@@ -45,6 +47,11 @@ const routes = [{
         path: '/jobs/applicant/register',
         name: 'ApplicantRegister',
         component: ApplicantRegister
+    },
+    {
+        path: '/applicant/home',
+        name: 'Applicant',
+        component: ApplicantIndex
     },
     {
         path: '/home',

@@ -459,7 +459,9 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      sort: 'asc'
+    };
   },
   async mounted() {},
   computed: {},
