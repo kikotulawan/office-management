@@ -4,15 +4,12 @@
            <h5 class="brandname">e-Office</h5>
            <div>
                <ul>
-                   <!-- <li>
-                       <a class="" href="">Home</a>
-                   </li>
-                   <li>
-                       <a class="" href="">About</a>
-                   </li> -->
-                   <li>
+                   <li v-if="!user">
                        <router-link  class="job-login-btn text-light me-3" to="/jobs/applicant/login">Login Account</router-link>
                        <router-link class="job-login-btn text-light" to="/jobs/applicant/login">Register</router-link>
+                   </li>
+                   <li v-else>
+                       <a class="job-login-btn text-light me-3" href="" v-on:click.prevent="$bvModal.show('logoutModal')">Logout</a>
                    </li>
                </ul>
            </div>
@@ -56,10 +53,21 @@
                </div>
            </div>
        </section>
+
+       
+        <b-modal id="logoutModal" centered title="Logout">
+            <p class="my-4">Are you sure you want to log-out?</p>
+            <template #modal-footer = {cancel} >
+            <b-button variant="primary" size="sm" @click="cancel()"> Cancel </b-button>
+            <b-button size="sm" variant="danger" v-on:click.prevent="logout">
+                Logout
+            </b-button>
+            </template>
+        </b-modal>
     </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import moment from 'moment'
 export default {
     data(){
@@ -75,17 +83,36 @@ export default {
     },
     filters: {
         moment: function (date) {
-        return moment(date).format('MMMM D, YYYY');
+            return moment(date).format('MMMM D, YYYY');
         }
     },
     async mounted() {
         document.title = 'eOffice - Job Opening'
+        await this.$store.dispatch('auth/checkAuthUser')
         await this.$store.dispatch('jobopening/getJobs', {page: 1, sort: this.sort})
     },
     computed: {
         ...mapState('jobopening', ['jobs']),
+        ...mapState('auth', ['user']),
     },
     methods: {
+        ...mapActions('auth', ['logoutAuthUser']),
+        async logout(){
+            this.isLoading = true
+            const res = await this.logoutAuthUser()
+            if(res.status == 200){
+                this.$router.push('/')
+                this.$toast.info('Logged out')
+                this.isLoading = false
+            }
+            else if (res.status == 401){
+                this.$store.commit('auth/UNSET_USER')
+                this.$router.push('/')
+                this.$toast.error('You are not authorized!')
+                this.isLoading = false
+            }
+            this.isLoading = false
+        },
        async getJobs(page = 1){
          await this.$store.dispatch('jobopening/getJobs', {page: page, sort: this.sort})
        },

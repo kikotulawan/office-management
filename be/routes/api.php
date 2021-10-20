@@ -53,7 +53,9 @@ Route::group(['prefix' => 'admin'], function (){
 });
 
 Route::group(['prefix' => 'user'], function () {
-    Route::post('auth/login', [UserAuthController::class, 'login']);                
+    Route::post('auth/login', [UserAuthController::class, 'login']);    
+    Route::post('auth/me', [UserAuthController::class, 'me']);            
+    Route::post('auth/logout', [UserAuthController::class, 'me']);            
     Route::apiResource('auth', UserAuthController::class);                
     Route::apiResource('job', JobApplicationController::class);                
 });

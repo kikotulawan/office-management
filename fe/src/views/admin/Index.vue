@@ -13,7 +13,8 @@ import Sidenav from '../components/admin/Sidebar.vue'
 import Navbar from '../components/admin/Navbar.vue'
 export default {
   components: {Sidenav, Navbar},
-  mounted() {
+  async mounted() {
+    await this.$store.dispatch('auth/checkAuthUser')
   },
   methods: {
   },

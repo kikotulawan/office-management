@@ -101,6 +101,16 @@ export default {
 
             return res;
         },
+        async logoutAuthUser({ commit }) {
+            const res = await API.post('user/auth/logout?token=' + localStorage.getItem('auth')).then(response => {
+                commit('UNSET_USER')
+                return response
+            }).catch(error => {
+                return error.response
+            });
+
+            return res;
+        },
         async logoutUser({ commit }) {
             const res = await API.post('auth/admin/logout?token=' + localStorage.getItem('auth')).then(response => {
                 commit('UNSET_USER')
@@ -108,6 +118,16 @@ export default {
             }).catch(error => {
                 return error.response
             });
+
+            return res;
+        },
+        async checkAuthUser({ commit }) {
+            const res = await API.post('user/auth/me?token=' + localStorage.getItem('auth')).then(res => {
+                commit('SET_ACC', res.data)
+                return res;
+            }).catch(error => {
+                commit('UNSET_USER')
+            })
 
             return res;
         },
