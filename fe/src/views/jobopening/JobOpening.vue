@@ -11,7 +11,7 @@
                        <a class="" href="">About</a>
                    </li> -->
                    <li>
-                       <router-link class="job-login-btn text-light" to="/jobs/applicant/login">Login Account</router-link>
+                       <router-link  class="job-login-btn text-light me-3" to="/jobs/applicant/login">Login Account</router-link>
                        <router-link class="job-login-btn text-light" to="/jobs/applicant/login">Register</router-link>
                    </li>
                </ul>

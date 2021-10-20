@@ -10,7 +10,7 @@
                 </div>
                 <button class="btn btn-primary btn-sm shadow-none" @click="$bvModal.show('addEmployeeModal')"> <i class="bi bi-plus"></i>Add Employee</button>
             </div>
-            <h5 class="text-center mt-5"  v-if="users.data && !initialLoading">No Employees found on the database</h5>
+            <h5 class="text-center mt-5"  v-if="users.data.length == 0 && !initialLoading">No Employees found on the database</h5>
             <b-skeleton-table
                 :rows="7"
                 :columns="6"
@@ -18,7 +18,7 @@
                 class="mt-4"
                 v-if="initialLoading"
                 ></b-skeleton-table>
-                <div class="table-responsive" v-else>
+                <div class="table-responsive" v-if="users.data.length > 0">
                     <table class="table table-striped table-hover mt-4">
                         <caption>Showing {{users.from}} to {{users.to}} of {{users.total}} data</caption>
                         <thead>

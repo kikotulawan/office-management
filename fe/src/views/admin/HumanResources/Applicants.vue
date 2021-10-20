@@ -14,7 +14,8 @@
             />
           </div>
         </div>
-        <table class="table table-striped table-hover mt-4">
+        <h5 class="text-center mt-5"  v-if="allApplicants.data.length == 0 && !initialLoading">No new applicants found on the database</h5>
+        <table class="table table-striped table-hover mt-4" v-if="allApplicants.data.length > 0">
           <caption>
             Showing 0 to 0 of 0 data
           </caption>
