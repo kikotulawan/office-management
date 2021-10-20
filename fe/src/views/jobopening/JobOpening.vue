@@ -101,7 +101,7 @@ export default {
                    this.$router.push('/jobs/applicant/login')
                }
                else {
-                   this.$toast.error('Somethign went wrong')
+                   this.$toast.error('Something went wrong')
                }
            }
            else if(localStorage.getItem('isApplicant')){

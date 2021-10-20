@@ -51,6 +51,7 @@ export default {
             localStorage.removeItem('auth');
             localStorage.removeItem('isUser');
             localStorage.removeItem('isAdmin');
+            localStorage.removeItem('isApplicant');
             state.token = ''
             state.user = ''
 

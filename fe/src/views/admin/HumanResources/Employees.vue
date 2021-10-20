@@ -10,7 +10,7 @@
                 </div>
                 <button class="btn btn-primary btn-sm shadow-none" @click="$bvModal.show('addEmployeeModal')"> <i class="bi bi-plus"></i>Add Employee</button>
             </div>
-            <h5 class="text-center mt-5"  v-if="!employees.data && !initialLoading">No Employees found on the database</h5>
+            <h5 class="text-center mt-5"  v-if="users.data && !initialLoading">No Employees found on the database</h5>
             <b-skeleton-table
                 :rows="7"
                 :columns="6"
@@ -18,9 +18,9 @@
                 class="mt-4"
                 v-if="initialLoading"
                 ></b-skeleton-table>
-                <div class="table-responsive" v-if="employees.data && !initialLoading">
+                <div class="table-responsive" v-else>
                     <table class="table table-striped table-hover mt-4">
-                        <caption>Showing {{employees.from}} to {{employees.to}} of {{employees.total}} data</caption>
+                        <caption>Showing {{users.from}} to {{users.to}} of {{users.total}} data</caption>
                         <thead>
                             <tr>
                             <th scope="col">ID</th>
@@ -36,8 +36,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(emp, i) in employees.data" :key="i">
-                                <td scope="row">{{employees.from + i}}</td>
+                            <tr v-for="(emp, i) in users.data" :key="i">
+                                <td scope="row">{{users.from + i}}</td>
                                 <td scope="row" class="text-nowrap">
                                     <div class="d-flex flex-column">
                                         {{emp.info.first_name}}{{emp.info.last_name}}
@@ -49,7 +49,7 @@
                                 <td scope="row" class="text-nowrap">{{formatCurrency(emp.employment.regular_holiday_rate)}}</td>
                                 <td scope="row" class="text-nowrap">{{formatCurrency(emp.employment.holiday_rate)}}</td>
                                 <td scope="row">{{formatCurrency(emp.employment.overtime_rate)}}</td>
-                                <td scope="row">
+                                <td scope="row">   
                                     <b-badge :variant="checkUserStatus(emp.employment.status)">{{emp.employment.status}}</b-badge>
                                 </td>
                                 <td scope="row" class="text-nowrap">
@@ -368,7 +368,10 @@ export default {
             },
         }
     },
+    async created() {
+    },
     async mounted() {
+        await this.$store.dispatch('auth/checkUser')
         this.initialLoading = true
         document.title = "Human Resource - Employee"
         await this.$store.dispatch('employees/getEmployees', {page: 1, sort: this.sort})
@@ -386,7 +389,7 @@ export default {
         this.initialLoading = false
     },
     computed: {
-        ...mapState('employees', ['employees']),
+        ...mapState('employees', ['users']),
         ...mapState('branches', ['allbranches']),
         ...mapState('departments', ['alldepartments']),
         ...mapState('position', ['allpositions']),

@@ -4,12 +4,15 @@ export default {
     namespaced: true,
     state: {
         applicant: [],
+        allApplicants: [],
     },
     getters: {
 
     },
     mutations: {
-
+        SET_APPLICANTS(state, data) {
+            state.allApplicants = data
+        }
     },
     actions: {
         async applicantLogin({ commit }, data) {
@@ -33,6 +36,16 @@ export default {
             })
 
             return res
-        }
+        },
+        async getApplicants({ commit }, { page, sort }) {
+            const res = await API.get(`/applicants?page=${page}&sort=${sort}`).then(res => {
+                commit('SET_APPLICANTS', res.data)
+                return res;
+            }).catch(err => {
+                return err.response
+            })
+
+            return res;
+        },
     },
 }

@@ -42,65 +42,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td scope="row">1</td>
-              <td class="text-nowrap">Yvan Sabay</td>
-              <td>Male</td>
-              <td>Accountant</td>
-              <td>August 14, 2021</td>
+            <tr v-for="(app, i) in allApplicants.data" :key="i">
+              <td scope="row">{{allApplicants.from + i}}</td>
+              <td class="text-nowrap">{{app.user.info.first_name}} {{app.user.info.last_name}}</td>
+              <td>{{app.user.info.gender}}</td>
+              <td>{{app.jobapplied.job_title}}</td>
+              <td>{{app.user.created_at | moment}}</td>
               <td><label class="badge bg-primary">For Screening</label></td>
               <td>
-                <a
-                  href=""
-                  class="text-decoration-none shadow-none"
-                ><small>
-                    View Details
-                </small>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td scope="row">2</td>
-              <td class="text-nowrap">Ezikiel Pura Tulawan</td>
-              <td>Male</td>
-              <td>HR Officer</td>
-              <td>September 23, 2021</td>
-              <td><label class="badge bg-warning">For Interview</label></td>
-              <td class="text-nowrap">
-                <a
-                  href=""
-                  class="text-decoration-none shadow-none"
-                ><small>
-                    View Details
-                </small>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td scope="row">2</td>
-              <td class="text-nowrap">Lowell Tebrero</td>
-              <td>Male</td>
-              <td>HR Officer</td>
-              <td>October 1, 2021</td>
-              <td><label class="badge bg-secondary">For Final Screening</label></td>
-              <td class="text-nowrap">
-                <a
-                  href=""
-                  class="text-decoration-none shadow-none"
-                ><small>
-                    View Details
-                </small>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td scope="row">2</td>
-              <td class="text-nowrap">Christian Segura</td>
-              <td>Male</td>
-              <td>System Administrator</td>
-              <td>September 17, 2021</td>
-              <td><label class="badge bg-success">For Requirements</label></td>
-              <td class="text-nowrap">
                 <a
                   href=""
                   class="text-decoration-none shadow-none"
@@ -457,6 +406,8 @@
     </div> -->
 </template>
 <script>
+import { mapState } from 'vuex'
+import moment from "moment";
 export default {
   data() {
     return {
@@ -464,8 +415,26 @@ export default {
     };
   },
   async mounted() {},
-  computed: {},
-  methods: {},
-  watch: {},
+  async created(){
+      await this.$store.dispatch('applicant/getApplicants', {page: 1, sort: this.sort})
+  },
+  computed: {
+    ...mapState('applicant', ['allApplicants']),
+  },
+  filters: {
+    moment: function(date) {
+      return moment(date).format("MMMM D, YYYY");
+    },
+  },
+  methods: {
+  async getApplicants(page = 1){
+      await this.$store.dispatch('applicant/getApplicants', {page: page, sort: this.sort})
+    },
+  },
+  watch: {
+    sort(){
+        this.getApplicants()
+    }
+  },
 };
 </script>

@@ -6,6 +6,7 @@ use App\Http\Requests\EmployeeRequest;
 use App\Models\User;
 use App\Models\UserEmploymentInfo;
 use App\Models\UserInfo;
+use App\Models\UserRole;
 use App\Models\UserModule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -18,15 +19,19 @@ class HREmployeeController extends Controller
     }
 
     public function index(){
-        return response()->json(User::with([
+        $pota = User::whereHas('role', function ($query){
+            $query->where('role', 'Employee');
+        })->with([
             'info', 
             'employment', 
             'employment.branch:id,name', 
             'employment.overtime:id,name', 
             'employment.position:id,name', 
             'employment.workpolicy:id,policy_name', 
-            'modules'
-            ])->paginate(8));
+            'modules',
+            'role'
+            ])->paginate(8);
+        return response()->json($pota);
     }
 
     public function store(EmployeeRequest $request){
@@ -38,6 +43,11 @@ class HREmployeeController extends Controller
             'password' => Hash::make($request->password),
             'user_info_id' => $empInfo->id,
             'user_employment_info_id' => $empEmploymentInfo->id,
+        ]);
+
+        UserRole::create([
+            'role_id' => 1,
+            'user_id' => $user->id
         ]);
 
         $userModule = $this->storeEmployeeModule($request, $user);

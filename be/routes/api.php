@@ -11,6 +11,7 @@ use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\HRPolicyController;
 use App\Http\Controllers\JobOpeningPortalController;
 use App\Http\Controllers\JobApplicationController;
+use App\Http\Controllers\ApplicantController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -58,3 +59,4 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 Route::apiResource('jobs', JobOpeningPortalController::class);
+Route::get('applicants', [ApplicantController::class, 'index']);
