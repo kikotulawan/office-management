@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             DepartmentSeeder::class,
             PolicySeeder::class,
             RoleSeeder::class,
+            JobOpeningSeeder::class,
         ]);
     }
 }

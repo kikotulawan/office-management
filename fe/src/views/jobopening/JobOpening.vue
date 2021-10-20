@@ -118,7 +118,7 @@ export default {
        },
        async applyJob(id){
 
-           const data = {
+           const job_data = {
                job_opening_id: id
            }
 
@@ -132,12 +132,12 @@ export default {
                }
            }
            else if(localStorage.getItem('isApplicant')){
-              const {status} = await this.$store.dispatch('applicant/applyJob', data)
+              const {status, data} = await this.$store.dispatch('applicant/applyJob', job_data)
               if(status == 200){
                   this.$toast.success('Application successful!');
               }
               else {
-                  this.$toast.error('Something went wrong');
+                  this.$toast.error(data.msg);
               }
            }
            else{

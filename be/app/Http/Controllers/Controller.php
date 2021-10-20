@@ -17,4 +17,10 @@ class Controller extends BaseController
             'msg' => $msg
         ]);
     }
+    public function error($msg): \Illuminate\Http\JsonResponse
+    {
+        return response()->json([
+            'msg' => $msg
+        ], 422);
+    }
 }
