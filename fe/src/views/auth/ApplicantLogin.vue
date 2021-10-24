@@ -24,7 +24,8 @@
                 <span class="visually-hidden">Loading...</span>
               </div>
             </button>
-            <small class="text-center mt-2">Dont have an account? <router-link class="text-decoration-none" to="/jobs/applicant/register">Register</router-link></small>
+           <small class="text-center mt-2">Dont have an account? <router-link class="text-decoration-none" to="/jobs/applicant/register">Register</router-link></small>
+           <router-link to="/" class="text-center mt-2 text-decoration-none">Go to employee portal</router-link>
           </div>
         </div>
       </div>

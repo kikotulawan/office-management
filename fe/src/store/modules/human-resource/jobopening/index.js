@@ -4,7 +4,8 @@ export default {
     namespaced: true,
     state: {
         jobopening: [],
-        jobs: []
+        jobs: [],
+        view_job: []
     },
     getters: {
 
@@ -15,6 +16,9 @@ export default {
         },
         SET_JOBS(state, data) {
             state.jobs = data
+        },
+        SET_VIEW_JOB(state, { data }) {
+            state.view_job = data
         },
         UPDATE_JOBOPENING(state, data) {
             for (let i = 0; i < state.jobopening.data.length; i++) {
@@ -60,6 +64,15 @@ export default {
                 return res;
             }).catch(err => {
                 return err.response
+            })
+
+            return res;
+        },
+        async viewJob({ commit }, data) {
+            const res = await API.get(`/jobs/view/${data.id}`, data).then(res => {
+                return res;
+            }).catch(err => {
+                return err.response;
             })
 
             return res;

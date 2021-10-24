@@ -55,10 +55,12 @@ Route::group(['prefix' => 'admin'], function (){
 Route::group(['prefix' => 'user'], function () {
     Route::post('auth/login', [UserAuthController::class, 'login']);    
     Route::post('auth/me', [UserAuthController::class, 'me']);            
+    Route::get('auth/appliedjobs', [UserAuthController::class, 'jobApplied']);            
     Route::post('auth/logout', [UserAuthController::class, 'me']);            
     Route::apiResource('auth', UserAuthController::class);                
     Route::apiResource('job', JobApplicationController::class);                
 });
 
 Route::apiResource('jobs', JobOpeningPortalController::class);
+Route::get('jobs/view/{id}', [JobOpeningPortalController::class, 'view']);
 Route::get('applicants', [ApplicantController::class, 'index']);

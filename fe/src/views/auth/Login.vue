@@ -24,6 +24,7 @@
                 <span class="visually-hidden">Loading...</span>
               </div>
             </button>
+            <router-link to="/jobs/applicant/login" class="text-center mt-2 text-decoration-none">Go to applicant portal</router-link>
           </div>
         </div>
       </div>
@@ -62,7 +63,7 @@ export default {
 
         if(res.status == 200){
           this.$router.push('/home/dashboard')
-          this.$toast.success('Welcome, Administrator!')
+          this.$toast.success(`Welcome, Administrator!`)
         }
         else{
           this.$toast.error('Incorrect credentials')

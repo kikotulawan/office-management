@@ -47,6 +47,10 @@
             <div class="input-group mb-1">
               <textarea v-model="data.address" type="text" class="form-control shadow-none" id="address" aria-describedby="basic-addon2"></textarea>
             </div>
+            <label for="age" class="form-label"><small>Age</small></label>
+            <div class="input-group mb-1">
+              <input v-model="data.age" type="number" class="form-control shadow-none" id="age" aria-describedby="basic-addon2">
+            </div>
             <label for="birthday" class="form-label"><small>Birthday</small></label>
             <div class="input-group mb-1">
               <input v-model="data.birthday" type="date" class="form-control shadow-none" id="birthday" aria-describedby="basic-addon2">
@@ -99,6 +103,7 @@ export default {
         last_name: '',
         contact_number: '',
         gender: '',
+        age: '',
         address: '',
         birthday: '',
         emergency_contact_person: '',
@@ -136,6 +141,7 @@ export default {
       if(this.registrationStep == 3){
         if(this.data.gender == '') return this.$toast.error('Gender is required')
         if(this.data.address == '') return this.$toast.error('Address is required')
+        if(this.data.age == '') return this.$toast.error('Age is required')
         if(this.data.birthday == '') return this.$toast.error('Birthday is required')
 
         this.registrationStep++;
@@ -154,7 +160,7 @@ export default {
      const {status} = await this.$store.dispatch('auth/applicantRegister', this.data)
      if(status == 200) { 
        this.$toast.success('Account created successfully!')
-       this.$router.push('/jobs')
+       this.$router.push('/applicant/home/profile')
        this.clearData()
      }
      else {
@@ -173,6 +179,7 @@ export default {
       this.data.middle_name = ''
       this.data.last_name = ''
       this.data.gender = ''
+      this.data.age = ''
       this.data.address = ''
       this.data.birthday = ''
       this.data.contact_number = ''

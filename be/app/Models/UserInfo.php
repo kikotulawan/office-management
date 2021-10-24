@@ -16,6 +16,7 @@ class UserInfo extends Model
         'contact_number', 
         'address', 
         'birthday', 
+        'age', 
         'isAdmin', 
         'emergency_contact_person', 
         'emergency_contact_number', 

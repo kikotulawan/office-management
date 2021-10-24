@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\JobApplicant;
 use App\Models\UserInfo;
 use App\Models\UserRole;
 
@@ -30,6 +31,12 @@ class UserAuthController extends Controller
         return response()->json($user);
     }
 
+    public function jobApplied()
+    {
+        $jobapplied = JobApplicant::with(['user', 'jobapplied'])->where('user_id', auth()->guard('api')->user()->id)->paginate(8);
+        return response()->json($jobapplied);
+    }
+
     public function logout()
     {
         auth()->logout();
@@ -44,6 +51,7 @@ class UserAuthController extends Controller
             'last_name' => $request->last_name,
             'contact_number' => $request->contact_number,
             'gender' => $request->gender,
+            'age' => $request->age,
             'address' => $request->address,                                          
             'birthday' => $request->birthday,
             'isAdmin' => $request->is_admin,

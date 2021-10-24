@@ -49,6 +49,15 @@ h6 p {
     background-size: cover;
 }
 
+.applicant .main-content {
+    background-color: #ffffff;
+    min-height: 100vh;
+    padding-top: 130px;
+    margin-left: 80px;
+    /* display: grid;
+  place-content: center; */
+}
+
 .main-content {
     background-color: #f8f8f8;
     min-height: 100vh;

@@ -20,6 +20,7 @@ class CreateUserInfosTable extends Migration
             $table->string('last_name', 30);
             $table->string('contact_number', 20);
             $table->string('gender', 10);
+            $table->string('age')->nullable();
             $table->string('address');
             $table->string('birthday');
             $table->string('emergency_contact_person');
