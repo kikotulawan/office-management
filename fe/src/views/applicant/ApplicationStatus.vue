@@ -28,7 +28,7 @@
         class="mt-4"
         v-if="initialLoading"
       ></b-skeleton-table>
-      <table class="table table-striped table-hover mt-4" v-else>
+      <table class="table table-striped table-hover mt-4" v-if="applicationStatus.data.length > 0">
         <caption class="mt-4">
           Showing
           {{

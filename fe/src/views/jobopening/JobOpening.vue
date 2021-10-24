@@ -34,7 +34,7 @@
            </div>
        </section>
        <section class="container">
-           <h4 class="text-center text-uppercase mt-3">Available Jobs</h4>
+           <h4 class="text-center text-uppercase mt-3">Available Job Vacancy</h4>
            <p class="text-center">There are {{jobs.total}} total of jobs available</p>
            <div class="row mt-4 mb-5">
                <div v-for="(job, i) in jobs.data" :key="i" class="col-10 col-sm-10 col-md-6 col-lg-6">
