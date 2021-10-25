@@ -4,7 +4,7 @@
       <div class="card p-5 mt-3 mb-5">
         <h5 class="mt-1">All Applicants</h5>
         <p class="text-muted">Manage all applicants below</p>
-        <div class="d-flex justify-content-end mb-2 mt-2">
+        <div class="d-flex justify-content-end mb-2 mt-2" v-if="allApplicants.data.length > 0">
           <div class="me-2 ">
             <input
               type="text"
@@ -49,22 +49,13 @@
               <td>{{app.user.info.gender}}</td>
               <td>{{app.jobapplied.job_title}}</td>
               <td>{{app.user.created_at | moment}}</td>
-              <td><label class="badge bg-primary">For Screening</label></td>
+              <td>{{app.status}}</td>
               <td>
-                <a
-                  href=""
-                  class="text-decoration-none shadow-none"
-                ><small>
-                    View Details
-                </small>
-                </a>
+                <router-link to="view/applicant" class="text-decoration-none">View Applicant</router-link>
               </td>
             </tr>
           </tbody>
         </table>
-        <!--- INITIAL CONFIGURATION FOR PAGINATION -->
-        <!--- TO-DO -->
-        <!--- 1. SEARCH FUNCTIONALITY  -->
         <!--- 1. PAGINATION - CHANGE - PAGE FIX -->
         <!-- <div class="row mt-3" v-if="branches.data">
           <pagination
@@ -84,7 +75,7 @@
       <div class="card p-5 mt-3 mb-5">
         <h5 class="mt-1">New Applicants</h5>
         <p class="text-muted">Review new applicants below</p>
-        <div class="d-flex justify-content-end mb-2 mt-2">
+        <div class="d-flex justify-content-end mb-2 mt-2" v-if="newApplicants.data.length > 0">
           <div class="me-2 ">
             <input
               type="text"
@@ -94,9 +85,10 @@
             />
           </div>
         </div>
-        <table class="table table-striped table-hover mt-4">
+        <h5 class="text-center mt-5"  v-if="newApplicants.data.length == 0 && !initialLoading">No new applicants found on the database</h5>
+        <table class="table table-striped table-hover mt-4" v-if="newApplicants.data.length > 0">
           <caption>
-            Showing 0 to 0 of 0 data
+            Showing {{newApplicants.from}} to {{newApplicants.to}} of {{newApplicants.total}} data
           </caption>
           <thead>
             <tr>
@@ -121,12 +113,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td scope="row">1</td>
-              <td class="text-nowrap">Yvan Sabay</td>
-              <td>sabayyvan2018@gmail.com</td>
-              <td>Accountant</td>
-              <td>August 14, 2021</td>
+            <tr v-for="(newApp, n) in newApplicants.data" :key="n">
+              <td scope="row">{{newApplicants.from + n}}</td>
+              <td class="text-nowrap">{{newApp.user.info.first_name}} {{newApp.user.info.last_name}}</td>
+              <td>{{newApp.user.email}}</td>
+              <td>{{newApp.jobapplied.job_title}}</td>
+              <td>{{newApp.jobapplied.created_at | moment}}</td>
               <td class="text-nowrap">
                 <a href="" class="text-decoration-none shadow-none"
                   ><small>
@@ -137,21 +129,6 @@
             </tr>
           </tbody>
         </table>
-        <!--- INITIAL CONFIGURATION FOR PAGINATION -->
-        <!--- TO-DO -->
-        <!--- 1. SEARCH FUNCTIONALITY  -->
-        <!--- 1. PAGINATION - CHANGE - PAGE FIX -->
-        <!-- <div class="row mt-3" v-if="branches.data">
-          <pagination
-            :showDisabled="true"
-            :align="'right'"
-            :data="branches"
-            @pagination-change-page="getBranches"
-          >
-            <span slot="prev-nav">&laquo;</span>
-            <span slot="next-nav">&raquo;</span>
-          </pagination>
-        </div> -->
       </div>
     </div>
 
@@ -159,7 +136,7 @@
       <div class="card p-5 mt-3 mb-5">
         <h5 class="mt-1">For Interview Applicants</h5>
         <p class="text-muted">Review applicants for interview below</p>
-        <div class="d-flex justify-content-end mb-2 mt-2">
+        <div class="d-flex justify-content-end mb-2 mt-2" v-if="forInterviewApplicants.data.length > 0">
           <div class="me-2 ">
             <input
               type="text"
@@ -169,9 +146,10 @@
             />
           </div>
         </div>
-        <table class="table table-striped table-hover mt-4">
+        <h5 class="text-center mt-5" v-if="forInterviewApplicants.data.length == 0 && !initialLoading">No applicants for interview found on the database</h5>
+        <table class="table table-striped table-hover mt-4" v-if="forInterviewApplicants.data.length > 0">
           <caption>
-            Showing 0 to 0 of 0 data
+            Showing {{forInterviewApplicants.from}} to {{forInterviewApplicants.to}} of {{forInterviewApplicants.total}} data
           </caption>
           <thead>
             <tr>
@@ -195,11 +173,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td scope="row">1</td>
-              <td>Ezikiel Pura Tulawan</td>
-              <td>Yvan Sabay</td>
-              <td>October 4, 2021</td>
+            <tr v-for="(intApp, t) in forInterviewApplicants.data" :key="t">
+              <td scope="row">{{forInterviewApplicants.from + t}}</td>
+              <td>{{intApp.user.info.first_name}} {{intApp.user.info.last_name}}</td>
+              <td>{{intApp.user.info.first_name}} {{intApp.user.info.last_name}}</td>
+              <td>{{intApp.jobapplied.created_at | moment}}</td>
               <td class="text-nowrap">
                 <a
                   href=""
@@ -212,21 +190,6 @@
             </tr>
           </tbody>
         </table>
-        <!--- INITIAL CONFIGURATION FOR PAGINATION -->
-        <!--- TO-DO -->
-        <!--- 1. SEARCH FUNCTIONALITY  -->
-        <!--- 1. PAGINATION - CHANGE - PAGE FIX -->
-        <!-- <div class="row mt-3" v-if="branches.data">
-          <pagination
-            :showDisabled="true"
-            :align="'right'"
-            :data="branches"
-            @pagination-change-page="getBranches"
-          >
-            <span slot="prev-nav">&laquo;</span>
-            <span slot="next-nav">&raquo;</span>
-          </pagination>
-        </div> -->
       </div>
     </div>
 
@@ -234,7 +197,7 @@
       <div class="card p-5 mt-3 mb-5">
         <h5 class="mt-1">For Final Screening Applicants</h5>
         <p class="text-muted">Review applicants for final screening below</p>
-        <div class="d-flex justify-content-end mb-2 mt-2">
+        <div class="d-flex justify-content-end mb-2 mt-2" v-if="forFinalScreeningApplicants.data.length > 0">
           <div class="me-2 ">
             <input
               type="text"
@@ -244,9 +207,10 @@
             />
           </div>
         </div>
-        <table class="table table-striped table-hover mt-4">
+        <h5 class="text-center mt-5" v-if="forFinalScreeningApplicants.data.length == 0 && !initialLoading">No applicants for final screening found on the database</h5>
+        <table class="table table-striped table-hover mt-4" v-if="forFinalScreeningApplicants.data.length > 0">
           <caption>
-            Showing 0 to 0 of 0 data
+            Showing {{forFinalScreeningApplicants.from}} to {{forFinalScreeningApplicants.to}} of {{forFinalScreeningApplicants.total}} data
           </caption>
           <thead>
             <tr>
@@ -266,17 +230,17 @@
               </th>
               <th scope="col">Interview Result</th>
               <th scope="col">Assigned Interviewer</th>
-              <th scope="col">Interview Date</th>
+              <th scope="col">Interviewed On</th>
               <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td scope="row">1</td>
-              <td>Lowell Tebrero</td>
-              <td><label class="badge bg-success">PASSED</label></td>
-              <td>Yvan Sabay</td>
-              <td>October 6, 2021</td>
+            <tr v-for="(fsApp, f) in forFinalScreeningApplicants.data" :key="f">
+              <td scope="row">{{forFinalScreeningApplicants.from + f}}</td>
+              <td>{{fsApp.user.info.first_name}} {{fsApp.user.info.last_name}}</td>
+              <td><label class="badge bg-success">{{fsApp.result}}</label></td>
+              <td>{{fsApp.assigned_interviewer}}</td>
+              <td>{{fsApp.created_at | moment}}</td>
               <td class="text-nowrap">
                 <a
                   href=""
@@ -289,10 +253,6 @@
             </tr>
           </tbody>
         </table>
-        <!--- INITIAL CONFIGURATION FOR PAGINATION -->
-        <!--- TO-DO -->
-        <!--- 1. SEARCH FUNCTIONALITY  -->
-        <!--- 1. PAGINATION - CHANGE - PAGE FIX -->
         <!-- <div class="row mt-3" v-if="branches.data">
           <pagination
             :showDisabled="true"
@@ -311,7 +271,7 @@
       <div class="card p-5 mt-3 mb-5">
         <h5 class="mt-1">For Submission of Requirements</h5>
         <p class="text-muted">Review applicants requirements below</p>
-        <div class="d-flex justify-content-end mb-2 mt-2">
+        <div class="d-flex justify-content-end mb-2 mt-2" v-if="forRequirementsApplicants.data.length > 0">
           <div class="me-2 ">
             <input
               type="text"
@@ -321,9 +281,10 @@
             />
           </div>
         </div>
-        <table class="table table-striped table-hover mt-4 text-nowrap">
+        <h5 class="text-center mt-5" v-if="forRequirementsApplicants.data.length == 0 && !initialLoading">No applicants for final screening found on the database</h5>
+        <table class="table table-striped table-hover mt-4 text-nowrap" v-if="forRequirementsApplicants.data.length > 0">
           <caption>
-            Showing 0 to 0 of 0 data
+            Showing {{forRequirementsApplicants.from}} to {{forRequirementsApplicants.to}} of {{forRequirementsApplicants.total}} data
           </caption>
           <thead>
             <tr>
@@ -347,11 +308,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td scope="row">1</td>
-              <td>Christian Segura</td>
-              <td><label class="badge bg-danger">INCOMPLETE</label></td>
-              <td>October 30, 2021</td>
+            <tr v-for="(reqApp, r) in forRequirementsApplicants.data" :key="r">
+              <td scope="row">{{forRequirementsApplicants.from + r}}</td>
+              <td>{{reqApp.user.info.first_name}} {{reqApp.user.info.last_name}}</td>
+              <td><label class="badge bg-danger">{{reqApp.result}}</label></td>
+              <td>{{reqApp.created_at | moment}}</td>
               <td class="text-nowrap">
                 <a
                   href=""
@@ -364,47 +325,9 @@
             </tr>
           </tbody>
         </table>
-        <!--- INITIAL CONFIGURATION FOR PAGINATION -->
-        <!--- TO-DO -->
-        <!--- 1. SEARCH FUNCTIONALITY  -->
-        <!--- 1. PAGINATION - CHANGE - PAGE FIX -->
-        <!-- <div class="row mt-3" v-if="branches.data">
-          <pagination
-            :showDisabled="true"
-            :align="'right'"
-            :data="branches"
-            @pagination-change-page="getBranches"
-          >
-            <span slot="prev-nav">&laquo;</span>
-            <span slot="next-nav">&raquo;</span>
-          </pagination>
-        </div> -->
       </div>
     </div>
   </div>
-  <!-- <div>
-        <p class="fw-bold">TABLES</p>
-        <p>New Applicants table</p>
-        <p>For Intreview table</p>
-        <p>For Final Screening table</p>
-        <p>For Submission of Requirements table</p>
-        <p>Blacklist table</p>
-        <p>Failed Applicant table</p>
-        <br>
-        <p class="fw-bold">JOB APPLICATION PROCESS</p>
-        <p>Step 1: Applicant Screening - PASS, FAILED OR REJECTED</p>
-        <p>Step 2: Applicant For Interview - PASS, FAILED OR REJECTED</p>
-        <p>Step 3: Applicant For Final Screening - PASS, FAILED OR REJECTED</p>
-        <br>
-        <p class="fw-bold text-success">IF THE APPLICANT COMPLETED/PASSED ALL STEPS ABOVE, PROCEED TO ONBOARDING.</p>
-        <p class="fw-bold text-danger">IF THE APPLICANT IS FAILED, APPLICANT CAN STILL APPLY FOR A JOB OPENING.</p>
-        <p class="fw-bold text-danger">IF AND ONLY IF THE APPLICANT IS REJECTED, APPLICANT WILL BE MOVED TO BLACKLIST AND WON'T BE ABLE TO APPLY FOR A JOB OPENING.</p>
-        <br>
-        <p class="fw-bold">ONBOARDING PROCESS</p>
-        <p>Step 1: Applicant Submission of Requirements - PASS, FAILED OR REJECTED</p>
-        <p>Step 2: If Applicant submitted all the requirements, Applicant will be moved to Employees Database and the HR will assign the supervisor, policies and pay periods for the applicant.</p>
-        <br><br>
-    </div> -->
 </template>
 <script>
 import { mapState } from 'vuex'
@@ -418,9 +341,13 @@ export default {
   async mounted() {},
   async created(){
       await this.$store.dispatch('applicant/getApplicants', {page: 1, sort: this.sort})
+      await this.$store.dispatch('applicant/getNewApplicants', {page: 1, sort: this.sort})
+      await this.$store.dispatch('applicant/getForInterviewApplicants', {page: 1, sort: this.sort})
+      await this.$store.dispatch('applicant/getForFinalScreeningApplicants', {page: 1, sort: this.sort})
+      await this.$store.dispatch('applicant/getForRequirementsApplicants', {page: 1, sort: this.sort})
   },
   computed: {
-    ...mapState('applicant', ['allApplicants']),
+    ...mapState('applicant', ['allApplicants', 'newApplicants', 'forInterviewApplicants', 'forFinalScreeningApplicants', 'forRequirementsApplicants']),
   },
   filters: {
     moment: function(date) {
@@ -431,10 +358,26 @@ export default {
   async getApplicants(page = 1){
       await this.$store.dispatch('applicant/getApplicants', {page: page, sort: this.sort})
     },
+  async getNewApplicants(page = 1){
+      await this.$store.dispatch('applicant/getNewApplicants', {page: page, sort: this.sort})
+    },
+  async getForInterviewApplicants(page = 1){
+      await this.$store.dispatch('applicant/getForInterviewApplicants', {page: page, sort: this.sort})
+    },
+  async getForFinalScreeningApplicants(page = 1){
+      await this.$store.dispatch('applicant/getForFinalScreeningApplicants', {page: page, sort: this.sort})
+    },
+  async getForRequirementsApplicants(page = 1){
+      await this.$store.dispatch('applicant/getForRequirementsApplicants', {page: page, sort: this.sort})
+    },
   },
   watch: {
     sort(){
-        this.getApplicants()
+        this.getApplicants(),
+        this.getNewApplicants(),
+        this.getForInterviewApplicants(),
+        this.getForFinalScreeningApplicants(),
+        this.getForRequirementsApplicants()
     }
   },
 };

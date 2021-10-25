@@ -25,8 +25,11 @@ import Memos from "../views/admin/HumanResources/Memos.vue";
 import Policies from "../views/admin/HumanResources/Policies.vue";
 import PayPeriods from "../views/admin/HumanResources/PayPeriods.vue";
 import Leaves from "../views/admin/HumanResources/Leaves.vue";
-import Applicants from "../views/admin/HumanResources/Applicants.vue";
 import JobOpening from "../views/admin/HumanResources/JobOpening.vue";
+
+import Applicants from "../views/admin/HumanResources/Applicants/Applicants.vue";
+import ViewApplicant from "../views/admin/HumanResources/Applicants/ViewApplicant.vue";
+import AllApplicants from "../views/admin/HumanResources/Applicants/AllApplicants.vue";
 
 Vue.use(VueRouter);
 
@@ -169,9 +172,25 @@ const routes = [{
                     {
                         path: "applicants",
                         name: "applicants",
+                        redirect: "/home/human-resources/applicants/allapplicants",
                         components: {
                             applicants: Applicants,
                         },
+                        children: [{
+                                path: "view/applicant",
+                                name: "viewapplicant",
+                                components: {
+                                    viewapplicant: ViewApplicant
+                                }
+                            },
+                            {
+                                path: "allapplicants",
+                                name: "allapplicants",
+                                components: {
+                                    allapplicants: AllApplicants
+                                }
+                            },
+                        ]
                     },
                     {
                         path: "jobopening",

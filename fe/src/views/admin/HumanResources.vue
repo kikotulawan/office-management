@@ -7,7 +7,10 @@
               <router-view name="departments"/>
               <router-view name="positions"/>
               <router-view name="employees"/>
+
               <router-view name="applicants"/>
+              <router-view name="newapplicant"/>
+              
               <router-view name="jobopening"/>
               <router-view name="holidays"/>
               <router-view name="breaks"/>

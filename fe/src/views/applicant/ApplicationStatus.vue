@@ -70,7 +70,7 @@
             <td scope="row">{{ applicationStatus.from + i }}</td>
             <td>{{ app.jobapplied.job_title }}</td>
             <td>{{ app.created_at | moment }}</td>
-            <td><label class="badge bg-primary">For Screening</label></td>
+            <td>{{app.status}}</td>
             <td><a href="" class="text-decoration-none">View Status</a></td>
           </tr>
         </tbody>

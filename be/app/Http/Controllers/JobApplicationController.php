@@ -23,9 +23,10 @@ class JobApplicationController extends Controller
             JobApplicant::create([
                 'job_opening_id' => $request->job_opening_id,
                 'user_id' => auth('api')->user()->id,
+                'status' => 'Screening'
             ]);
      
-            return $this->success('Job Application successful');                   
+            return $this->success('Job Application Sent');                   
         } else {
             return $this->error('You already applied on this job');                   
         }

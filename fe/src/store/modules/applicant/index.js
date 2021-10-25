@@ -6,6 +6,10 @@ export default {
         applicant: [],
         applicationStatus: [],
         allApplicants: [],
+        newApplicants: [],
+        forInterviewApplicants: [],
+        forFinalScreeningApplicants: [],
+        forRequirementsApplicants: [],
     },
     getters: {
 
@@ -13,6 +17,18 @@ export default {
     mutations: {
         SET_APPLICANTS(state, data) {
             state.allApplicants = data
+        },
+        SET_NEW_APPLICANTS(state, data) {
+            state.newApplicants = data
+        },
+        SET_INTERVIEW_APPLICANTS(state, data) {
+            state.forInterviewApplicants = data
+        },
+        SET_FINAL_SCREENING_APPLICANTS(state, data) {
+            state.forFinalScreeningApplicants = data
+        },
+        SET_FOR_REQUIREMENTS_APPLICANTS(state, data) {
+            state.forRequirementsApplicants = data
         },
         SET_APPLICATION_STATUS(state, data) {
             state.applicationStatus = data
@@ -44,6 +60,46 @@ export default {
         async getApplicants({ commit }, { page, sort }) {
             const res = await API.get(`/applicants?page=${page}&sort=${sort}`).then(res => {
                 commit('SET_APPLICANTS', res.data)
+                return res;
+            }).catch(err => {
+                return err.response
+            })
+
+            return res;
+        },
+        async getNewApplicants({ commit }, { page, sort }) {
+            const res = await API.get(`/applicants/newapplicants?page=${page}&sort=${sort}`).then(res => {
+                commit('SET_NEW_APPLICANTS', res.data)
+                return res;
+            }).catch(err => {
+                return err.response
+            })
+
+            return res;
+        },
+        async getForInterviewApplicants({ commit }, { page, sort }) {
+            const res = await API.get(`/applicants/for-interview/applicants?page=${page}&sort=${sort}`).then(res => {
+                commit('SET_INTERVIEW_APPLICANTS', res.data)
+                return res;
+            }).catch(err => {
+                return err.response
+            })
+
+            return res;
+        },
+        async getForFinalScreeningApplicants({ commit }, { page, sort }) {
+            const res = await API.get(`/applicants/final-screening/applicants?page=${page}&sort=${sort}`).then(res => {
+                commit('SET_FINAL_SCREENING_APPLICANTS', res.data)
+                return res;
+            }).catch(err => {
+                return err.response
+            })
+
+            return res;
+        },
+        async getForRequirementsApplicants({ commit }, { page, sort }) {
+            const res = await API.get(`/applicants/for-requirements/applicants?page=${page}&sort=${sort}`).then(res => {
+                commit('SET_FOR_REQUIREMENTS_APPLICANTS', res.data)
                 return res;
             }).catch(err => {
                 return err.response

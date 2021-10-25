@@ -64,3 +64,7 @@ Route::group(['prefix' => 'user'], function () {
 Route::apiResource('jobs', JobOpeningPortalController::class);
 Route::get('jobs/view/{id}', [JobOpeningPortalController::class, 'view']);
 Route::get('applicants', [ApplicantController::class, 'index']);
+Route::get('applicants/newapplicants', [ApplicantController::class, 'newApplicants']);
+Route::get('applicants/for-interview/applicants', [ApplicantController::class, 'forInterviewApplicants']);
+Route::get('applicants/final-screening/applicants', [ApplicantController::class, 'forFinalScreeningApplicants']);
+Route::get('applicants/for-requirements/applicants', [ApplicantController::class, 'forRequirementsApplicants']);
