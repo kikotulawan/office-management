@@ -30,10 +30,6 @@
             <div class="input-group mb-1">              
               <input v-model="data.last_name" type="text" class="form-control shadow-none" id="lastname" aria-describedby="basic-addon2">
             </div>
-            <label for="contactnumber" class="form-label"><small>Contact Number</small></label>
-            <div class="input-group mb-1">
-              <input v-model="data.contact_number" type="text" class="form-control shadow-none" id="contactnumber" aria-describedby="basic-addon2">
-            </div>
           </div>
           <div v-if="registrationStep == 3">
             <label for="gender" class="form-label"><small>Gender</small></label>
@@ -56,22 +52,12 @@
               <input v-model="data.birthday" type="date" class="form-control shadow-none" id="birthday" aria-describedby="basic-addon2">
             </div>
           </div>
-          <div v-if="registrationStep == 4">
-            <label for="emergencycontactperson" class="form-label"><small>Emergency Contact Person</small></label>
-            <div class="input-group mb-1">
-              <input v-model="data.emergency_contact_person" type="text" class="form-control shadow-none" id="emergencycontactperson" aria-describedby="basic-addon2">
-            </div>
-            <label for="emergencycontactnumber" class="form-label"><small>Emergency Contact Number</small></label>
-            <div class="input-group mb-1">
-              <input v-model="data.emergency_contact_number" type="text" class="form-control shadow-none" id="emergencycontactnumber" aria-describedby="basic-addon2">
-            </div>
-          </div>
           <div class="d-grid mt-3">
             <button :disabled="isLoading" href="" class="mt-2 btn rounded-3 btn-primary shadow-none" v-on:click.prevent="registrationStep--" v-if="registrationStep != 1">
                 Prev
             </button>
             <button :disabled="isLoading" href="" class="mt-2 btn rounded-3 btn-primary shadow-none" v-on:click.prevent="checkRegistration" >
-                {{registrationStep == 4 ? 'Register' : 'Next'}}
+                {{registrationStep == 3 ? 'Register' : 'Next'}}
             </button>
             <small class="text-center mt-2">Already have an account? <router-link class="text-decoration-none" to="/jobs/applicant/login">Login</router-link></small>
           </div>
@@ -101,13 +87,10 @@ export default {
         first_name: '',
         middle_name: '',
         last_name: '',
-        contact_number: '',
         gender: '',
         age: '',
         address: '',
         birthday: '',
-        emergency_contact_person: '',
-        emergency_contact_number: '', 
       },
       isLoading: false,
       registrationStep: 1,
@@ -131,9 +114,7 @@ export default {
 
       if(this.registrationStep == 2){
         if(this.data.first_name.trim() == '') return this.$toast.error('First name is required')
-        if(this.data.middle_name.trim() == '') return this.$toast.error('Middle name is required')
         if(this.data.last_name.trim() == '') return this.$toast.error('Last name is required')
-        if(this.data.contact_number == '') return this.$toast.error('Contact number is required')
 
         this.registrationStep++;
       }
@@ -144,13 +125,6 @@ export default {
         if(this.data.age == '') return this.$toast.error('Age is required')
         if(this.data.birthday == '') return this.$toast.error('Birthday is required')
 
-        this.registrationStep++;
-      }
-
-      if(this.registrationStep == 4){
-        if(this.data.emergency_contact_person == '') return this.$toast.error('Emergency Contact Person is required')
-        if(this.data.emergency_contact_number == '') return this.$toast.error('Emergency Contact Number is required')
-
         this.$bvModal.show('registrationModal')
       }
     },
@@ -160,7 +134,7 @@ export default {
      const {status} = await this.$store.dispatch('auth/applicantRegister', this.data)
      if(status == 200) { 
        this.$toast.success('Account created successfully!')
-       this.$router.push('jobs/applicant/login')
+       this.$router.push('login')
        this.clearData()
      }
      else {
@@ -182,7 +156,6 @@ export default {
       this.data.age = ''
       this.data.address = ''
       this.data.birthday = ''
-      this.data.contact_number = ''
     }
   }
 }

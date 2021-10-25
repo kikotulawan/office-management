@@ -49,14 +49,11 @@ class UserAuthController extends Controller
             'first_name' => $request->first_name,
             'middle_name' => $request->middle_name,
             'last_name' => $request->last_name,
-            'contact_number' => $request->contact_number,
             'gender' => $request->gender,
             'age' => $request->age,
             'address' => $request->address,                                          
             'birthday' => $request->birthday,
             'isAdmin' => $request->is_admin,
-            'emergency_contact_person' => $request->emergency_contact_person,
-            'emergency_contact_number' => $request->emergency_contact_number,
             'image' => $request->image,
             'isAdmin' => false
         ];

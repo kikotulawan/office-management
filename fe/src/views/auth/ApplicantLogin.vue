@@ -63,8 +63,8 @@ export default {
       }
 
       if(res.status == 200){
-        this.$router.push('/jobs')
-        this.$toast.success(`Welcome, ${res.data.userinfo.last_name}!\nYou can now apply for a job`)
+        this.$router.push('/applicant/home/profile')
+        this.$toast.success(`Welcome, ${res.data.user_info.first_name} ${res.data.user_info.middle_name} ${res.data.user_info.last_name}!`)
       }
       else {
         this.$toast.error('Incorrect credentials')

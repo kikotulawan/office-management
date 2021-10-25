@@ -19,7 +19,7 @@
         class="text-center mt-5"
         v-if="applicationStatus.data.length == 0 && !initialLoading"
       >
-        No applied job found on the database
+        You have no applied job found on the database
       </h5>
       <b-skeleton-table
         :rows="7"

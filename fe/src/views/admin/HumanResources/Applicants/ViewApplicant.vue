@@ -12,15 +12,18 @@
     <p class="fw-light mt-2">Address: <span class="fw-bold ms-1">{{data.address}}</span></p>
     <h5 class="text-primary mt-5">Educational Background</h5>
     <hr>
-    <p class="fw-light">Tertiary: <span class="fw-bold ms-1">Leyte Normal University, Bachelor of Arts and Sciences in Information Technology, S.Y. 2018-2021</span></p>
-    <p class="fw-light mt-2">Secondary: <span class="fw-bold ms-1">Leyte National Highschool, S.Y. 2014-2018</span></p>
-    <p class="fw-light mt-2">Primary: <span class="fw-bold ms-1">Mother of Christ Montesorri School, S.Y. 2010-2014</span></p>
+    <p class="fw-light" v-if="data.edu_tertiary">Tertiary: <span class="fw-bold ms-1">{{data.edu_tertiary}}</span></p>
+    <p class="fw-light mt-2" v-if="data.edu_secondary">Secondary: <span class="fw-bold ms-1">{{data.edu_secondary}}</span></p>
+    <p class="fw-light mt-2" v-if="data.edu_primary">Primary: <span class="fw-bold ms-1">{{data.edu_primary}}</span></p>
+    <p class="fw-bold mt-2 text-danger" v-if="!data.edu_primary && !data.edu_secondary && !data.edu_tertiary">No Education Background</p>
     <h5 class="text-primary mt-5">Skills Summary</h5>
     <hr>
-    <p class="fw-light">-<span class="fw-bold ms-1">Advance knowledge in Graphic Designing</span></p>
+    <p class="fw-light" v-if="data.skills"><span class="fw-normal ms-1" v-html="data.skills"></span></p>
+    <p class="fw-bold text-danger" v-if="!data.skills">Applicant have no skills</p>
     <h5 class="text-primary mt-5">Seminars and Trainings</h5>
     <hr>
-    <p class="fw-light">-<span class="fw-bold ms-1">OJT PRE-DEPLOYMENT ORIENTATION</span></p>
+    <p class="fw-light" v-if="data.seminars_trainings"><span class="fw-normal ms-1" v-html="data.seminars_trainings"></span></p>
+    <p class="fw-bold text-danger" v-if="!data.seminars_trainings">Applicant have no attended seminars nor trainings</p>
     <br>
     <input type="checkbox" v-model="addComment" class="btn-check" id="btn-check" autocomplete="off" />
     <label class="btn shadow-none btn-primary mt-2" for="btn-check" v-if="!addComment">Add Comment</label>
@@ -49,6 +52,11 @@ export default {
         contact_number: '',
         address: '',
         email: '',
+        skills: '',
+        edu_tertiary: '',
+        edu_secondary: '',
+        edu_primary: '',
+        seminars_trainings: '',
       },
       sort: "asc",
       modalId: "",
@@ -72,6 +80,11 @@ export default {
         contact_number: this.view_applicant.data.user.info.contact_number,
         address: this.view_applicant.data.user.info.address,
         email: this.view_applicant.data.user.email,
+        edu_tertiary: this.view_applicant.data.user.info.edu_tertiary,
+        edu_secondary: this.view_applicant.data.user.info.edu_secondary,
+        edu_primary: this.view_applicant.data.user.info.edu_primary,
+        skills: this.view_applicant.data.user.info.skills,
+        seminars_trainings: this.view_applicant.data.user.info.seminars_trainings,
       });
   },
   computed: {

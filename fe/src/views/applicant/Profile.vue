@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-4 mb-5">
+  <div class="container pb-5 mt-4">
       <h5 class="fw-bold mb-2">Welcome, {{user.info.first_name}} {{user.info.last_name}}</h5>
       <p>You can manage you account below, complete all fields to get a higher chance of getting employed.</p>
         <div class="d-block mt-4">
@@ -42,11 +42,34 @@
            </div>
         </div>
         <div class="mb-3 mt-3 row">
+           <label class="col-sm-2 col-form-label">Birthplace:</label>
+           <div class="col-sm-10">
+            <input v-model="user.info.birthplace" type="text" class="form-control" :disabled="!isDisabled">
+           </div>
+        </div>
+        <div class="mb-3 mt-3 row">
            <label class="col-sm-2 col-form-label">Gender:</label>
            <div class="col-sm-10">
             <select v-model="user.info.gender" class="form-select" :disabled="!isDisabled">
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
+            </select>
+           </div>
+        </div>
+        <div class="mb-3 mt-3 row">
+           <label class="col-sm-2 col-form-label">Nationality:</label>
+           <div class="col-sm-10">
+            <input v-model="user.info.nationality" type="text" class="form-control" :disabled="!isDisabled">
+           </div>
+        </div>
+        <div class="mb-3 mt-3 row">
+           <label class="col-sm-2 col-form-label">Civil Status:</label>
+           <div class="col-sm-10">
+            <select v-model="user.info.civil_status" class="form-select" :disabled="!isDisabled">
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Divorced">Divorced</option>
+                <option value="Widowed">Widowed</option>
             </select>
            </div>
         </div>
@@ -81,60 +104,49 @@
            </div>
         </div>
         <!-- --------------------------------------------------------- -->
-        <h5 class="fw-bold text-primary mt-5">Documents</h5>
-        <p>Please check box if you have the specific document</p>
-        <div class="mb-5 mt-3 row ms-1">
-           <div class="form-check">
-                <input class="form-check-input cursor-pointer" type="checkbox" value="" :disabled="!isDisabled">
-                <label class="form-check-label">
-                    PSA Birth Certificate
-                </label>
-            </div>
-           <div class="form-check mt-1">
-                <input class="form-check-input cursor-pointer" type="checkbox" value="" :disabled="!isDisabled">
-                <label class="form-check-label">
-                    NBI Clearance
-                </label>
-            </div>
-           <div class="form-check mt-1">
-                <input class="form-check-input cursor-pointer" type="checkbox" value="" :disabled="!isDisabled">
-                <label class="form-check-label">
-                    PAG-IBIG
-                </label>
-            </div>
-           <div class="form-check mt-1">
-                <input class="form-check-input cursor-pointer" type="checkbox" value="" :disabled="!isDisabled">
-                <label class="form-check-label">
-                    SSS
-                </label>
-            </div>
-           <div class="form-check mt-1">
-                <input class="form-check-input cursor-pointer" type="checkbox" value="" :disabled="!isDisabled">
-                <label class="form-check-label">
-                    Philhealth
-                </label>
-            </div>
-           <div class="form-check mt-1">
-                <input class="form-check-input cursor-pointer" type="checkbox" value="" :disabled="!isDisabled">
-                <label class="form-check-label">
-                    Tax Forms
-                </label>
-            </div>
-           <div class="form-check mt-1">
-                <input class="form-check-input cursor-pointer" type="checkbox" value="" :disabled="!isDisabled">
-                <label class="form-check-label">
-                    Diploma and Transcript of Records
-                </label>
-            </div>
-            <p class="mt-3 ms-0 p-0"><span class="text-danger">Note: </span>Documents must be updated.</p>
+        <h5 class="fw-bold text-primary mt-5">Education</h5>
+        <p>Please include school/university name and school year</p>
+       <div class="mb-3 mt-4 row">
+           <label class="col-sm-2 col-form-label">Tertiary:</label>
+           <div class="col-sm-10">
+            <input v-model="user.info.edu_tertiary" type="text" class="form-control" placeholder="e.g. Unibersidad ng Manila, Philippines, S.Y. 2018-2021" :disabled="!isDisabled">
+           </div>
+        </div>
+        <div class="mb-3 mt-3 row">
+           <label class="col-sm-2 col-form-label">Secondary:</label>
+           <div class="col-sm-10">
+            <input v-model="user.info.edu_secondary" type="text" class="form-control" placeholder="e.g. Manila National Highschool, Philippines, S.Y. 2014-2018" :disabled="!isDisabled">
+           </div>
+        </div>
+        <div class="mb-3 mt-3 row">
+           <label class="col-sm-2 col-form-label">Primary:</label>
+           <div class="col-sm-10">
+            <input v-model="user.info.edu_primary" type="text" class="form-control" placeholder="e.g. Manila Elementary School, Philippines, S.Y. 2008-2014" :disabled="!isDisabled">
+           </div>
+        </div>
+        <!-- --------------------------------------------------------- -->
+        <h5 class="fw-bold text-primary mt-5">Your Skills</h5>
+        <p>Please use bullet form if many</p>
+        <div class="mb-3 mt-4">
+            <vue-editor
+                :disabled="!isDisabled"
+                v-model="user.info.skills"
+                :editorToolbar="customToolbar"
+            ></vue-editor>
+        </div>
+        <!-- --------------------------------------------------------- -->
+        <h5 class="fw-bold text-primary mt-5">Seminars and Trainings Attended</h5>
+        <p>Please use bullet form if many</p>
+        <div class="mb-3 mt-4">
+            <vue-editor
+                :disabled="!isDisabled"
+                v-model="user.info.seminars_trainings"
+                :editorToolbar="customToolbar"
+            ></vue-editor>
         </div>
       </div>
   </div>
-  <!-- ADD FIELD FOR NATIONALITY -->
-  <!-- ADD FIELD FOR CIVIL STATUS -->
-  <!-- ADD FIELD FOR BIRTHPLACE -->
   <!-- ADD FIELD FOR CHARACTER REFERENCES -->
-  <!-- ADD FIELD FOR EDUCATION: TERTIARY, SECONDARY, PRIMARY -->
   <!-- ADD TEXT-AREA USING VUE-EDITOR FOR SKILLS AND SUMMARY -->
   <!-- ADD TEXT-AREA USING VUE-EDITOR FOR SEMINARS AND TRAINING -->
   <!-- ADD TEXT-AREA USING VUE-EDITOR FOR APPLICANT OBJECTIVES -->
@@ -143,10 +155,18 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import { VueEditor } from "vue2-editor";
 export default {
+  components: {
+    VueEditor,
+  },
     data(){
         return {
-            isDisabled: false
+            isDisabled: false,
+            customToolbar: [
+                ["bold", "italic", "underline"],
+                [{ list: "ordered" }, { list: "bullet" }],
+            ],
         }
     },
     async mounted() {
@@ -171,6 +191,8 @@ export default {
     .form-select:disabled, .form-select[readonly] {
     background-color: #ffffff;
     border: 0;
+    border-bottom: solid 1px #000;
+    border-radius: 0;
     opacity: 1;
     background-image: none;
 }
