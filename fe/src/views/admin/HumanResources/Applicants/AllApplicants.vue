@@ -281,7 +281,7 @@
             />
           </div>
         </div>
-        <h5 class="text-center mt-5" v-if="forRequirementsApplicants.data.length == 0 && !initialLoading">No applicants for final screening found on the database</h5>
+        <h5 class="text-center mt-5" v-if="forRequirementsApplicants.data.length == 0 && !initialLoading">No applicants for requirements found on the database</h5>
         <table class="table table-striped table-hover mt-4 text-nowrap" v-if="forRequirementsApplicants.data.length > 0">
           <caption>
             Showing {{forRequirementsApplicants.from}} to {{forRequirementsApplicants.to}} of {{forRequirementsApplicants.total}} data
