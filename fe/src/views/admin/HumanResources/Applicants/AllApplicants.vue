@@ -51,7 +51,7 @@
               <td>{{app.user.created_at | moment}}</td>
               <td>{{app.status}}</td>
               <td>
-                <router-link to="view/applicant" class="text-decoration-none">View Applicant</router-link>
+                <button class="btn text-primary text-decoration-none" @click="setViewApplicant(app)">View Applicant</button>
               </td>
             </tr>
           </tbody>
@@ -253,17 +253,6 @@
             </tr>
           </tbody>
         </table>
-        <!-- <div class="row mt-3" v-if="branches.data">
-          <pagination
-            :showDisabled="true"
-            :align="'right'"
-            :data="branches"
-            @pagination-change-page="getBranches"
-          >
-            <span slot="prev-nav">&laquo;</span>
-            <span slot="next-nav">&raquo;</span>
-          </pagination>
-        </div> -->
       </div>
     </div>
 
@@ -369,6 +358,10 @@ export default {
     },
   async getForRequirementsApplicants(page = 1){
       await this.$store.dispatch('applicant/getForRequirementsApplicants', {page: page, sort: this.sort})
+    },
+  setViewApplicant(data) {
+      this.$store.commit('applicant/SET_VIEW_APPLICANT', { data: data });
+      this.$router.push({ name: 'viewapplicant', params: { slug: data.id } });
     },
   },
   watch: {

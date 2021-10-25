@@ -177,7 +177,7 @@ const routes = [{
                             applicants: Applicants,
                         },
                         children: [{
-                                path: "view/applicant",
+                                path: "view/applicant/:slug",
                                 name: "viewapplicant",
                                 components: {
                                     viewapplicant: ViewApplicant

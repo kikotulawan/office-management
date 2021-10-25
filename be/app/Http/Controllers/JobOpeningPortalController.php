@@ -18,7 +18,7 @@ class JobOpeningPortalController extends Controller
         if(!empty($job)){
             return response()->json(JobOpening::get());
         } else {
-            return $this->error('Job not fouind.');
+            return $this->error('Job not found.');
         }
     }
 }

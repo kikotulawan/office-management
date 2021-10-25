@@ -36,4 +36,15 @@ class ApplicantController extends Controller
             $query->where('role', 'Applicant');
         })->with(['user', 'user.info','jobapplied'])->paginate(8));
     }
+
+    public function viewApplicant($id)
+    {
+        $job = JobApplicant::find('user_id', $id);
+
+        if(!empty($job)){
+            return response()->json(JobApplicant::get());
+        } else {
+            return $this->error('Applicant not found.');
+        }
+    }
 }

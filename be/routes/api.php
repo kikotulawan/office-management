@@ -68,3 +68,4 @@ Route::get('applicants/newapplicants', [ApplicantController::class, 'newApplican
 Route::get('applicants/for-interview/applicants', [ApplicantController::class, 'forInterviewApplicants']);
 Route::get('applicants/final-screening/applicants', [ApplicantController::class, 'forFinalScreeningApplicants']);
 Route::get('applicants/for-requirements/applicants', [ApplicantController::class, 'forRequirementsApplicants']);
+Route::get('applicants/view/applicant/{id}', [ApplicantController::class, 'viewApplicant']);

@@ -10,6 +10,7 @@ export default {
         forInterviewApplicants: [],
         forFinalScreeningApplicants: [],
         forRequirementsApplicants: [],
+        view_applicant: []
     },
     getters: {
 
@@ -32,6 +33,9 @@ export default {
         },
         SET_APPLICATION_STATUS(state, data) {
             state.applicationStatus = data
+        },
+        SET_VIEW_APPLICANT(state, data) {
+            state.view_applicant = data
         }
     },
     actions: {
@@ -113,6 +117,15 @@ export default {
                 return res;
             }).catch(err => {
                 return err.response
+            })
+
+            return res;
+        },
+        async viewApplicant({ commit }, data) {
+            const res = await API.get(`applicants/view/applicant/${data.id}`, data).then(res => {
+                return res;
+            }).catch(err => {
+                return err.response;
             })
 
             return res;
