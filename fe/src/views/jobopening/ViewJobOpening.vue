@@ -44,6 +44,7 @@
             </p>
             <p class="mt-3 fw-bold">
               Description:
+              <br>
               <span class="fw-normal" v-html="data.job_description"></span>
             </p>
             <p class="mt-3 fw-bold">
@@ -59,6 +60,7 @@
             </p>
             <p class="mt-3 fw-bold">
               Requirements:
+              <br>
               <span class="fw-normal" v-html="data.job_requirements"></span>
             </p>
             <p class="mt-3 fw-bold">

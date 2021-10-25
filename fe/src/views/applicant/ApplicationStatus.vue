@@ -5,7 +5,7 @@
       <p class="text-muted">
         Your application status on a job vacancy are listed below
       </p>
-      <div class="d-flex justify-content-end mb-2 mt-2">
+      <div class="d-flex justify-content-end mb-2 mt-2" v-if="applicationStatus.data.length > 0">
         <div class="me-2 ">
           <input
             type="text"
