@@ -131,7 +131,7 @@
       </template>
     </b-modal>
 
-    <b-modal id="rejectModal" centered title="Reject">
+    <b-modal id="rejectModal" centered title="Reject Applicant">
       <p>Are you sure to reject applicant?</p>
       <template #modal-footer="{ cancel }">
         <b-button variant="secondary" @click="cancel()" :disabled="isLoading">
@@ -147,7 +147,7 @@
       </template>
     </b-modal>
 
-    <b-modal id="blacklistModal" centered title="Reject">
+    <b-modal id="blacklistModal" centered title="Blacklist Applicant">
       <p>Applicant will be moved to blacklist. Are you sure?</p>
       <template #modal-footer="{ cancel }">
         <b-button variant="secondary" @click="cancel()" :disabled="isLoading">
