@@ -38,9 +38,9 @@
           ></span>
         </p>
         <div class="d-block mt-5">
-          <button class="btn shadow-none btn-success me-1"><i class="bi bi-check-lg me-2"></i>Approve</button>
-          <button class="btn shadow-none btn-danger mx-1"><i class="bi bi-x-lg me-2"></i>Reject</button>
-          <button class="btn shadow-none btn-dark mx-1"><i class="bi bi-person-x-fill me-2"></i>Add to Blacklist</button>
+          <button class="btn shadow-none btn-success me-1" @click="$bvModal.show('approveModal');"><i class="bi bi-check-lg me-2"></i>Approve</button>
+          <button class="btn shadow-none btn-danger mx-1" @click="$bvModal.show('rejectModal');"><i class="bi bi-x-lg me-2"></i>Reject</button>
+          <button class="btn shadow-none btn-dark mx-1" @click="$bvModal.show('blacklistModal');"><i class="bi bi-person-x-fill me-2"></i>Add to Blacklist</button>
         </div>
       </div>
       <div class="col-6">
@@ -109,6 +109,59 @@
         </p>
       </div>
     </div>
+
+    <b-modal id="approveModal" centered title="Approved - Schedule an interview">
+      <p>Please select interview date</p>
+      <input type="date" class="form-control">
+      <p class="mt-2">Assign interviewer</p>
+      <select class="form-select">
+        <option value="">Select</option>
+      </select>
+      <template #modal-footer="{ cancel }">
+        <b-button variant="secondary" @click="cancel()" :disabled="isLoading">
+          Cancel
+        </b-button>
+        <b-button
+          variant="success"
+          v-on:click.prevent=""
+          :disabled="isLoading"
+        >
+          Confirm
+        </b-button>
+      </template>
+    </b-modal>
+
+    <b-modal id="rejectModal" centered title="Reject">
+      <p>Are you sure to reject applicant?</p>
+      <template #modal-footer="{ cancel }">
+        <b-button variant="secondary" @click="cancel()" :disabled="isLoading">
+          Cancel
+        </b-button>
+        <b-button
+          variant="danger"
+          v-on:click.prevent=""
+          :disabled="isLoading"
+        >
+          Confirm
+        </b-button>
+      </template>
+    </b-modal>
+
+    <b-modal id="blacklistModal" centered title="Reject">
+      <p>Applicant will be moved to blacklist. Are you sure?</p>
+      <template #modal-footer="{ cancel }">
+        <b-button variant="secondary" @click="cancel()" :disabled="isLoading">
+          Cancel
+        </b-button>
+        <b-button
+          variant="danger"
+          v-on:click.prevent=""
+          :disabled="isLoading"
+        >
+          Confirm
+        </b-button>
+      </template>
+    </b-modal>
   </div>
 </template>
 
