@@ -5,7 +5,7 @@
             <h5>Employees</h5>
             <p class="text-muted">Manage your employees below</p>
             <div class="d-flex justify-content-end mb-2 mt-2">
-                <div class="me-2 ">
+                <div class="me-2" v-if="users.data.length > 0">
                     <input type="text" class="form-control" id="searchbar" placeholder="Search here">
                 </div>
                 <button class="btn btn-primary btn-sm shadow-none" @click="$bvModal.show('addEmployeeModal')"> <i class="bi bi-plus"></i>Add Employee</button>

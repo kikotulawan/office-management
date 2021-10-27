@@ -33,6 +33,7 @@ class CreateUserInfosTable extends Migration
             $table->string('edu_primary', 100)->nullable();
             $table->longText('skills')->nullable();
             $table->longText('seminars_trainings')->nullable();
+            $table->longText('work_experiences')->nullable();
             $table->boolean('isAdmin');
             $table->string('image')->nullable();
             $table->timestamps();

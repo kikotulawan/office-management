@@ -51,7 +51,7 @@
               <td>{{app.user.created_at | moment}}</td>
               <td>{{app.status}}</td>
               <td>
-                <button class="btn text-primary text-decoration-none" @click="setViewApplicant(app)">View Applicant</button>
+                <button class="btn text-primary text-decoration-none shadow-none" @click="setViewApplicant(app)">View Applicant</button>
               </td>
             </tr>
           </tbody>
@@ -120,11 +120,7 @@
               <td>{{newApp.jobapplied.job_title}}</td>
               <td>{{newApp.jobapplied.created_at | moment}}</td>
               <td class="text-nowrap">
-                <a href="" class="text-decoration-none shadow-none"
-                  ><small>
-                    Review Application
-                  </small>
-                </a>
+                <button class="btn text-primary text-decoration-none shadow-none" @click="setViewNewApplicant(newApp)">Review Applicant</button>
               </td>
             </tr>
           </tbody>
@@ -329,6 +325,7 @@ export default {
   },
   async mounted() {},
   async created(){
+    document.title = "Human Resource - Applicants"
       await this.$store.dispatch('applicant/getApplicants', {page: 1, sort: this.sort})
       await this.$store.dispatch('applicant/getNewApplicants', {page: 1, sort: this.sort})
       await this.$store.dispatch('applicant/getForInterviewApplicants', {page: 1, sort: this.sort})
@@ -362,6 +359,10 @@ export default {
   setViewApplicant(data) {
       this.$store.commit('applicant/SET_VIEW_APPLICANT', { data: data });
       this.$router.push({ name: 'viewapplicant', params: { slug: data.id } });
+    },
+  setViewNewApplicant(data) {
+      this.$store.commit('applicant/SET_VIEW_NEW_APPLICANT', { data: data });
+      this.$router.push({ name: 'newapplicant', params: { slug: data.id } });
     },
   },
   watch: {

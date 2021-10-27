@@ -29,6 +29,7 @@ import JobOpening from "../views/admin/HumanResources/JobOpening.vue";
 
 import Applicants from "../views/admin/HumanResources/Applicants/Applicants.vue";
 import ViewApplicant from "../views/admin/HumanResources/Applicants/ViewApplicant.vue";
+import ViewNewApplicant from "../views/admin/HumanResources/Applicants/ViewNewApplicant.vue";
 import AllApplicants from "../views/admin/HumanResources/Applicants/AllApplicants.vue";
 
 Vue.use(VueRouter);
@@ -181,6 +182,13 @@ const routes = [{
                                 name: "viewapplicant",
                                 components: {
                                     viewapplicant: ViewApplicant
+                                }
+                            },
+                            {
+                                path: "view/newapplicant/:slug",
+                                name: "newapplicant",
+                                components: {
+                                    newapplicant: ViewNewApplicant
                                 }
                             },
                             {

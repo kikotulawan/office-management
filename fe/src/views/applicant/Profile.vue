@@ -144,6 +144,16 @@
                 :editorToolbar="customToolbar"
             ></vue-editor>
         </div>
+        <!-- --------------------------------------------------------- -->
+        <h5 class="fw-bold text-primary mt-5">Work Experiences</h5>
+        <p>Please use bullet form if many</p>
+        <div class="mb-3 mt-4">
+            <vue-editor
+                :disabled="!isDisabled"
+                v-model="user.info.work_experiences"
+                :editorToolbar="customToolbar"
+            ></vue-editor>
+        </div>
       </div>
   </div>
   <!-- ADD FIELD FOR CHARACTER REFERENCES -->

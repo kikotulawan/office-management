@@ -10,7 +10,8 @@ export default {
         forInterviewApplicants: [],
         forFinalScreeningApplicants: [],
         forRequirementsApplicants: [],
-        view_applicant: []
+        view_applicant: [],
+        view_new_applicant: [],
     },
     getters: {
 
@@ -36,6 +37,9 @@ export default {
         },
         SET_VIEW_APPLICANT(state, data) {
             state.view_applicant = data
+        },
+        SET_VIEW_NEW_APPLICANT(state, data) {
+            state.view_new_applicant = data
         }
     },
     actions: {

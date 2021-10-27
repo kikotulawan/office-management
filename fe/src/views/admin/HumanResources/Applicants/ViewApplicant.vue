@@ -7,7 +7,7 @@
     <p class="fw-light mt-4">Gender: <span class="fw-bold ms-1">{{data.gender}}</span></p>
     <p class="fw-light mt-2">Age: <span class="fw-bold ms-1">{{data.age}}</span></p>
     <p class="fw-light mt-2">Birthday: <span class="fw-bold ms-1">{{data.birthday | moment}}</span></p>
-    <p class="fw-light mt-4">Contact Number: <span class="fw-bold ms-1">{{data.contact_number}}</span></p>
+    <p class="fw-light mt-4" v-if="data.contact_number">Contact Number: <span class="fw-bold ms-1">{{data.contact_number}}</span></p>
     <p class="fw-light mt-2">Email: <span class="fw-bold ms-1">{{data.email}}</span></p>
     <p class="fw-light mt-2">Address: <span class="fw-bold ms-1">{{data.address}}</span></p>
     <h5 class="text-primary mt-5">Educational Background</h5>
@@ -25,11 +25,16 @@
     <p class="fw-light" v-if="data.seminars_trainings"><span class="fw-normal ms-1" v-html="data.seminars_trainings"></span></p>
     <p class="fw-bold text-danger" v-if="!data.seminars_trainings">Applicant have no attended seminars nor trainings</p>
     <br>
-    <input type="checkbox" v-model="addComment" class="btn-check" id="btn-check" autocomplete="off" />
-    <label class="btn shadow-none btn-primary mt-2" for="btn-check" v-if="!addComment">Add Comment</label>
-    <label class="btn shadow-none btn-danger mt-2" for="btn-check" v-if="addComment">Cancel</label>
-    <button v-if="addComment" class="btn btn-success ms-2 mt-2">Comment</button>
+    <div class="d-inline-flex mt-3">
+    <h5 class="text-primary mt-1 me-3">Comments</h5>
+    <label class="btn btn-sm shadow-none btn-primary" for="btn-check" v-if="!addComment">Add Comment</label>
+    </div>
+    <hr>
+    <p class="fw-bold text-danger" v-if="!addComment">No comments</p>
     <textarea v-if="addComment" class="form-control mt-2" rows="5" placeholder="Type your comment here"></textarea>
+    <input type="checkbox" v-model="addComment" class="btn-check" id="btn-check" autocomplete="off" />
+    <label class="btn shadow-none btn-danger mt-4" for="btn-check" v-if="addComment">Cancel</label>
+    <button v-if="addComment" class="btn btn-success ms-2 mt-4">Comment</button>
   </div>
 </template>
 
@@ -68,6 +73,7 @@ export default {
     },
   },
   async mounted() {
+    document.title = "Applicant - " + this.view_applicant.data.user.info.first_name + " " + this.view_applicant.data.user.info.last_name 
     await this.$store.dispatch("auth/checkUser"),
       (this.data = {
         id: this.view_applicant.id,

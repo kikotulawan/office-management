@@ -63,7 +63,7 @@ export default {
 
         if(res.status == 200){
           this.$router.push('/home/dashboard')
-          this.$toast.success(`Welcome, Administrator!`)
+          this.$toast.success(`Welcome, ${res.data.user_info.first_name} ${res.data.user_info.last_name}`)
         }
         else{
           this.$toast.error('Incorrect credentials')
