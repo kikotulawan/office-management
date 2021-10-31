@@ -8,6 +8,7 @@ use App\Http\Controllers\HREmployeeController;
 use App\Http\Controllers\HRJobOpeningController;
 use App\Http\Controllers\HROverTimePolicyController;
 use App\Http\Controllers\UserAuthController;
+use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\HRPolicyController;
 use App\Http\Controllers\JobOpeningPortalController;
 use App\Http\Controllers\JobApplicationController;
@@ -35,9 +36,18 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
         Route::post('change_password', [AdminAuthController::class, 'changePassword']);
         Route::post('me', [AdminAuthController::class, 'me']);
     });
+
+    
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('permission', [UserAuthController::class, 'permissions']);
+    });
 });
 
 Route::group(['prefix' => 'admin'], function (){
+    Route::post('permissions/search', [RolePermissionController::class, 'searchRole']);
+    Route::get('permissions/all', [RolePermissionController::class, 'all']);
+    Route::apiResource('permissions',RolePermissionController::class);
+    
     Route::get('position/allPositions', [HRPositionController::class, 'allPositions']);
     Route::apiResource('position', HRPositionController::class);
     Route::get('branch/allBranches', [HRBranchController::class, 'allBranches']);
@@ -53,6 +63,7 @@ Route::group(['prefix' => 'admin'], function (){
 });
 
 Route::group(['prefix' => 'user'], function () {
+
     Route::post('auth/login', [UserAuthController::class, 'login']);    
     Route::post('auth/me', [UserAuthController::class, 'me']);            
     Route::get('auth/appliedjobs', [UserAuthController::class, 'jobApplied']);            

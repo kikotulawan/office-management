@@ -61,7 +61,7 @@ export default {
             this.isLoading = true
             const res = await this.logoutAuthUser()
             if(res.status == 200){
-                this.$router.push('/jobs/applicant/login')
+                this.$router.push('/')
                 this.$toast.info('Logged out')
                 this.isLoading = false
             }

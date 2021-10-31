@@ -5,7 +5,9 @@
 </template>
 <script>
 import API from './store/base/index'
+import events from './router/events'
 export default {
+  mixins: [events],
   created(){
     this.setHeaders()
   },
@@ -21,7 +23,10 @@ export default {
         await this.$store.dispatch('auth/checkUser')
       }
       else {
-        console.log('not admin')
+       await this.$store.dispatch('auth/checkAuthUser')
+          API.get("/auth/user/permission").then((response) => {
+                this.$ability.update([{ subject: "all", action: response.data }]);
+            });
       }
       // const bearer_token = localStorage.getItem('auth') || ''
       // API.defaults.headers.common['Authorization'] = `Bearer ${bearer_token}`

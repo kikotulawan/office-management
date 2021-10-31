@@ -4,6 +4,7 @@
    <Navbar />
    <div class="main-content">
      <router-view name="dashboard"/>
+     <router-view name="permissions"/>
      <router-view name="humanresources"/>
    </div>
   </div>

@@ -23,6 +23,13 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import "vue-toastification/dist/index.css";
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
+import { abilitiesPlugin } from '@casl/vue';
+import ability from './ability';
+
+Vue.use(abilitiesPlugin, ability, {
+    useGlobalProperties: true
+})
+
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 Vue.use(Toast, {

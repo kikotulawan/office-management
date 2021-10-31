@@ -27,6 +27,8 @@ import PayPeriods from "../views/admin/HumanResources/PayPeriods.vue";
 import Leaves from "../views/admin/HumanResources/Leaves.vue";
 import JobOpening from "../views/admin/HumanResources/JobOpening.vue";
 
+import Permissions from "../views/admin/Permissions.vue";
+
 import Applicants from "../views/admin/HumanResources/Applicants/Applicants.vue";
 import ViewApplicant from "../views/admin/HumanResources/Applicants/ViewApplicant.vue";
 import ViewNewApplicant from "../views/admin/HumanResources/Applicants/ViewNewApplicant.vue";
@@ -91,6 +93,13 @@ const routes = [{
                 name: "dashboard",
                 components: {
                     dashboard: Dashboard,
+                },
+            },
+            {
+                path: "permissions",
+                name: "permissions",
+                components: {
+                    permissions: Permissions,
                 },
             },
             {
@@ -232,7 +241,7 @@ router.beforeEach((to, from, next) => {
     } else if (
         to.matched.some((record) => record.meta.hasUser) &&
         localStorage.getItem("auth") &&
-        localStorage.getItem("isAdmin")
+        localStorage.getItem("isUser")
     ) {
         next({ name: "dashboard" });
     } else {

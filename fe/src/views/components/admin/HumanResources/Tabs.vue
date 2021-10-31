@@ -30,14 +30,14 @@
 import {mapActions, mapState} from 'vuex'
 export default {
   async mounted(){
-   await this.checkUser();
+   await this.checkAuthUser();
   },
  computed: {
   ...mapState('auth', ['user']),
   
  },
  methods: {
-   ...mapActions('auth', ['checkUser']),
+   ...mapActions('auth', ['checkAuthUser']),
    getRoute(el){
 
   }

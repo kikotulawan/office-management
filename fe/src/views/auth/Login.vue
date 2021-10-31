@@ -50,19 +50,19 @@ export default {
   components: {
   },
   methods: {
-    ...mapActions('auth', ['loginAccount']),
+    ...mapActions('auth', ['loginUserAccount']),
     async signin(){ 
       if(this.data.email == '') return this.$toast.error('Email is required');
       if(this.data.password == '') return this.$toast.error('Password is required');
       if(!this.validEmail()) return this.$toast.error('Email is invalid');
       this.isLoading = true
-        const res = await this.loginAccount(this.data)
+        const res = await this.loginUserAccount(this.data)
         if(res == 'Error: Network Error'){
           this.$toast.error('Our server is currently down at this time.')
         }
 
         if(res.status == 200){
-          this.$router.push('/home/dashboard')
+          this.$router.push(`${res.data.route}`)
           this.$toast.success(`Welcome, ${res.data.user_info.first_name} ${res.data.user_info.last_name}`)
         }
         else{

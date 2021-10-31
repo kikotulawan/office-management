@@ -3,9 +3,9 @@
     <h5 class="text-primary">Applicant Details</h5>
     <hr>
     <h5 class="fw-light">Applicant Name:</h5>
-    <h3 class="mt-1">{{data.first_name}} {{data.middle_name}} {{data.last_name}}</h3>
-    <p class="fw-light mt-4">Gender: <span class="fw-bold ms-1">{{data.gender}}</span></p>
-    <p class="fw-light mt-2">Age: <span class="fw-bold ms-1">{{data.age}}</span></p>
+    <h3 class="mt-1">{{data.first_name}} {{data.middle_name}} {{data.last_name}}, {{data.age}}</h3>
+    <p class="fw-light mt-4">Application Status: <span class="fw-bold ms-1">{{data.application_status}}</span></p>
+    <p class="fw-light mt-2">Gender: <span class="fw-bold ms-1">{{data.gender}}</span></p>
     <p class="fw-light mt-2">Birthday: <span class="fw-bold ms-1">{{data.birthday | moment}}</span></p>
     <p class="fw-light mt-4" v-if="data.contact_number">Contact Number: <span class="fw-bold ms-1">{{data.contact_number}}</span></p>
     <p class="fw-light mt-2">Email: <span class="fw-bold ms-1">{{data.email}}</span></p>
@@ -62,6 +62,7 @@ export default {
         edu_secondary: '',
         edu_primary: '',
         seminars_trainings: '',
+        application_status: '',
       },
       sort: "asc",
       modalId: "",
@@ -77,6 +78,7 @@ export default {
     await this.$store.dispatch("auth/checkUser"),
       (this.data = {
         id: this.view_applicant.id,
+        application_status: this.view_applicant.data.status,
         first_name: this.view_applicant.data.user.info.first_name,
         middle_name: this.view_applicant.data.user.info.middle_name,
         last_name: this.view_applicant.data.user.info.last_name,

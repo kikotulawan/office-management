@@ -22,6 +22,9 @@ class DatabaseSeeder extends Seeder
             PolicySeeder::class,
             RoleSeeder::class,
             JobOpeningSeeder::class,
+            PermissionSeeder::class,
+            PermissionRoleSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }

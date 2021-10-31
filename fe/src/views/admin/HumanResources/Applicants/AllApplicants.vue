@@ -51,7 +51,7 @@
               <td>{{app.user.created_at | moment}}</td>
               <td>{{app.status}}</td>
               <td>
-                <button class="btn text-primary text-decoration-none shadow-none" @click="setViewApplicant(app)">View Applicant</button>
+                <button class="btn text-primary text-decoration-none shadow-none pt-0" @click="setViewApplicant(app)">View Applicant</button>
               </td>
             </tr>
           </tbody>
@@ -120,7 +120,7 @@
               <td>{{newApp.jobapplied.job_title}}</td>
               <td>{{newApp.jobapplied.created_at | moment}}</td>
               <td class="text-nowrap">
-                <button class="btn text-primary text-decoration-none shadow-none" @click="setViewNewApplicant(newApp)">Review Applicant</button>
+                <button class="btn text-primary text-decoration-none shadow-none pt-0" @click="setViewNewApplicant(newApp)">Review Applicant</button>
               </td>
             </tr>
           </tbody>

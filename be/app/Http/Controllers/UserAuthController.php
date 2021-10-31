@@ -25,9 +25,14 @@ class UserAuthController extends Controller
         return $this->respondWithToken($token);
     }
 
+    public function permissions(){
+        $permission = auth()->user()->role->permission->pluck('permission')->toArray();
+        return response()->json($permission);
+    }
+
     public function me()
     {
-        $user = User::with(['info'])->where('id', auth()->guard('api')->user()->id)->first();
+        $user = User::with(['info', 'role:id,role'])->where('id', auth()->guard('api')->user()->id)->first();
         return response()->json($user);
     }
 
@@ -67,7 +72,7 @@ class UserAuthController extends Controller
         ]);
 
         UserRole::create([
-            'role_id' => 2,
+            'role_id' => 3,
             'user_id' => $user->id
         ]);
 
@@ -77,13 +82,24 @@ class UserAuthController extends Controller
     protected function respondWithToken($token)
     {
         $user = UserInfo::where('id', auth('api')->user()->id)->first();
-
+        //1 = Admin
+        //2 = Employee
+        //3 = Applicant
+        //4 = HR - Admin
+        //5 = HR - Staff
+        if(auth()->user()->role->id == 3){
+            $route = '/applicant/home/profile';
+        }
+        else {
+            $route = '/home/dashboard';
+        }
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL() * 120,
             'user_info' => $user,
             'user_account' => auth('api')->user(),
+            'route' => $route
         ]);
     }
 }

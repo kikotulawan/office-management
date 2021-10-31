@@ -39,6 +39,14 @@ export default {
             const bearer_token = localStorage.getItem('auth') || ''
             API.defaults.headers.common['Authorization'] = `Bearer ${bearer_token}`
         },
+        SET_USER_TOKEN(state, token) {
+            localStorage.setItem('auth', token)
+            localStorage.setItem('isUser', 'true')
+            state.token = token
+
+            const bearer_token = localStorage.getItem('auth') || ''
+            API.defaults.headers.common['Authorization'] = `Bearer ${bearer_token}`
+        },
         SET_AUTH_TOKEN(state, token) {
             localStorage.setItem('auth', token)
             localStorage.setItem('isAdmin', 'true')
@@ -59,10 +67,22 @@ export default {
         }
     },
     actions: {
-        async loginAccount({ commit }, payload) {
-            const res = await API.post('/auth/admin/login', payload).then(res => {
+        // async loginAccount({ commit }, payload) {
+        //     const res = await API.post('/auth/admin/login', payload).then(res => {
+        //         commit('SET_AUTH_ACC', res.data)
+        //         commit('SET_AUTH_TOKEN', res.data.access_token)
+
+        //         return res;
+        //     }).catch(err => {
+        //         return err
+        //     })
+
+        //     return res;
+        // },
+        async loginUserAccount({ commit }, payload) {
+            const res = await API.post('/user/auth/login', payload).then(res => {
                 commit('SET_AUTH_ACC', res.data)
-                commit('SET_AUTH_TOKEN', res.data.access_token)
+                commit('SET_USER_TOKEN', res.data.access_token)
 
                 return res;
             }).catch(err => {
