@@ -141,16 +141,16 @@ export default {
                job_opening_id: id
            }
 
-           if(localStorage.getItem('isAdmin')){
-               const { status } = await this.$store.dispatch('auth/logoutUser')
-               if(status == 200){
-                   this.$router.push('/jobs/applicant/login')
-               }
-               else {
-                   this.$toast.error('Something went wrong')
-               }
-           }
-           else if(localStorage.getItem('isApplicant')){
+        //    if(localStorage.getItem('isUse')){
+        //        const { status } = await this.$store.dispatch('auth/logoutUser')
+        //        if(status == 200){
+        //            this.$router.push('/jobs/applicant/login')
+        //        }
+        //        else {
+        //            this.$toast.error('Something went wrong')
+        //        }
+        //    }
+           if(localStorage.getItem('isUser')){
               const {status, data} = await this.$store.dispatch('applicant/applyJob', job_data)
               if(status == 200){
                   this.$toast.success('Application successful!');

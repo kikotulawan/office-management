@@ -48,7 +48,7 @@
               <td class="text-nowrap">{{app.user.info.first_name}} {{app.user.info.last_name}}</td>
               <td>{{app.user.info.gender}}</td>
               <td>{{app.jobapplied.job_title}}</td>
-              <td>{{app.user.created_at | moment}}</td>
+              <td>{{app.created_at | moment}}</td>
               <td>{{app.status}}</td>
               <td>
                 <button class="btn text-primary text-decoration-none shadow-none pt-0" @click="setViewApplicant(app)">View Applicant</button>
@@ -118,7 +118,7 @@
               <td class="text-nowrap">{{newApp.user.info.first_name}} {{newApp.user.info.last_name}}</td>
               <td>{{newApp.user.email}}</td>
               <td>{{newApp.jobapplied.job_title}}</td>
-              <td>{{newApp.jobapplied.created_at | moment}}</td>
+              <td>{{newApp.created_at | moment}}</td>
               <td class="text-nowrap">
                 <button class="btn text-primary text-decoration-none shadow-none pt-0" @click="setViewNewApplicant(newApp)">Review Applicant</button>
               </td>
