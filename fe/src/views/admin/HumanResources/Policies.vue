@@ -488,9 +488,12 @@ export default {
       prevIndex: "",
     };
   },
-  async mounted() {
-    this.initialLoading = true;
+  created(){
     document.title = "Human Resource - Policies";
+  },
+  async mounted() {
+    await this.$store.dispatch('auth/checkAuthUser')    
+    this.initialLoading = true;
     await this.$store.dispatch("policies/getPolicies", {
       page: 1,
       sort: this.sort,

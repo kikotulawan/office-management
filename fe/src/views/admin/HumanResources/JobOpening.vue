@@ -580,9 +580,11 @@ export default {
       return moment(date).format("MMMM D, YYYY");
     },
   },
-  async mounted() {
+  created(){
     document.title = "Human Resource - Job Opening";
-    await this.$store.dispatch("auth/checkUser");
+  },
+  async mounted() {
+    await this.$store.dispatch("auth/checkAuthUser");
     await this.$store.dispatch("jobopening/getJobOpening", {
       page: 1,
       sort: this.sort,

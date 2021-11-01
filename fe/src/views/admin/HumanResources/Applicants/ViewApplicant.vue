@@ -73,10 +73,12 @@ export default {
       return moment(date).format("MMMM D, YYYY");
     },
   },
+  created(){
+    document.title = ("Applicant - " + this.view_applicant.data.user.info.first_name + " " + this.view_applicant.data.user.info.last_name)
+  },
   async mounted() {
-    document.title = "Applicant - " + this.view_applicant.data.user.info.first_name + " " + this.view_applicant.data.user.info.last_name 
-    await this.$store.dispatch("auth/checkUser"),
-      (this.data = {
+    await this.$store.dispatch("auth/checkAuthUser"),
+      this.data = {
         id: this.view_applicant.id,
         application_status: this.view_applicant.data.status,
         first_name: this.view_applicant.data.user.info.first_name,
@@ -93,7 +95,7 @@ export default {
         edu_primary: this.view_applicant.data.user.info.edu_primary,
         skills: this.view_applicant.data.user.info.skills,
         seminars_trainings: this.view_applicant.data.user.info.seminars_trainings,
-      });
+      };
   },
   computed: {
     ...mapState("applicant", ["view_applicant"]),

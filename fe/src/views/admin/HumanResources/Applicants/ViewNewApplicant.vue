@@ -207,14 +207,16 @@ export default {
       return moment(date).format("MMMM D, YYYY");
     },
   },
-  async mounted() {
+  created(){
     document.title =
-      "New Applicant - " +
-      this.view_new_applicant.data.user.info.first_name +
-      " " +
-      this.view_new_applicant.data.user.info.last_name;
-    await this.$store.dispatch("auth/checkUser"),
-      (this.data = {
+    "New Applicant - " +
+    this.view_new_applicant.data.user.info.first_name +
+    " " +
+    this.view_new_applicant.data.user.info.last_name; 
+  },
+  async mounted() {
+      await this.$store.dispatch('auth/checkAuthUser')
+      this.data = {
         id: this.view_new_applicant.id,
         job_title: this.view_new_applicant.data.jobapplied.job_title,
         job_description: this.view_new_applicant.data.jobapplied
@@ -244,7 +246,7 @@ export default {
           .seminars_trainings,
         work_experiences: this.view_new_applicant.data.user.info
           .work_experiences,
-      });
+      };
   },
   computed: {
     ...mapState("applicant", ["view_new_applicant"]),

@@ -107,7 +107,7 @@
     id-field="id"
     text-field="permission"
     :only-existing-tags="true"
-    placeholder=" "
+    placeholder=""
     :typeahead="true"></tags-input>
     <template #modal-footer="{cancel}">
      <b-button variant="primary" size="sm" @click="cancel()" :disabled="isLoading"> Cancel </b-button>
@@ -146,6 +146,7 @@ export default {
     this.debouncedPermissionSearch = _.debounce(this.searchPermission, 1000)
   },
   async mounted(){
+    await this.$store.dispatch('auth/checkAuthUser')    
     this.initialLoading = true
     document.title = "Role Permission - Touchless Information Management"
     await this.$store.dispatch('permission/getRolePermissions')

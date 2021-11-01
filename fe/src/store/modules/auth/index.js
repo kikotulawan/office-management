@@ -49,7 +49,7 @@ export default {
         },
         SET_AUTH_TOKEN(state, token) {
             localStorage.setItem('auth', token)
-            localStorage.setItem('isAdmin', 'true')
+            localStorage.setItem('isUser', 'true')
             state.token = token
 
             const bearer_token = localStorage.getItem('auth') || ''

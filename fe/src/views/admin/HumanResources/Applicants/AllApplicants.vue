@@ -323,9 +323,11 @@ export default {
       sort: 'asc'
     };
   },
-  async mounted() {},
-  async created(){
+  created(){
     document.title = "Human Resource - Applicants"
+  },
+  async mounted(){
+      await this.$store.dispatch('auth/checkAuthUser')    
       await this.$store.dispatch('applicant/getApplicants', {page: 1, sort: this.sort})
       await this.$store.dispatch('applicant/getNewApplicants', {page: 1, sort: this.sort})
       await this.$store.dispatch('applicant/getForInterviewApplicants', {page: 1, sort: this.sort})

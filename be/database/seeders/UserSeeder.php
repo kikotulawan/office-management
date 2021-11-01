@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
         $userinfo = UserInfo::create($userinfodata);
 
         $user = User::create([
-            'email' => 'ezikielpuratulawan@gmail.com',
+            'email' => 'ezikielpuratulawan@eoffice.com',
             'password' => Hash::make('123123'),
             'user_info_id' => $userinfo->id,
         ]);
@@ -43,9 +43,9 @@ class UserSeeder extends Seeder
 
         //USER NUMBER 2
         $userinfodata1 = [
-            'first_name' => 'HR',
-            'middle_name' => 'Michael',
-            'last_name' => 'Admin',
+            'first_name' => 'Micheal',
+            'middle_name' => 'Lois',
+            'last_name' => 'Myers',
             'gender' => 'Male',
             'age' => '25',
             'address' => 'Diit',                                          
@@ -57,21 +57,21 @@ class UserSeeder extends Seeder
         $userinfo1 = UserInfo::create($userinfodata1);
 
         $user1 = User::create([
-            'email' => 'sampleemail@gmail.com',
+            'email' => 'hrstaff@eoffice.com',
             'password' => Hash::make('123123'),
             'user_info_id' => $userinfo1->id,
         ]);
 
         UserRole::create([
-            'role_id' => 4,
+            'role_id' => 5,
             'user_id' => $user1->id
         ]);
 
         //USER NUMBER 3
         $userinfodata2 = [
-            'first_name' => 'HR',
-            'middle_name' => 'Michael',
-            'last_name' => 'Staff',
+            'first_name' => 'Jason',
+            'middle_name' => 'Joe',
+            'last_name' => 'Voores',
             'gender' => 'Male',
             'age' => '25',
             'address' => 'V&G',                                          
@@ -83,13 +83,13 @@ class UserSeeder extends Seeder
         $userinfo2 = UserInfo::create($userinfodata2);
 
         $user2 = User::create([
-            'email' => 'sampleemail1@gmail.com',
+            'email' => 'hradmin@eoffice.com',
             'password' => Hash::make('123123'),
             'user_info_id' => $userinfo2->id,
         ]);
 
         UserRole::create([
-            'role_id' => 5,
+            'role_id' => 4,
             'user_id' => $user2->id
         ]);
 

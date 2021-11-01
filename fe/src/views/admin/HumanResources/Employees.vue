@@ -368,12 +368,12 @@ export default {
             },
         }
     },
-    async created() {
+    created() {
+        document.title = "Human Resource - Employees"
     },
     async mounted() {
-        await this.$store.dispatch('auth/checkUser')
+        await this.$store.dispatch('auth/checkAuthUser')
         this.initialLoading = true
-        document.title = "Human Resource - Employee"
         await this.$store.dispatch('employees/getEmployees', {page: 1, sort: this.sort})
         await this.$store.dispatch('branches/allBranches')
         await this.$store.dispatch('departments/allDepartments')
@@ -384,7 +384,6 @@ export default {
             this.modalId = modalId.componentId
         })
         this.$root.$on('bv::modal::hide', (modalId) => {
-
         })
         this.initialLoading = false
     },

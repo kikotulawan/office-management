@@ -116,14 +116,14 @@ export default {
             modalId: '',
         }
     },
-    async created(){
-        await this.$store.dispatch('branches/getBranches', {page: 1, sort: this.sort})
-
+   created(){
+        // await this.$store.dispatch('branches/getBranches', {page: 1, sort: this.sort})
+        document.title = 'Human Resource - Branches'
     },
     async mounted() {
+        await this.$store.dispatch('auth/checkAuthUser')    
         this.initialLoading = true
-        document.title = 'Human Resource - Branches'
-        // await this.$store.dispatch('branches/getBranches', {page: 1, sort: this.sort})
+        await this.$store.dispatch('branches/getBranches', {page: 1, sort: this.sort})
         this.$root.$on('bv::modal::show', (modalId) => {
             this.modalId = modalId.componentId
         })

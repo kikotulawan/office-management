@@ -11,6 +11,7 @@ export default {
             API.get("/auth/user/permission").then((response) => {
                 this.$ability.update([{ subject: "all", action: response.data }]);
             });
+
         },
     },
 };

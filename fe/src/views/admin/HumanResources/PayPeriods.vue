@@ -14,7 +14,9 @@ export default {
   data() {
     return {};
   },
-  async mounted() {},
+  async mounted() {
+   await this.$store.dispatch('auth/checkAuthUser')    
+  },
   computed: {},
   methods: {},
   watch: {},

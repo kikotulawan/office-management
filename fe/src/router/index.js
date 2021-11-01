@@ -87,7 +87,7 @@ const routes = [{
         path: "/home",
         name: "Home",
         component: Index,
-        meta: { isAdmin: true, requiresLogin: true },
+        meta: { isUser: true, requiresLogin: true },
         children: [{
                 path: "dashboard",
                 name: "dashboard",

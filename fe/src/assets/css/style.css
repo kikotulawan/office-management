@@ -82,7 +82,6 @@ h6 p {
     box-shadow: 1px 0px 6px 0px rgba(0, 0, 0, 0.144);
     -webkit-box-shadow: 1px 0px 6px 0px rgba(0, 0, 0, 0.144);
     -moz-box-shadow: 1px 0px 6px 0px rgba(0, 0, 0, 0.144);
-    z-index: 1;
 }
 
 .vue-avatar--wrapper {
@@ -326,6 +325,12 @@ nav ul li a {
     font-size: 0.9rem;
     font-weight: 400;
     position: relative;
+}
+
+.logout-btn-div {
+    position: fixed;
+    bottom: 5% !important;
+    color: #000 !important;
 }
 
 nav ul li a:link {

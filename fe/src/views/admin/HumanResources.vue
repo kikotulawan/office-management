@@ -2,7 +2,6 @@
     <div>
         <div class="human-resources-content">
           <div class="container-fluid">
-            <Tabs />
               <router-view name="branches"/>
               <router-view name="departments"/>
               <router-view name="positions"/>
@@ -25,6 +24,6 @@
 <script>
 import Tabs from '../components/admin/HumanResources/Tabs.vue'
 export default {
-    components: {Tabs}
+    // components: {Tabs}
 }
 </script>
