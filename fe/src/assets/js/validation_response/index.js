@@ -27,6 +27,18 @@ export default {
                 this.errResponse(data)
             }
         },
+        async interviewCheckStatus(data, status, type, dispatch) {
+            if (status == 422) {
+                this.UnprocEntity(data)
+            } else if (status == 200) {
+                if (type != 'update') {
+                    await this.$store.dispatch(dispatch, { page: 1, sort: this.sort })
+                }
+                this.successResponse2(data)
+            } else {
+                this.errResponse(data)
+            }
+        },
         UnprocEntity(data) {
             for (const key of Object.keys(data)) {
                 this.$toast.error(data[key][0]);
@@ -37,6 +49,10 @@ export default {
             this.closeModal()
             console.log(data)
             this.isLoading = false
+            return this.$toast.success(data.msg)
+        },
+        successResponse2(data) {
+            this.$router.push('/home/human-resources/applicants/interview')
             return this.$toast.success(data.msg)
         },
         errResponse(data) {

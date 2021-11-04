@@ -32,7 +32,12 @@ import Permissions from "../views/admin/Permissions.vue";
 import Applicants from "../views/admin/HumanResources/Applicants/Applicants.vue";
 import ViewApplicant from "../views/admin/HumanResources/Applicants/ViewApplicant.vue";
 import ViewNewApplicant from "../views/admin/HumanResources/Applicants/ViewNewApplicant.vue";
+import ViewApplicantForInterview from "../views/admin/HumanResources/Applicants/ViewApplicantForInterview.vue";
 import AllApplicants from "../views/admin/HumanResources/Applicants/AllApplicants.vue";
+import InitialScreening from "../views/admin/HumanResources/Applicants/InitialScreening.vue";
+import Interview from "../views/admin/HumanResources/Applicants/Interview.vue";
+import FinalScreening from "../views/admin/HumanResources/Applicants/FinalScreening.vue";
+import Onboarding from "../views/admin/HumanResources/Applicants/Onboarding.vue";
 
 Vue.use(VueRouter);
 
@@ -201,10 +206,45 @@ const routes = [{
                                 }
                             },
                             {
+                                path: "view/interview/applicant/:slug",
+                                name: "interviewapplicant",
+                                components: {
+                                    interviewapplicant: ViewApplicantForInterview
+                                }
+                            },
+                            {
                                 path: "allapplicants",
                                 name: "allapplicants",
                                 components: {
                                     allapplicants: AllApplicants
+                                }
+                            },
+                            {
+                                path: "initialscreening",
+                                name: "initialscreening",
+                                components: {
+                                    initialscreening: InitialScreening
+                                }
+                            },
+                            {
+                                path: "interview",
+                                name: "interview",
+                                components: {
+                                    interview: Interview
+                                }
+                            },
+                            {
+                                path: "finalscreening",
+                                name: "finalscreening",
+                                components: {
+                                    finalscreening: FinalScreening
+                                }
+                            },
+                            {
+                                path: "onboarding",
+                                name: "onboarding",
+                                components: {
+                                    onboarding: Onboarding
                                 }
                             },
                         ]

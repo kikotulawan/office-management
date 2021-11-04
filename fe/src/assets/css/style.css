@@ -304,6 +304,11 @@ nav.sticky ul li a {
     margin-top: 0rem;
 }
 
+.loader {
+    min-height: 400px;
+    max-height: 500px;
+}
+
 
 /* nav ul {
   float: right;

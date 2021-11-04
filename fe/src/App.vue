@@ -25,7 +25,7 @@ export default {
       else {
        await this.$store.dispatch('auth/checkAuthUser')
           API.get("/auth/user/permission").then((response) => {
-                this.$ability.update([{ subject: "all", action: response.data }]);
+            this.$ability.update([{ subject: "all", action: response.data }]);
             });
       }
       // const bearer_token = localStorage.getItem('auth') || ''

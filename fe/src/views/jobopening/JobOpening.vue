@@ -161,7 +161,7 @@ export default {
            }
            else{
                this.$toast.error('You must login first')
-               this.$router.push('/jobs/applicant/login')
+               this.$router.push('/')
            }
        }
     },

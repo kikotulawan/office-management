@@ -12,6 +12,7 @@ export default {
         forRequirementsApplicants: [],
         view_applicant: [],
         view_new_applicant: [],
+        view_interview_applicant: [],
     },
     getters: {
 
@@ -40,6 +41,9 @@ export default {
         },
         SET_VIEW_NEW_APPLICANT(state, data) {
             state.view_new_applicant = data
+        },
+        SET_VIEW_INTERVIEW_APPLICANT(state, data) {
+            state.view_interview_applicant = data
         }
     },
     actions: {
@@ -125,11 +129,11 @@ export default {
 
             return res;
         },
-        async viewApplicant({ commit }, data) {
-            const res = await API.get(`applicants/view/applicant/${data.id}`, data).then(res => {
+        async approveApplicant({ commit }, payload) {
+            const res = await API.post('applicants/approve/applicant', payload).then(res => {
                 return res;
             }).catch(err => {
-                return err.response;
+                return err.response
             })
 
             return res;

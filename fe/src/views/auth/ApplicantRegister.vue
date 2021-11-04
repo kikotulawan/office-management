@@ -134,7 +134,7 @@ export default {
      const {status} = await this.$store.dispatch('auth/applicantRegister', this.data)
      if(status == 200) { 
        this.$toast.success('Account created successfully!')
-       this.$router.push('login')
+       this.$router.push('/')
        this.clearData()
      }
      else {

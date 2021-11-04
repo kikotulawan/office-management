@@ -79,4 +79,7 @@ Route::get('applicants/newapplicants', [ApplicantController::class, 'newApplican
 Route::get('applicants/for-interview/applicants', [ApplicantController::class, 'forInterviewApplicants']);
 Route::get('applicants/final-screening/applicants', [ApplicantController::class, 'forFinalScreeningApplicants']);
 Route::get('applicants/for-requirements/applicants', [ApplicantController::class, 'forRequirementsApplicants']);
+Route::get('applicants/interview-status', [ApplicantController::class, 'interviewStatus']);
 Route::get('applicants/view/applicant/{id}', [ApplicantController::class, 'viewApplicant']);
+Route::post('applicants/approve/applicant', [ApplicantController::class, 'approveNewApplicant']);
+Route::get('applicants/view/interview/applicant/{id}', [ApplicantController::class, 'viewApplicantForInterview']);
