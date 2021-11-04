@@ -85,16 +85,55 @@
           </p>
           <br />
           </div>
+        <div class="row mt-5">
+        <div class="col-12">
+          <h5 class="text-primary">Job Details</h5>
+          <hr />
+          <p>Job Title:</p>
+          <h3 class="">{{ data.job_title }}</h3>
+          <p class="fw-light mt-3">
+            Description: <br /><span
+              class="fw-normal"
+              v-html="data.job_description"
+            ></span>
+          </p>
+          <p class="fw-light mt-3">
+            Job type: <span class="fw-bold ms-1">{{ data.job_type }}</span>
+          </p>
+          <p class="fw-light mt-1">
+            Work Location:
+            <span class="fw-bold ms-1">{{ data.job_work_location }}</span>
+          </p>
+          <h5 class="text-primary mt-5">Job Eligibility</h5>
+          <hr />
+          <p class="fw-light">
+            Years of Work Experience: <br /><span class="fw-bold">{{
+              data.job_min_experience
+            }}</span>
+          </p>
+          <p class="fw-light mt-2">
+            Qualification: <br /><span class="fw-bold">{{
+              data.job_min_qualification
+            }}</span>
+          </p>
+          <p class="fw-normal mt-2">
+            Required Skills: <br /><span
+              class="fw-normal"
+              v-html="data.job_skills"
+            ></span>
+          </p>
+        </div>
+      </div>
         </div>
         </div>
 
       <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 pt-2">
           <div class="card p-5 mt-3">
           <!-- <p  class="text-justified"><small>Once the applicant is done taking interview, the assigned interviewer can enable the evaluation form to evaluate the candidate in terms of user-defined criteria.</small></p> -->
-          <h4  class="mb-5 fw-bold text-center border p-3">Interview Evaluation Form</h4>
+          <h4  class="mb-4 fw-bold text-center border p-3">Interview Evaluation Form</h4>
           
             <div class="row" >
-              <div class="col-6 text-left">
+              <!-- <div class="col-6 text-left">
                 <p class="">Applicant Name:</p>
                 <hr class="g-0 p-0 m-0">
                 <h5 class="pt-2 ">{{data.first_name}} {{data.middle_name}} {{data.last_name}}</h5>
@@ -115,60 +154,60 @@
                 <p class="">Interview Date:</p>
                 <hr class="g-0 p-0 m-0">
                 <h5 class="pt-2">{{data.int_schedule | moment}}</h5>
-              </div>
+              </div> -->
             </div>
             <div >
 
-            <p class="pt-3 text-muted">Please check the appropriate rating for each of the categories below.</p>
-            <p class="pt-3 text-muted">5 - Outstanding 4 - Above Satisfactory 3 - Satisfactory 2 - Below Satisfactory 1 - Unsatisfactory</p>
+            <p class=" text-muted">Please check the appropriate rating for each of the categories below.</p>
+            <p class="pt-3 text-muted">1 - Outstanding 2 - Above Satisfactory 3 - Satisfactory 4 - Below Satisfactory 5 - Unsatisfactory</p>
             <div class="col-12 mt-4">
               <p>Communication Skills</p>
             </div>
             <div class="col-12 mt-2">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" value="5" >
+                <input class="form-check-input" type="radio" v-model="communication_skills" name="inlineRadioOptions" value="5" >
                 <label class="form-check-label">1</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" value="4">
+                <input class="form-check-input" type="radio" v-model="communication_skills" name="inlineRadioOptions" value="4">
                 <label class="form-check-label">2</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" value="3">
+                <input class="form-check-input" type="radio" v-model="communication_skills" name="inlineRadioOptions" value="3">
                 <label class="form-check-label">3</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" value="2">
+                <input class="form-check-input" type="radio" v-model="communication_skills" name="inlineRadioOptions" value="2">
                 <label class="form-check-label">4</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" value="1">
+                <input class="form-check-input" type="radio" v-model="communication_skills" name="inlineRadioOptions" value="1">
                 <label class="form-check-label">5</label>
               </div>
               <textarea class="form-control shadow-none mt-2" placeholder="Explanation"></textarea>
             </div>
             <div class="col-12 mt-4">
-              <p>Experience</p>
+              <p>Work Experience</p>
             </div>
             <div class="col-12 mt-2">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions2" value="5" >
+                <input class="form-check-input" type="radio" v-model="experience" name="inlineRadioOptions2" value="5" >
                 <label class="form-check-label">1</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions2" value="4">
+                <input class="form-check-input" type="radio" v-model="experience" name="inlineRadioOptions2" value="4">
                 <label class="form-check-label">2</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions2" value="3">
+                <input class="form-check-input" type="radio" v-model="experience" name="inlineRadioOptions2" value="3">
                 <label class="form-check-label">3</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions2" value="2">
+                <input class="form-check-input" type="radio" v-model="experience" name="inlineRadioOptions2" value="2">
                 <label class="form-check-label">4</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions2" value="1">
+                <input class="form-check-input" type="radio" v-model="experience" name="inlineRadioOptions2" value="1">
                 <label class="form-check-label">5</label>
               </div>
               <textarea class="form-control shadow-none mt-2" placeholder="Explanation"></textarea>
@@ -178,23 +217,23 @@
             </div>
             <div class="col-12 mt-2">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions3" value="5" >
+                <input class="form-check-input" type="radio" v-model="job_related_skills" name="inlineRadioOptions3" value="5" >
                 <label class="form-check-label">1</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions3" value="4">
+                <input class="form-check-input" type="radio" v-model="job_related_skills" name="inlineRadioOptions3" value="4">
                 <label class="form-check-label">2</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions3" value="3">
+                <input class="form-check-input" type="radio" v-model="job_related_skills" name="inlineRadioOptions3" value="3">
                 <label class="form-check-label">3</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions3" value="2">
+                <input class="form-check-input" type="radio" v-model="job_related_skills" name="inlineRadioOptions3" value="2">
                 <label class="form-check-label">4</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions3" value="1">
+                <input class="form-check-input" type="radio" v-model="job_related_skills" name="inlineRadioOptions3" value="1">
                 <label class="form-check-label">5</label>
               </div>
               <textarea class="form-control shadow-none mt-2" placeholder="Explanation"></textarea>
@@ -204,33 +243,33 @@
             </div>
             <div class="col-12 mt-2">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions4" value="5" >
+                <input class="form-check-input" type="radio" v-model="education_training" name="inlineRadioOptions4" value="5" >
                 <label class="form-check-label">1</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions4" value="4">
+                <input class="form-check-input" type="radio" v-model="education_training" name="inlineRadioOptions4" value="4">
                 <label class="form-check-label">2</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions4" value="3">
+                <input class="form-check-input" type="radio" v-model="education_training" name="inlineRadioOptions4" value="3">
                 <label class="form-check-label">3</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions4" value="2">
+                <input class="form-check-input" type="radio" v-model="education_training" name="inlineRadioOptions4" value="2">
                 <label class="form-check-label">4</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions4" value="1">
+                <input class="form-check-input" type="radio" v-model="education_training" name="inlineRadioOptions4" value="1">
                 <label class="form-check-label">5</label>
               </div>
               <textarea class="form-control shadow-none mt-2" placeholder="Explanation"></textarea>
             </div>
             <p class="mt-4">Interviewer's note:</p>
-            <textarea class="form-control shadow-none mt-2" placeholder="Type your note here"></textarea>
+            <textarea class="form-control shadow-none mt-2" v-model="remarks" placeholder="Type your note here"></textarea>
             <div class="d-inline">
             <!-- <button class="btn btn-success mt-5 mx-2">Confirm Evaluation</button> -->
             <!-- <label class="btn shadow-none btn-danger me-2 mt-5" for="btn-check" v-if="approved">Cancel</label> -->
-            <button class="btn btn-success mt-5" >Confirm Evaluation</button>
+            <button class="btn btn-success mt-5" @click="submitForm">Confirm Evaluation</button>
 
             </div>
             </div>
@@ -238,7 +277,7 @@
       </div>
     </div>
 
-     <b-modal id="approveModal" centered title="Approved for final screening">
+     <b-modal id="failedModal" centered title="Interview Failed">
       <p>Interview Remarks</p>
       <textarea type="text" class="form-control shadow-none" v-model="data.remarks"></textarea>
       <template #modal-footer="{ cancel }">
@@ -255,9 +294,10 @@
       </template>
     </b-modal>
 
-     <b-modal id="failedModal" centered title="Interview Failed">
-      <p>Interview Remarks</p>
-      <textarea type="text" class="form-control shadow-none" v-model="data.remarks"></textarea>
+     <b-modal id="confirmModal" centered title="Evaluation Result">
+      <p>Overall rating is {{total}}/5 - <span class="text-success" v-if="total >= 2.5">Passed</span><span class="text-danger" v-else>Failed</span></p>
+      <p class="mt-2" v-if="total >= 2.5">Applicant will proceed for final screening.</p>
+      <p class="mt-2" v-else>Applicant will be moved to failed table.</p>
       <template #modal-footer="{ cancel }">
         <b-button variant="secondary" @click="cancel()" :disabled="isLoading">
           Cancel
@@ -315,6 +355,11 @@ export default {
       sort: "asc",
       modalId: "",
       approved: false,
+      communication_skills: 0,
+      experience: 0,
+      job_related_skills: 0,
+      education_training: 0,
+      total: 0,
     };
   },
   filters: {
@@ -367,6 +412,16 @@ export default {
       this.data.int_schedule = "";
       this.$bvModal.hide(this.modalId);
     },
+    submitForm() {
+      if(this.communication_skills == 0) return this.$toast.error('Communication skill rating is needed')
+      if(this.experience == 0) return this.$toast.error('Work experience rating is needed')
+      if(this.job_related_skills == 0) return this.$toast.error('Job related skill rating is needed')
+      if(this.education_training == 0) return this.$toast.error('Education and training rating is needed')
+      if(this.remarks.trim() == '') return this.$toast.error('Your remarks is needed')
+      let total = [(this.communication_skills*1)+(this.experience*1)+(this.job_related_skills*1)+(this.education_training*1)]/(4)
+      this.total = Math.round((total + Number.EPSILON)*100)/100
+      this.$bvModal.show('confirmModal')
+    }
   },
   computed: {
     ...mapState("applicant", ["view_interview_applicant"]),
