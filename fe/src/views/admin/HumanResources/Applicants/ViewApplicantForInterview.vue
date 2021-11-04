@@ -370,6 +370,7 @@ export default {
   created() {},
   async mounted() {
     this.isLoading = true;
+    this.tabs = false;
     await this.$store.dispatch("auth/checkAuthUser");
     this.data = {
         id: this.view_interview_applicant.id,
@@ -425,6 +426,9 @@ export default {
   },
   computed: {
     ...mapState("applicant", ["view_interview_applicant"]),
+    getRoute: function(){
+    return this.$route.path
+  }
   },
 };
 </script>

@@ -9,7 +9,7 @@
       <div class="card p-5">
       <div class="d-flex">
 
-    <router-link to="/home/human-resources/applicants/allapplicants" class="btn btn-primary mb-4"><i class="bi bi-arrow-left-short me-2"></i>Return</router-link>
+    <router-link to="/home/human-resources/applicants/initialscreening" class="btn btn-primary mb-4"><i class="bi bi-arrow-left-short me-2"></i>Return</router-link>
         </div>
       <div class="row">
         <div class="col-6">

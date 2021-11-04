@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container-fluid">
-      <Tabs/>
+      <Tabs :hidden="this.$route.params.slug > 0"/>
       <router-view name="allapplicants" />
       <router-view name="initialscreening" />
       <router-view name="finalscreening" />
@@ -17,6 +17,10 @@
 import Tabs from '../../../components/admin/HumanResources/Tabs.vue'
 export default {
   components: {Tabs},
-  
+  computed: {
+     getRoute: function(){
+    return this.$route.path
+  }
+  }
 }
 </script>
