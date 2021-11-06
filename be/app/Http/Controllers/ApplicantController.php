@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JobApplicant;
 use App\Models\ApplicantInterview;
+use App\Models\ApplicantFinalScreening;
 use Illuminate\Http\Request;
 
 class ApplicantController extends Controller
@@ -27,9 +28,9 @@ class ApplicantController extends Controller
     }
 
     public function forFinalScreeningApplicants(Request $request){
-        return response()->json(JobApplicant::where('status', 'Final screening')->whereHas('user.role', function ($query){
+        return response()->json(ApplicantFinalScreening::whereHas('user.role', function ($query){
             $query->where('role', 'Applicant');
-        })->with(['user', 'user.info','jobapplied'])->paginate(8));
+        })->with(['user', 'user.info','jobapplied','interview'])->paginate(8));
     }
 
     public function forRequirementsApplicants(Request $request){
@@ -73,5 +74,20 @@ class ApplicantController extends Controller
         JobApplicant::where('user_id', $request->user_id)->update(['status' => 'For interview']);
 
         return $this->success('Application approved!');
+    }
+
+    public function approveInterviewApplicant(Request $request)
+    {
+        ApplicantFinalScreening::create([
+            'job_opening_id' => $request->job_applied_id,
+            'user_id' => $request->user_id,
+            'applicant_interview_id' => $request->int_id
+        ]);
+
+        JobApplicant::where('user_id', $request->user_id)->update(['status' => 'Final screening']);
+
+        ApplicantInterview::where('user_id', $request->user_id)->update(['result' => 'Passed']);
+ 
+        return $this->success('Evaluation success');
     }
 }

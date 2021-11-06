@@ -38,7 +38,6 @@
         Name
         <i class="bi" :class="sort == 'asc' ? 'bi-arrow-up-short' : 'bi-arrow-down-short'"></i>
        </th>
-       <th scope="col">Interview Result</th>
        <th scope="col">Assigned Interviewer</th>
        <th scope="col">Interviewed On</th>
        <th scope="col"></th>
@@ -48,10 +47,7 @@
       <tr v-for="(fsApp, f) in forFinalScreeningApplicants.data" :key="f">
        <td scope="row">{{ forFinalScreeningApplicants.from + f }}</td>
        <td>{{ fsApp.user.info.first_name }} {{ fsApp.user.info.last_name }}</td>
-       <td>
-        <label class="badge bg-success">{{ fsApp.result }}</label>
-       </td>
-       <td>{{ fsApp.assigned_interviewer }}</td>
+       <td>{{ fsApp.interview.assigned_interviewer }}</td>
        <td>{{ fsApp.created_at | moment }}</td>
        <td class="text-nowrap">
         <a href="" class="text-decoration-none shadow-none"

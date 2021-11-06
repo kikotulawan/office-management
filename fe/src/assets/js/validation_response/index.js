@@ -3,8 +3,8 @@ export default {
     data() {
         return {
             isLoading: false,
-            initialLoading: false
-        }
+            initialLoading: false,
+        };
     },
     methods: {
         formatCurrency(data) {
@@ -16,50 +16,81 @@ export default {
         },
         async checkStatus(data, status, type, dispatch, config) {
             if (status == 422) {
-                console.log(status)
-                this.UnprocEntity(data)
+                console.log(status);
+                this.UnprocEntity(data);
             } else if (status == 200) {
                 if (type != 'update') {
-                    await this.$store.dispatch(dispatch, { page: 1, sort: this.sort })
+                    await this.$store.dispatch(dispatch, { page: 1, sort: this.sort });
                 }
-                this.successResponse(data)
+                this.successResponse(data);
             } else {
-                this.errResponse(data)
+                this.errResponse(data);
             }
         },
         async interviewCheckStatus(data, status, type, dispatch) {
             if (status == 422) {
-                this.UnprocEntity(data)
+                this.UnprocEntity(data);
             } else if (status == 200) {
                 if (type != 'update') {
-                    await this.$store.dispatch(dispatch, { page: 1, sort: this.sort })
+                    await this.$store.dispatch(dispatch, { page: 1, sort: this.sort });
                 }
-                this.successResponse2(data)
+                this.successResponse2(data);
             } else {
-                this.errResponse(data)
+                this.errResponse(data);
+            }
+        },
+        async interviewApproveCheckStatus(data, status, type, dispatch) {
+            if (status == 422) {
+                this.UnprocEntity(data);
+            } else if (status == 200) {
+                if (type != 'update') {
+                    await this.$store.dispatch(dispatch, { page: 1, sort: this.sort });
+                }
+                this.successResponse3(data);
+            } else {
+                this.errResponse(data);
+            }
+        },
+        async failedApplicantCheckStatus(data, status, type, dispatch) {
+            if (status == 422) {
+                this.UnprocEntity(data);
+            } else if (status == 200) {
+                if (type != 'update') {
+                    await this.$store.dispatch(dispatch, { page: 1, sort: this.sort });
+                }
+                this.successResponse4(data);
+            } else {
+                this.errResponse(data);
             }
         },
         UnprocEntity(data) {
             for (const key of Object.keys(data)) {
                 this.$toast.error(data[key][0]);
             }
-            this.isLoading = false
+            this.isLoading = false;
         },
         successResponse(data) {
-            this.closeModal()
-            console.log(data)
-            this.isLoading = false
-            return this.$toast.success(data.msg)
+            this.closeModal();
+            console.log(data);
+            this.isLoading = false;
+            return this.$toast.success(data.msg);
         },
         successResponse2(data) {
-            this.$router.push('/home/human-resources/applicants/interview')
-            return this.$toast.success(data.msg)
+            this.$router.push('/home/human-resources/applicants/interview');
+            return this.$toast.success(data.msg);
+        },
+        successResponse3(data) {
+            this.$router.push('/home/human-resources/applicants/finalscreening');
+            return this.$toast.success(data.msg);
+        },
+        successResponse4(data) {
+            this.$router.push('/home/human-resources/applicants/allapplicants');
+            return this.$toast.success(data.msg);
         },
         errResponse(data) {
-            this.closeModal()
-            this.isLoading = false
-            return this.$toast.error(data.msg)
+            this.closeModal();
+            this.isLoading = false;
+            return this.$toast.error(data.msg);
         },
-
-    }
-}
+    },
+};

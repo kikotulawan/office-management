@@ -1,4 +1,4 @@
-import API from '../../base/'
+import API from '../../base/';
 
 export default {
     namespaced: true,
@@ -14,129 +14,166 @@ export default {
         view_new_applicant: [],
         view_interview_applicant: [],
     },
-    getters: {
-
-    },
+    getters: {},
     mutations: {
         SET_APPLICANTS(state, data) {
-            state.allApplicants = data
+            state.allApplicants = data;
         },
         SET_NEW_APPLICANTS(state, data) {
-            state.newApplicants = data
+            state.newApplicants = data;
         },
         SET_INTERVIEW_APPLICANTS(state, data) {
-            state.forInterviewApplicants = data
+            state.forInterviewApplicants = data;
         },
         SET_FINAL_SCREENING_APPLICANTS(state, data) {
-            state.forFinalScreeningApplicants = data
+            state.forFinalScreeningApplicants = data;
         },
         SET_FOR_REQUIREMENTS_APPLICANTS(state, data) {
-            state.forRequirementsApplicants = data
+            state.forRequirementsApplicants = data;
         },
         SET_APPLICATION_STATUS(state, data) {
-            state.applicationStatus = data
+            state.applicationStatus = data;
         },
         SET_VIEW_APPLICANT(state, data) {
-            state.view_applicant = data
+            state.view_applicant = data;
         },
         SET_VIEW_NEW_APPLICANT(state, data) {
-            state.view_new_applicant = data
+            state.view_new_applicant = data;
         },
         SET_VIEW_INTERVIEW_APPLICANT(state, data) {
-            state.view_interview_applicant = data
-        }
+            state.view_interview_applicant = data;
+        },
     },
     actions: {
         async applicantLogin({ commit }, data) {
-            const res = await API.post(`user/auth/login`, data).then(res => {
-                commit('SET_AUTH_ACC', res.data)
-                commit('SET_APPLICANT_TOKEN', res.data.access_token)
+            const res = await API.post(`user/auth/login`, data)
+                .then((res) => {
+                    commit('SET_AUTH_ACC', res.data);
+                    commit('SET_APPLICANT_TOKEN', res.data.access_token);
 
-                return res;
-            }).catch(err => {
-                return err.response
-            })
+                    return res;
+                })
+                .catch((err) => {
+                    return err.response;
+                });
 
-            return res
+            return res;
         },
         async applyJob({ commit }, data) {
-            const res = await API.post(`user/job`, data).then(res => {
+            const res = await API.post(`user/job`, data)
+                .then((res) => {
+                    return res;
+                })
+                .catch((err) => {
+                    return err.response;
+                });
 
-                return res;
-            }).catch(err => {
-                return err.response
-            })
-
-            return res
+            return res;
         },
         async getApplicants({ commit }, { page, sort }) {
-            const res = await API.get(`/applicants?page=${page}&sort=${sort}`).then(res => {
-                commit('SET_APPLICANTS', res.data)
-                return res;
-            }).catch(err => {
-                return err.response
-            })
+            const res = await API.get(`/applicants?page=${page}&sort=${sort}`)
+                .then((res) => {
+                    commit('SET_APPLICANTS', res.data);
+                    return res;
+                })
+                .catch((err) => {
+                    return err.response;
+                });
 
             return res;
         },
         async getNewApplicants({ commit }, { page, sort }) {
-            const res = await API.get(`/applicants/newapplicants?page=${page}&sort=${sort}`).then(res => {
-                commit('SET_NEW_APPLICANTS', res.data)
-                return res;
-            }).catch(err => {
-                return err.response
-            })
+            const res = await API.get(`/applicants/newapplicants?page=${page}&sort=${sort}`)
+                .then((res) => {
+                    commit('SET_NEW_APPLICANTS', res.data);
+                    return res;
+                })
+                .catch((err) => {
+                    return err.response;
+                });
 
             return res;
         },
         async getForInterviewApplicants({ commit }, { page, sort }) {
-            const res = await API.get(`/applicants/for-interview/applicants?page=${page}&sort=${sort}`).then(res => {
-                commit('SET_INTERVIEW_APPLICANTS', res.data)
-                return res;
-            }).catch(err => {
-                return err.response
-            })
+            const res = await API.get(`/applicants/for-interview/applicants?page=${page}&sort=${sort}`)
+                .then((res) => {
+                    commit('SET_INTERVIEW_APPLICANTS', res.data);
+                    return res;
+                })
+                .catch((err) => {
+                    return err.response;
+                });
 
             return res;
         },
         async getForFinalScreeningApplicants({ commit }, { page, sort }) {
-            const res = await API.get(`/applicants/final-screening/applicants?page=${page}&sort=${sort}`).then(res => {
-                commit('SET_FINAL_SCREENING_APPLICANTS', res.data)
-                return res;
-            }).catch(err => {
-                return err.response
-            })
+            const res = await API.get(`/applicants/final-screening/applicants?page=${page}&sort=${sort}`)
+                .then((res) => {
+                    commit('SET_FINAL_SCREENING_APPLICANTS', res.data);
+                    return res;
+                })
+                .catch((err) => {
+                    return err.response;
+                });
 
             return res;
         },
         async getForRequirementsApplicants({ commit }, { page, sort }) {
-            const res = await API.get(`/applicants/for-requirements/applicants?page=${page}&sort=${sort}`).then(res => {
-                commit('SET_FOR_REQUIREMENTS_APPLICANTS', res.data)
-                return res;
-            }).catch(err => {
-                return err.response
-            })
+            const res = await API.get(`/applicants/for-requirements/applicants?page=${page}&sort=${sort}`)
+                .then((res) => {
+                    commit('SET_FOR_REQUIREMENTS_APPLICANTS', res.data);
+                    return res;
+                })
+                .catch((err) => {
+                    return err.response;
+                });
 
             return res;
         },
         async getApplicationStatus({ commit }, { page, sort }) {
-            const res = await API.get(`user/auth/appliedjobs?page=${page}&sort=${sort}`).then(res => {
-                commit('SET_APPLICATION_STATUS', res.data)
-                return res;
-            }).catch(err => {
-                return err.response
-            })
+            const res = await API.get(`user/auth/appliedjobs?page=${page}&sort=${sort}`)
+                .then((res) => {
+                    commit('SET_APPLICATION_STATUS', res.data);
+                    return res;
+                })
+                .catch((err) => {
+                    return err.response;
+                });
 
             return res;
         },
         async approveApplicant({ commit }, payload) {
-            const res = await API.post('applicants/approve/applicant', payload).then(res => {
-                return res;
-            }).catch(err => {
-                return err.response
-            })
+            const res = await API.post('applicants/approve/applicant', payload)
+                .then((res) => {
+                    return res;
+                })
+                .catch((err) => {
+                    return err.response;
+                });
+
+            return res;
+        },
+        async approveApplicantInterview({ commit }, payload) {
+            const res = await API.post('applicants/approve/applicant/interview', payload)
+                .then((res) => {
+                    return res;
+                })
+                .catch((err) => {
+                    return err.response;
+                });
+
+            return res;
+        },
+        async failedApplicant({ commit }, payload) {
+            const res = await API.post('applicants/failed', payload)
+                .then((res) => {
+                    return res;
+                })
+                .catch((err) => {
+                    return err.response;
+                });
 
             return res;
         },
     },
-}
+};

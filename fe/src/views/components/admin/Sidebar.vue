@@ -13,13 +13,12 @@
       <router-link to="/home/administration"><i class="bi bi-graph-up me-2 bi-3x"></i> <span class="title">Administration</span></router-link>
       <router-link to="/home/project-manager"><i class="bi bi-people-fill me-2 bi-3x"></i> <span class="title">Project Manager</span></router-link> -->
    <router-link v-if="$can('has_employees')" to="/home/human-resources/employees"><i class="bi bi-people-fill me-2 bi-3x"></i> <span class="title">Employees</span></router-link>
-   <router-link v-if="$can('has_applicants')" to="/home/human-resources/applicants/allapplicants" :class="getRoute == '/home/human-resources/applicants/' ? 'router-link-active' : ''"
-    ><i class="bi bi-person-square me-2 bi-3x"></i> <span class="title">Applicants</span></router-link
-   >
+   <router-link v-if="$can('has_applicants')" to="/home/human-resources/applicants/allapplicants"><i class="bi bi-person-square me-2 bi-3x"></i> <span class="title">Applicants</span></router-link>
    <router-link v-if="$can('has_jobopening')" to="/home/human-resources/jobopening"><i class="bi bi-list-nested me-2 bi-3x"></i> <span class="title">Job Opening</span></router-link>
    <router-link v-if="$can('has_memos')" to="/home/human-resources/memos"><i class="bi bi-journal-bookmark-fill me-2 bi-3x"></i> <span class="title">Memos</span></router-link>
    <router-link v-if="$can('has_departments')" to="/home/human-resources/departments"><i class="bi bi-archive-fill me-2 bi-3x"></i> <span class="title">Departments</span></router-link>
-   <router-link v-if="$can('has_policies')" to="/home/human-resources/policies"><i class="bi bi-person-badge-fill me-2 bi-3x"></i> <span class="title">Positions</span></router-link>
+   <router-link v-if="$can('has_policies')" to="/home/human-resources/policies"><i class="bi bi-calendar-day-fill me-2 bi-3x"></i> <span class="title">Policies</span></router-link>
+   <router-link v-if="$can('has_positions')" to="/home/human-resources/positions"><i class="bi bi-person-badge-fill me-2 bi-3x"></i> <span class="title">Positions</span></router-link>
    <router-link v-if="$can('has_benefits')" to="/home/human-resources/benefits"><i class="bi bi-exclamation-circle me-2 bi-3x"></i> <span class="title">Benefits</span></router-link>
    <router-link v-if="$can('has_payperiods')" to="/home/human-resources/pay-periods"><i class="bi bi-cash-stack me-2 bi-3x"></i> <span class="title">Pay Periods</span></router-link>
 

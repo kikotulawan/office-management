@@ -1,5 +1,5 @@
 <template>
- <div class="container mb-4">
+ <div class="container pb-5">
   <div class="loader d-flex justify-content-center align-items-center" v-if="isLoading">
    <div class="spinner-grow text-dark spinner-grow-lg" role="status">
     <span class="visually-hidden">Loading...</span>
@@ -162,7 +162,7 @@
         <input class="form-check-input" type="radio" v-model="communication_skills" name="inlineRadioOptions" value="1" />
         <label class="form-check-label">5</label>
        </div>
-       <textarea class="form-control shadow-none mt-2" placeholder="Explanation"></textarea>
+       <textarea class="form-control shadow-none mt-2" placeholder="Comments"></textarea>
       </div>
       <div class="col-12 mt-4">
        <p>Work Experience</p>
@@ -188,7 +188,7 @@
         <input class="form-check-input" type="radio" v-model="experience" name="inlineRadioOptions2" value="1" />
         <label class="form-check-label">5</label>
        </div>
-       <textarea class="form-control shadow-none mt-2" placeholder="Explanation"></textarea>
+       <textarea class="form-control shadow-none mt-2" placeholder="Comments"></textarea>
       </div>
       <div class="col-12 mt-4">
        <p>Job Related Skills</p>
@@ -214,7 +214,7 @@
         <input class="form-check-input" type="radio" v-model="job_related_skills" name="inlineRadioOptions3" value="1" />
         <label class="form-check-label">5</label>
        </div>
-       <textarea class="form-control shadow-none mt-2" placeholder="Explanation"></textarea>
+       <textarea class="form-control shadow-none mt-2" placeholder="Comments"></textarea>
       </div>
       <div class="col-12 mt-4">
        <p>Education/Training</p>
@@ -240,7 +240,7 @@
         <input class="form-check-input" type="radio" v-model="education_training" name="inlineRadioOptions4" value="1" />
         <label class="form-check-label">5</label>
        </div>
-       <textarea class="form-control shadow-none mt-2" placeholder="Explanation"></textarea>
+       <textarea class="form-control shadow-none mt-2" placeholder="Comments"></textarea>
       </div>
       <p class="mt-4">Interviewer's note:</p>
       <textarea class="form-control shadow-none mt-2" v-model="remarks" placeholder="Type your note here"></textarea>
@@ -275,7 +275,7 @@
     <b-button variant="secondary" @click="cancel()" :disabled="isLoading">
      Cancel
     </b-button>
-    <b-button variant="success" v-on:click.prevent="" :disabled="isLoading">
+    <b-button variant="success" v-on:click.prevent="" :disabled="isLoading" @click="confirmSubmit">
      Confirm
     </b-button>
    </template>
@@ -293,6 +293,7 @@
     addComment: false,
     scrollpx: 0,
     data: {
+     int_id: '',
      first_name: '',
      middle_name: '',
      last_name: '',
@@ -319,6 +320,8 @@
      job_min_qualification: '',
      job_work_location: '',
      int_schedule: '',
+     user_id: '',
+     job_applied_id: '',
     },
     remarks: '',
     sort: 'asc',
@@ -343,6 +346,8 @@
    await this.$store.dispatch('auth/checkAuthUser');
    this.data = {
     id: this.view_interview_applicant.id,
+    int_id: this.view_interview_applicant.data.id,
+    user_id: this.view_interview_applicant.data.user_id,
     application_status: this.view_interview_applicant.data.status,
     int_schedule: this.view_interview_applicant.data.schedule,
     assigned_interviewer: this.view_interview_applicant.data.assigned_interviewer,
@@ -386,6 +391,18 @@
     if (this.remarks.trim() == '') return this.$toast.error('Your remarks is needed');
     let total = [this.communication_skills * 1 + this.experience * 1 + this.job_related_skills * 1 + this.education_training * 1] / 4;
     this.total = Math.round((total + Number.EPSILON) * 100) / 100;
+    this.$bvModal.show('confirmModal');
+   },
+   async confirmSubmit() {
+    if (this.total >= 2.5) {
+     this.isLoading = true;
+     const { data, status } = await this.$store.dispatch('applicant/approveApplicantInterview', this.data);
+     this.interviewApproveCheckStatus(data, status, '', '');
+    } else {
+     this.isLoading = true;
+     const { data, status } = await this.$store.dispatch('applicant/failedApplicant', this.data);
+     this.failedApplicantCheckStatus(data, status, '', '');
+    }
     this.$bvModal.show('confirmModal');
    },
   },
