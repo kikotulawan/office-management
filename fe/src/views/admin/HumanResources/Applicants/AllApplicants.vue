@@ -41,8 +41,7 @@
        <th scope="col">Gender</th>
        <th scope="col">Email</th>
        <th scope="col">Contact</th>
-       <th scope="col">Civil Status</th>
-       <th scope="col">Nationality</th>
+       <th scope="col">Stage</th>
        <th scope="col"></th>
       </tr>
      </thead>
@@ -53,8 +52,7 @@
        <td>{{ app.user.info.gender }}</td>
        <td>{{ app.user.email }}</td>
        <td>{{ app.user.info.contact_number }}</td>
-       <td>{{ app.user.info.civil_status }}</td>
-       <td>{{ app.user.info.nationality }}</td>
+       <td>{{ app.status }}</td>
        <td>
         <button class="btn text-primary text-decoration-none shadow-none pt-0" @click="setViewApplicant(app)">View Applicant</button>
        </td>

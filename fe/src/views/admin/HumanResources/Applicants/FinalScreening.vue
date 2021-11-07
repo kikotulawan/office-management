@@ -40,6 +40,7 @@
        </th>
        <th scope="col">Assigned Interviewer</th>
        <th scope="col">Interviewed On</th>
+       <th scope="col">Evaluation Rating</th>
        <th scope="col"></th>
       </tr>
      </thead>
@@ -49,12 +50,9 @@
        <td>{{ fsApp.user.info.first_name }} {{ fsApp.user.info.last_name }}</td>
        <td>{{ fsApp.interview.assigned_interviewer }}</td>
        <td>{{ fsApp.created_at | moment }}</td>
+       <td><star-rating :rating="fsApp.interview.total_rating" :round-start-rating="false" :read-only="true" :star-size="20" /></td>
        <td class="text-nowrap">
-        <a href="" class="text-decoration-none shadow-none"
-         ><small>
-          Review Application
-         </small>
-        </a>
+        <button class="btn text-primary text-decoration-none shadow-none pt-0" @click="setViewFSApplicant(fsApp)">Review Applicant</button>
        </td>
       </tr>
      </tbody>
@@ -65,8 +63,12 @@
 </template>
 <script>
  import { mapState } from 'vuex';
+ import StarRating from 'vue-star-rating';
  import moment from 'moment';
  export default {
+  components: {
+   StarRating,
+  },
   data() {
    return {
     sort: 'asc',
@@ -92,6 +94,10 @@
   methods: {
    async getForFinalScreeningApplicants(page = 1) {
     await this.$store.dispatch('applicant/getForFinalScreeningApplicants', { page: page, sort: this.sort });
+   },
+   setViewFSApplicant(data) {
+    this.$store.commit('applicant/SET_VIEW_FS_APPLICANT', { data: data });
+    this.$router.push({ name: 'finalscreeningapplicant', params: { slug: data.id } });
    },
   },
   watch: {

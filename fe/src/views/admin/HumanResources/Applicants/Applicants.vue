@@ -8,6 +8,7 @@
    <router-view name="viewapplicant" />
    <router-view name="newapplicant" />
    <router-view name="interviewapplicant" />
+   <router-view name="finalscreeningapplicant" />
    <router-view name="interview" />
    <router-view name="onboarding" />
   </div>

@@ -12,7 +12,7 @@ class ApplicantController extends Controller
     public function index(Request $request){
         return response()->json(JobApplicant::whereHas('user.role', function ($query){
             $query->where('role', 'Applicant');
-        })->with(['user', 'user.info','jobapplied'])->paginate(8));
+        })->with(['user', 'user.info','jobapplied', 'interview'])->paginate(8));
     }
 
     public function newApplicants(Request $request){
@@ -44,7 +44,7 @@ class ApplicantController extends Controller
         $job = JobApplicant::find('user_id', $id);
 
         if(!empty($job)){
-            return response()->json(JobApplicant::get());
+            return response()->json(JobApplicant::with('user', 'user.interview')->get());
         } else {
             return $this->error('Applicant not found.');
         }
@@ -56,6 +56,17 @@ class ApplicantController extends Controller
 
         if(!empty($user)){
             return response()->json(ApplicantInterview::get());
+        } else {
+            return $this->error('Applicant not found.');
+        }
+    }
+
+    public function viewApplicantForFinalScreening($id)
+    {
+        $user = ApplicantFinalScreening::find('user_id', $id);
+
+        if(!empty($user)){
+            return response()->json(ApplicantFinalScreening::get());
         } else {
             return $this->error('Applicant not found.');
         }
@@ -86,7 +97,19 @@ class ApplicantController extends Controller
 
         JobApplicant::where('user_id', $request->user_id)->update(['status' => 'Final screening']);
 
-        ApplicantInterview::where('user_id', $request->user_id)->update(['result' => 'Passed']);
+        ApplicantInterview::where('user_id', $request->user_id)->update([
+            'result' => 'Passed',
+            'remark1' => $request->remark1,
+            'remark2' => $request->remark2,
+            'remark3' => $request->remark3,
+            'remark4' => $request->remark4,
+            'comment' => $request->remarks,
+            'total_rating' => $request->total,
+            'communication_skill_val' => $request->communication_skills,
+            'experience_val' => $request->experience,
+            'job_related_skill_val' => $request->job_related_skills,
+            'education_training_val' => $request->education_training,
+        ]);
  
         return $this->success('Evaluation success');
     }

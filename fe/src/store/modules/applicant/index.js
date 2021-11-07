@@ -13,6 +13,7 @@ export default {
         view_applicant: [],
         view_new_applicant: [],
         view_interview_applicant: [],
+        view_fs_applicant: [],
     },
     getters: {},
     mutations: {
@@ -42,6 +43,9 @@ export default {
         },
         SET_VIEW_INTERVIEW_APPLICANT(state, data) {
             state.view_interview_applicant = data;
+        },
+        SET_VIEW_FS_APPLICANT(state, data) {
+            state.view_fs_applicant = data;
         },
     },
     actions: {

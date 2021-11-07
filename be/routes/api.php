@@ -84,3 +84,4 @@ Route::get('applicants/view/applicant/{id}', [ApplicantController::class, 'viewA
 Route::post('applicants/approve/applicant', [ApplicantController::class, 'approveNewApplicant']);
 Route::post('applicants/approve/applicant/interview', [ApplicantController::class, 'approveInterviewApplicant']);
 Route::get('applicants/view/interview/applicant/{id}', [ApplicantController::class, 'viewApplicantForInterview']);
+Route::get('applicants/view/finalscreening/applicant/{id}', [ApplicantController::class, 'viewApplicantForFinalScreening']);

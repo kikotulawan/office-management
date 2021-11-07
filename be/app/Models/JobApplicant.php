@@ -19,4 +19,7 @@ class JobApplicant extends Model
     public function role(){
         return $this->hasOneThrough(Role::class, UserRole::class, 'user_id', 'id', 'id', 'role_id');
     }
+    public function interview(){
+        return $this->belongsTo(ApplicantInterview::class, 'applicant_interview_id', 'id');
+    }
 }

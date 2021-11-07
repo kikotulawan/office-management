@@ -133,7 +133,7 @@
      </div>
      <div>
       <p class=" text-muted">
-       Please check the appropriate rating for each of the categories below.
+       Please check the appropriate rating for each of the categories below. Take note that all fields are required for evaluation.
       </p>
       <p class="pt-3 text-muted">
        1 - Outstanding 2 - Above Satisfactory 3 - Satisfactory 4 - Below Satisfactory 5 - Unsatisfactory
@@ -143,107 +143,107 @@
       </div>
       <div class="col-12 mt-2">
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="communication_skills" name="inlineRadioOptions" value="5" />
+        <input class="form-check-input" type="radio" v-model="data.communication_skills" name="inlineRadioOptions" value="5" />
         <label class="form-check-label">1</label>
        </div>
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="communication_skills" name="inlineRadioOptions" value="4" />
+        <input class="form-check-input" type="radio" v-model="data.communication_skills" name="inlineRadioOptions" value="4" />
         <label class="form-check-label">2</label>
        </div>
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="communication_skills" name="inlineRadioOptions" value="3" />
+        <input class="form-check-input" type="radio" v-model="data.communication_skills" name="inlineRadioOptions" value="3" />
         <label class="form-check-label">3</label>
        </div>
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="communication_skills" name="inlineRadioOptions" value="2" />
+        <input class="form-check-input" type="radio" v-model="data.communication_skills" name="inlineRadioOptions" value="2" />
         <label class="form-check-label">4</label>
        </div>
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="communication_skills" name="inlineRadioOptions" value="1" />
+        <input class="form-check-input" type="radio" v-model="data.communication_skills" name="inlineRadioOptions" value="1" />
         <label class="form-check-label">5</label>
        </div>
-       <textarea class="form-control shadow-none mt-2" placeholder="Comments"></textarea>
+       <textarea class="form-control shadow-none mt-2" v-model="data.remark1" placeholder="Comments"></textarea>
       </div>
       <div class="col-12 mt-4">
        <p>Work Experience</p>
       </div>
       <div class="col-12 mt-2">
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="experience" name="inlineRadioOptions2" value="5" />
+        <input class="form-check-input" type="radio" v-model="data.experience" name="inlineRadioOptions2" value="5" />
         <label class="form-check-label">1</label>
        </div>
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="experience" name="inlineRadioOptions2" value="4" />
+        <input class="form-check-input" type="radio" v-model="data.experience" name="inlineRadioOptions2" value="4" />
         <label class="form-check-label">2</label>
        </div>
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="experience" name="inlineRadioOptions2" value="3" />
+        <input class="form-check-input" type="radio" v-model="data.experience" name="inlineRadioOptions2" value="3" />
         <label class="form-check-label">3</label>
        </div>
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="experience" name="inlineRadioOptions2" value="2" />
+        <input class="form-check-input" type="radio" v-model="data.experience" name="inlineRadioOptions2" value="2" />
         <label class="form-check-label">4</label>
        </div>
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="experience" name="inlineRadioOptions2" value="1" />
+        <input class="form-check-input" type="radio" v-model="data.experience" name="inlineRadioOptions2" value="1" />
         <label class="form-check-label">5</label>
        </div>
-       <textarea class="form-control shadow-none mt-2" placeholder="Comments"></textarea>
+       <textarea class="form-control shadow-none mt-2" v-model="data.remark2" placeholder="Comments"></textarea>
       </div>
       <div class="col-12 mt-4">
        <p>Job Related Skills</p>
       </div>
       <div class="col-12 mt-2">
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="job_related_skills" name="inlineRadioOptions3" value="5" />
+        <input class="form-check-input" type="radio" v-model="data.job_related_skills" name="inlineRadioOptions3" value="5" />
         <label class="form-check-label">1</label>
        </div>
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="job_related_skills" name="inlineRadioOptions3" value="4" />
+        <input class="form-check-input" type="radio" v-model="data.job_related_skills" name="inlineRadioOptions3" value="4" />
         <label class="form-check-label">2</label>
        </div>
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="job_related_skills" name="inlineRadioOptions3" value="3" />
+        <input class="form-check-input" type="radio" v-model="data.job_related_skills" name="inlineRadioOptions3" value="3" />
         <label class="form-check-label">3</label>
        </div>
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="job_related_skills" name="inlineRadioOptions3" value="2" />
+        <input class="form-check-input" type="radio" v-model="data.job_related_skills" name="inlineRadioOptions3" value="2" />
         <label class="form-check-label">4</label>
        </div>
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="job_related_skills" name="inlineRadioOptions3" value="1" />
+        <input class="form-check-input" type="radio" v-model="data.job_related_skills" name="inlineRadioOptions3" value="1" />
         <label class="form-check-label">5</label>
        </div>
-       <textarea class="form-control shadow-none mt-2" placeholder="Comments"></textarea>
+       <textarea class="form-control shadow-none mt-2" v-model="data.remark3" placeholder="Comments"></textarea>
       </div>
       <div class="col-12 mt-4">
        <p>Education/Training</p>
       </div>
       <div class="col-12 mt-2">
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="education_training" name="inlineRadioOptions4" value="5" />
+        <input class="form-check-input" type="radio" v-model="data.education_training" name="inlineRadioOptions4" value="5" />
         <label class="form-check-label">1</label>
        </div>
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="education_training" name="inlineRadioOptions4" value="4" />
+        <input class="form-check-input" type="radio" v-model="data.education_training" name="inlineRadioOptions4" value="4" />
         <label class="form-check-label">2</label>
        </div>
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="education_training" name="inlineRadioOptions4" value="3" />
+        <input class="form-check-input" type="radio" v-model="data.education_training" name="inlineRadioOptions4" value="3" />
         <label class="form-check-label">3</label>
        </div>
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="education_training" name="inlineRadioOptions4" value="2" />
+        <input class="form-check-input" type="radio" v-model="data.education_training" name="inlineRadioOptions4" value="2" />
         <label class="form-check-label">4</label>
        </div>
        <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" v-model="education_training" name="inlineRadioOptions4" value="1" />
+        <input class="form-check-input" type="radio" v-model="data.education_training" name="inlineRadioOptions4" value="1" />
         <label class="form-check-label">5</label>
        </div>
-       <textarea class="form-control shadow-none mt-2" placeholder="Comments"></textarea>
+       <textarea class="form-control shadow-none mt-2" v-model="data.remark4" placeholder="Comments"></textarea>
       </div>
       <p class="mt-4">Interviewer's note:</p>
-      <textarea class="form-control shadow-none mt-2" v-model="remarks" placeholder="Type your note here"></textarea>
+      <textarea class="form-control shadow-none mt-2" v-model="data.remarks" placeholder="Type your note here"></textarea>
       <div class="d-inline">
        <!-- <button class="btn btn-success mt-5 mx-2">Confirm Evaluation</button> -->
        <!-- <label class="btn shadow-none btn-danger me-2 mt-5" for="btn-check" v-if="approved">Cancel</label> -->
@@ -268,8 +268,8 @@
   </b-modal>
 
   <b-modal id="confirmModal" centered title="Evaluation Result">
-   <p>Overall rating is {{ total }}/5 - <span class="text-success" v-if="total >= 2.5">Passed</span><span class="text-danger" v-else>Failed</span></p>
-   <p class="mt-2" v-if="total >= 2.5">Applicant will proceed for final screening.</p>
+   <p>Overall rating is {{ data.total }}/5 - <span class="text-success" v-if="data.total >= 2.5">Passed</span><span class="text-danger" v-else>Failed</span></p>
+   <p class="mt-2" v-if="data.total >= 2.5">Applicant will proceed for final screening.</p>
    <p class="mt-2" v-else>Applicant will be moved to failed table.</p>
    <template #modal-footer="{ cancel }">
     <b-button variant="secondary" @click="cancel()" :disabled="isLoading">
@@ -322,16 +322,20 @@
      int_schedule: '',
      user_id: '',
      job_applied_id: '',
+     remark1: '',
+     communication_skills: 0,
+     experience: 0,
+     remarks: '',
+     remark2: '',
+     remark4: '',
+     remark3: '',
+     job_related_skills: 0,
+     education_training: 0,
+     total: 0,
     },
-    remarks: '',
     sort: 'asc',
     modalId: '',
     approved: false,
-    communication_skills: 0,
-    experience: 0,
-    job_related_skills: 0,
-    education_training: 0,
-    total: 0,
    };
   },
   filters: {
@@ -345,6 +349,16 @@
    this.tabs = false;
    await this.$store.dispatch('auth/checkAuthUser');
    this.data = {
+    remarks: this.data.remarks,
+    remark1: this.data.remark1,
+    remark2: this.data.remark2,
+    remark3: this.data.remark3,
+    communication_skills: this.data.communication_skills,
+    total: this.data.total,
+    remark4: this.data.remark4,
+    experience: this.data.experience,
+    job_related_skills: this.data.job_related_skills,
+    education_training: this.data.education_training,
     id: this.view_interview_applicant.id,
     int_id: this.view_interview_applicant.data.id,
     user_id: this.view_interview_applicant.data.user_id,
@@ -384,17 +398,21 @@
     this.$bvModal.hide(this.modalId);
    },
    submitForm() {
-    if (this.communication_skills == 0) return this.$toast.error('Communication skill rating is needed');
-    if (this.experience == 0) return this.$toast.error('Work experience rating is needed');
-    if (this.job_related_skills == 0) return this.$toast.error('Job related skill rating is needed');
-    if (this.education_training == 0) return this.$toast.error('Education and training rating is needed');
-    if (this.remarks.trim() == '') return this.$toast.error('Your remarks is needed');
-    let total = [this.communication_skills * 1 + this.experience * 1 + this.job_related_skills * 1 + this.education_training * 1] / 4;
-    this.total = Math.round((total + Number.EPSILON) * 100) / 100;
+    if (this.data.communication_skills == 0) return this.$toast.error('Communication skill rating is required');
+    if (this.data.remark1.trim() == '' || this.data.remark1.match(/(\w+)/g).length < 8) return this.$toast.error('Remarks are required at least 8 words.');
+    if (this.data.experience == 0) return this.$toast.error('Work experience rating is required');
+    if (this.data.remark2.trim() == '' || this.data.remark2.match(/(\w+)/g).length < 8) return this.$toast.error('Remarks are required at least 8 words.');
+    if (this.data.job_related_skills == 0) return this.$toast.error('Job related skill rating is required');
+    if (this.data.remark3.trim() == '' || this.data.remark3.match(/(\w+)/g).length < 8) return this.$toast.error('Remarks are required at least 8 words.');
+    if (this.data.education_training == 0) return this.$toast.error('Education and training rating is required');
+    if (this.data.remark4.trim() == '' || this.data.remark4.match(/(\w+)/g).length < 8) return this.$toast.error('Remarks are required at least 8 words.');
+    if (this.data.remarks.trim() == '' || this.data.remarks.match(/(\w+)/g).length < 8) return this.$toast.error('Remarks are required at least 8 words.');
+    let total = [this.data.communication_skills * 1 + this.data.experience * 1 + this.data.job_related_skills * 1 + this.data.education_training * 1] / 4;
+    this.data.total = Math.round((total + Number.EPSILON) * 100) / 100;
     this.$bvModal.show('confirmModal');
    },
    async confirmSubmit() {
-    if (this.total >= 2.5) {
+    if (this.data.total >= 2.5) {
      this.isLoading = true;
      const { data, status } = await this.$store.dispatch('applicant/approveApplicantInterview', this.data);
      this.interviewApproveCheckStatus(data, status, '', '');
