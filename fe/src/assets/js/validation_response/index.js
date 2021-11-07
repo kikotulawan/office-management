@@ -51,6 +51,18 @@ export default {
                 this.errResponse(data);
             }
         },
+        async fsApproveCheckStatus(data, status, type, dispatch) {
+            if (status == 422) {
+                this.UnprocEntity(data);
+            } else if (status == 200) {
+                if (type != 'update') {
+                    await this.$store.dispatch(dispatch, { page: 1, sort: this.sort });
+                }
+                this.successResponse5(data);
+            } else {
+                this.errResponse(data);
+            }
+        },
         async failedApplicantCheckStatus(data, status, type, dispatch) {
             if (status == 422) {
                 this.UnprocEntity(data);
@@ -85,6 +97,10 @@ export default {
         },
         successResponse4(data) {
             this.$router.push('/home/human-resources/applicants/allapplicants');
+            return this.$toast.success(data.msg);
+        },
+        successResponse5(data) {
+            this.$router.push('/home/human-resources/applicants/onboarding');
             return this.$toast.success(data.msg);
         },
         errResponse(data) {

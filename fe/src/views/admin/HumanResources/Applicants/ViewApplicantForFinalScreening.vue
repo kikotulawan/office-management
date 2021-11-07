@@ -112,12 +112,24 @@
       Interviewer: <span class="ms-1 fw-bold">{{ data.assigned_interviewer }}</span>
      </p>
      <div class="d-inline-flex justify-content-center align-items-center mt-5">
-      <button class="btn btn-primary">Move to onboarding</button>
-      <button class="btn btn-danger ms-3">Reject</button>
+      <button class="btn shadow-none btn-primary" @click="$bvModal.show('onboardingModal')">Move to onboarding</button>
+      <button class="btn shadow-none btn-danger ms-3">Reject</button>
      </div>
     </div>
    </div>
   </div>
+
+  <b-modal id="onboardingModal" centered title="Applicant Onboarding">
+   <p class="text-center p-4">Are you sure to move candidate to onboarding?</p>
+   <template #modal-footer="{ cancel }">
+    <b-button variant="secondary" @click="cancel()" :disabled="isLoading">
+     Cancel
+    </b-button>
+    <b-button variant="success" v-on:click.prevent="" :disabled="isLoading" @click="confirmSubmit">
+     Confirm
+    </b-button>
+   </template>
+  </b-modal>
  </div>
 </template>
 
@@ -185,7 +197,7 @@
   },
   filters: {
    moment: function(date) {
-    return moment(date).format('MMMM D, YYYY');
+    return moment(date).format('MMMM D, YYYY @ hh:mm A');
    },
   },
   created() {},
@@ -242,6 +254,11 @@
    closeModal() {
     this.data.int_schedule = '';
     this.$bvModal.hide(this.modalId);
+   },
+   async confirmSubmit() {
+    this.isLoading = true;
+    const { data, status } = await this.$store.dispatch('applicant/approveApplicantFs', this.data);
+    this.fsApproveCheckStatus(data, status, '', '');
    },
   },
   computed: {

@@ -22,8 +22,7 @@ class JobApplicationController extends Controller
         if(empty($applicant)){
             JobApplicant::create([
                 'job_opening_id' => $request->job_opening_id,
-                'user_id' => auth('api')->user()->id,
-                'status' => 'Screening'
+                'user_id' => auth('api')->user()->id
             ]);
      
             return $this->success('Job Application Sent');                   

@@ -15,6 +15,7 @@ class CreateApplicantFinalScreeningsTable extends Migration
     {
         Schema::create('applicant_final_screenings', function (Blueprint $table) {
             $table->id();
+            $table->string('result', 20)->default('Pending');
             $table->foreignId('job_opening_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('applicant_interview_id')->constrained()->onDelete('cascade');

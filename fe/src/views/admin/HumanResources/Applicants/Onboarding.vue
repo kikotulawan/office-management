@@ -7,7 +7,7 @@
     </div>
    </div>
    <div class="card p-5 mt-3 mb-5" v-if="!isLoading">
-    <h5 class="mt-1">For Submission of Requirements</h5>
+    <h5 class="mt-1">Onborading</h5>
     <p class="text-muted">Review applicants requirements below</p>
     <div class="d-flex justify-content-end mb-2 mt-2" v-if="forRequirementsApplicants.data.length > 0">
      <div class="me-2 ">

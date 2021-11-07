@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\JobApplicant;
 use App\Models\ApplicantInterview;
 use App\Models\ApplicantFinalScreening;
+use App\Models\OnboardingApplicant;
 use Illuminate\Http\Request;
 
 class ApplicantController extends Controller
@@ -16,7 +17,7 @@ class ApplicantController extends Controller
     }
 
     public function newApplicants(Request $request){
-        return response()->json(JobApplicant::where('status', 'Screening')->whereHas('user.role', function ($query){
+        return response()->json(JobApplicant::where('status', 'Initial screening')->whereHas('user.role', function ($query){
             $query->where('role', 'Applicant');
         })->with(['user', 'user.info','jobapplied'])->paginate(8));
     }
@@ -28,15 +29,15 @@ class ApplicantController extends Controller
     }
 
     public function forFinalScreeningApplicants(Request $request){
-        return response()->json(ApplicantFinalScreening::whereHas('user.role', function ($query){
+        return response()->json(ApplicantFinalScreening::where('result', 'Pending')->whereHas('user.role', function ($query){
             $query->where('role', 'Applicant');
         })->with(['user', 'user.info','jobapplied','interview'])->paginate(8));
     }
 
     public function forRequirementsApplicants(Request $request){
-        return response()->json(JobApplicant::where('status', 'For requirements')->whereHas('user.role', function ($query){
+        return response()->json(JobApplicant::where('status', 'Onboarding')->whereHas('user.role', function ($query){
             $query->where('role', 'Applicant');
-        })->with(['user', 'user.info','jobapplied'])->paginate(8));
+        })->with(['user', 'user.info','jobapplied', 'interview'])->paginate(8));
     }
 
     public function viewApplicant($id)
@@ -110,6 +111,20 @@ class ApplicantController extends Controller
             'job_related_skill_val' => $request->job_related_skills,
             'education_training_val' => $request->education_training,
         ]);
+ 
+        return $this->success('Evaluation success');
+    }
+
+    public function approveOnboardingApplicant(Request $request)
+    {
+        OnboardingApplicant::create([
+            'job_opening_id' => $request->job_applied_id,
+            'user_id' => $request->user_id,
+            'applicant_interview_id' => $request->int_id,
+        ]);
+
+        JobApplicant::where('user_id', $request->user_id)->update(['status' => 'Onboarding']);
+        ApplicantFinalScreening::where('user_id', $request->user_id)->update(['result' => 'Passed']);
  
         return $this->success('Evaluation success');
     }

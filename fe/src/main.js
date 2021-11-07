@@ -10,9 +10,10 @@ import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
 import vresponse from './assets/js/validation_response/index';
 import Vuelidate from 'vuelidate';
+import PrettyCheckbox from 'pretty-checkbox-vue';
 
 Vue.use(Vuelidate);
-
+Vue.use(PrettyCheckbox);
 Vue.use(DatePicker);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
@@ -23,6 +24,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'vue-toastification/dist/index.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 
 import { abilitiesPlugin } from '@casl/vue';
 import ability from './ability';

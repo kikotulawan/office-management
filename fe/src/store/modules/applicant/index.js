@@ -168,6 +168,17 @@ export default {
 
             return res;
         },
+        async approveApplicantFs({ commit }, payload) {
+            const res = await API.post('applicants/approve/applicant/finalscreening', payload)
+                .then((res) => {
+                    return res;
+                })
+                .catch((err) => {
+                    return err.response;
+                });
+
+            return res;
+        },
         async failedApplicant({ commit }, payload) {
             const res = await API.post('applicants/failed', payload)
                 .then((res) => {
