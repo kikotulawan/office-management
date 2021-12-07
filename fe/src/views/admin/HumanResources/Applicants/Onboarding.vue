@@ -54,7 +54,7 @@
        <td class="text-nowrap">
         <a href="" class="text-decoration-none shadow-none"
          ><small>
-          Review Requirements
+          View Requirements
          </small>
         </a>
        </td>
